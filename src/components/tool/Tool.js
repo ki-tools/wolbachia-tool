@@ -1,10 +1,13 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Container, Box } from '@mui/material';
+import Map from './Map';
 
 export default function Tool({ sections }) {
   const location = useLocation();
   const hash = location.hash;
+  const [pop, setPop] = useState(0);
+  const [countryCode, setCountryCode] = useState('BGD');
 
   useEffect(() => {
     setTimeout(() => {
@@ -24,6 +27,7 @@ export default function Tool({ sections }) {
 
   return (
     <Container maxWidth="xl">
+      <Map countryCode={countryCode} pop={pop} />
       <Box sx={{ mr: 2, ml: 2 }}>
         {sections.map((section) => (
           <div key={section.name}>

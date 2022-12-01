@@ -1,11 +1,14 @@
 import { useRef } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import useScrollSpy from 'react-use-scrollspy';
 import Header from './components/Header';
-import Main from './components/Main';
-import Tool from './components/Tool';
+import Main from './components/main/Main';
+import Tool from './components/tool/Tool';
 // import 'aos/dist/aos.css';
+
+const queryClient = new QueryClient();
 
 const theme = createTheme({
   typography: {
@@ -96,22 +99,24 @@ export default function App() {
   });
 
   return (
-    <ThemeProvider theme={theme}>
-      <div>
-        <Header
-          sections={sections}
-          activeMainSection={activeMainSection}
-          activeToolSection={activeToolSection}
-        />
-        <Routes>
-          <Route path="/">
-            <Route index element={<Main sections={sections.main} />} />
-            <Route path="tool" element={<Tool sections={sections.tool} />} />
-            <Route path="*" element={<NoMatch />} />
-          </Route>
-        </Routes>
-      </div>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <div>
+          <Header
+            sections={sections}
+            activeMainSection={activeMainSection}
+            activeToolSection={activeToolSection}
+          />
+          <Routes>
+            <Route path="/">
+              <Route index element={<Main sections={sections.main} />} />
+              <Route path="tool" element={<Tool sections={sections.tool} />} />
+              <Route path="*" element={<NoMatch />} />
+            </Route>
+          </Routes>
+        </div>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
 
