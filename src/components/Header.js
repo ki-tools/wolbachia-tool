@@ -57,7 +57,7 @@ function Header({ sections, activeMainSection, activeToolSection }) {
           flexGrow: 1,
         }}
       >
-        Wolbachia Decision-Support Tool
+        <em>Wolbachia</em> Decision-Support Tool
       </Typography>
     </>
   );
@@ -115,7 +115,7 @@ function Header({ sections, activeMainSection, activeToolSection }) {
                 onClick={() => handleNavMenuSelect('/tool')}
                 selected={pathname === '/tool'}
               >
-                <Typography textAlign="center">App</Typography>
+                <Typography textAlign="center">Tool</Typography>
               </MenuItem>
               {pathname === '/tool' && <Divider />}
               {pathname === '/tool' &&
@@ -152,13 +152,19 @@ function Header({ sections, activeMainSection, activeToolSection }) {
               </Button>
             ))}
             <Button
-              variant={pathname === '/tool' ? 'contained' : 'text'}
+              variant={pathname === '/tool' ? 'contained' : 'outlined'}
               onClick={() =>
                 handleNavMenuSelect(`/tool#${sections.tool[0].hash}`)
               }
-              sx={{ my: 2, color: 'white', display: 'block', fontWeight: 700 }}
+              sx={{
+                ml: 1,
+                my: 2,
+                color: 'white',
+                display: 'block',
+                fontWeight: 500,
+              }}
             >
-              App
+              Tool
             </Button>
           </Box>
         </Toolbar>

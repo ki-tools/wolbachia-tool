@@ -5,6 +5,7 @@ import useScrollSpy from 'react-use-scrollspy';
 import Header from './components/Header';
 import Main from './components/Main';
 import Tool from './components/Tool';
+// import 'aos/dist/aos.css';
 
 const theme = createTheme({
   typography: {
@@ -15,15 +16,36 @@ const theme = createTheme({
       selected: 'red',
       selectedOpacity: 0.5,
     },
+    alternate: {
+      main: '#f7faff',
+      dark: '#edf1f7',
+    },
+    cardShadow: 'rgba(23, 70, 161, .11)',
+    mode: 'light',
+    primary: {
+      main: '#377dff',
+      light: '#467de3',
+      dark: '#2f6ad9',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: '#ffb74d',
+      main: '#f9b934',
+      dark: '#FF9800',
+      contrastText: 'rgba(0, 0, 0, 0.87)',
+    },
+    text: {
+      primary: '#1e2022',
+      secondary: '#677788',
+    },
+    divider: 'rgba(0, 0, 0, 0.12)',
+    background: {
+      paper: '#ffffff',
+      default: '#ffffff',
+      level2: '#f5f5f5',
+      level1: '#ffffff',
+    },
   },
-  // palette: {
-  //   primary: {
-  //     // main: purple[500],
-  //   },
-  //   secondary: {
-  //     // main: green[500],
-  //   },
-  // },
 });
 
 export default function App() {
