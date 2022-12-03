@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { Skeleton } from '@mui/material';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 // import * as L from 'leaflet';
 import { feature } from 'topojson-client';
@@ -11,15 +12,13 @@ export default function Map({ countryCode, pop }) {
 
   const geojson = useMemo(
     () => !isLoading && !error && feature(topo, topo.objects.foo),
-    [isLoading, error, topo]
+    [isLoading, error, topo, countryCode]
   );
 
   const bb = useMemo(
     () => !isLoading && !error && bbox(topo),
     [isLoading, error, topo]
   );
-
-  if (isLoading) return 'Loading...';
 
   if (error) return 'An error has occurred: ' + error.message;
 
@@ -33,7 +32,7 @@ export default function Map({ countryCode, pop }) {
     } = feature;
     return {
       fillColor: interpolateViridis((totdeng - 0.0214589) / 0.013216),
-      weight: 2,
+      weight: 1,
       opacity: 1,
       color: 'rgba(0, 0, 0, 0.5)',
       fillOpacity: 0.6,
@@ -43,17 +42,22 @@ export default function Map({ countryCode, pop }) {
   const onHover = (feature, layer) => {
     const name = feature.properties.name;
     layer.on('mouseover', function (e) {
-      e.target.setStyle({ fillOpacity: 0.8 });
+      e.target.setStyle({ fillOpacity: 0.8, weight: 2 });
       layer.bindTooltip(name, { sticky: true }).openTooltip();
     });
     layer.on('mouseout', function (e) {
-      e.target.setStyle({ fillOpacity: 0.6 });
+      e.target.setStyle({ fillOpacity: 0.6, weight: 1 });
     });
   };
 
+  if (isLoading) {
+    return <Skeleton variant="rectangular" width="100%" height={600} />;
+  }
+
   return (
-    <div style={{ marginTop: 50, height: 600, width: '100%' }}>
+    <div style={{ height: 600, width: '100%' }}>
       <MapContainer
+        key={countryCode}
         bounds={[
           [bb[1], bb[0]],
           [bb[3], bb[2]],
@@ -68,7 +72,12 @@ export default function Map({ countryCode, pop }) {
           maxZoom={20}
           minZoom={0}
         />
-        <GeoJSON data={geojson} style={style} onEachFeature={onHover} />
+        <GeoJSON
+          key={countryCode}
+          data={geojson}
+          style={style}
+          onEachFeature={onHover}
+        />
       </MapContainer>
     </div>
   );

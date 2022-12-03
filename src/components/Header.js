@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,11 +14,15 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const countries = ['Country A', 'Country B', 'Country C'];
-
-function Header({ sections, activeMainSection, activeToolSection }) {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [country, setCountry] = React.useState(countries[0]);
+function Header({
+  sections,
+  activeMainSection,
+  activeToolSection,
+  meta,
+  countryIndex,
+  setCountryIndex,
+}) {
+  const [anchorElNav, setAnchorElNav] = useState(null);
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -36,7 +40,7 @@ function Header({ sections, activeMainSection, activeToolSection }) {
   };
 
   const handleCountryChange = (event) => {
-    setCountry(event.target.value);
+    setCountryIndex(event.target.value);
   };
 
   const title = (
@@ -63,7 +67,7 @@ function Header({ sections, activeMainSection, activeToolSection }) {
   );
 
   return (
-    <AppBar position="sticky" sx={{ background: '#2a2a2a' }}>
+    <AppBar elevation={0} position="sticky" sx={{ background: '#2a2a2a' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ height: 80 }}>
           {title}
@@ -169,7 +173,7 @@ function Header({ sections, activeMainSection, activeToolSection }) {
           </Box>
         </Toolbar>
       </Container>
-      {pathname === '/tool' && (
+      {pathname === '/tool' && meta && (
         <Box sx={{ width: '100%', background: '#444444', height: '46px' }}>
           <Container
             maxWidth="xl"
@@ -180,7 +184,7 @@ function Header({ sections, activeMainSection, activeToolSection }) {
                 variant="standard"
                 sx={{
                   m: 1,
-                  minWidth: 150,
+                  minWidth: 240,
                   marginTop: '10px',
                   bgcolor: 'primary.main',
                   borderRadius: 2,
@@ -188,28 +192,29 @@ function Header({ sections, activeMainSection, activeToolSection }) {
               >
                 <Select
                   size="small"
-                  value={country}
+                  value={countryIndex}
                   onChange={handleCountryChange}
                   disableUnderline
                   inputProps={{ 'aria-label': 'Without label' }}
                   sx={{
                     color: '#ffffff',
+                    fontWeight: 600,
                     '& .MuiSvgIcon-root': {
                       color: 'white',
                     },
                     '& .MuiSelect-select': {
                       paddingLeft: 1,
-                      paddingBottom: 0,
+                      paddingTop: '2px',
+                      paddingBottom: '2px',
                       borderRadius: 2,
                       // background: '#5d5d5d',
                     },
-                    fontWeight: 500,
                     // ':before': { borderBottomColor: 'white' },
                   }}
                 >
-                  {countries.map((country) => (
-                    <MenuItem key={country} value={country}>
-                      {country}
+                  {Object.entries(meta).map(([key, value], ii) => (
+                    <MenuItem key={key} value={ii}>
+                      {value.country}
                     </MenuItem>
                   ))}
                 </Select>

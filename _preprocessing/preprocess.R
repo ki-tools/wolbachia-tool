@@ -68,3 +68,17 @@ process("250")
 process("500")
 process("750")
 process("1000")
+
+
+country_meta <- list(
+  BGD = list(country = "Bangladesh"),
+  BRA = list(country = "Brazil"),
+  COL = list(country = "Columbia"),
+  IDN = list(country = "Indonesia"),
+  LKA = list(country = "Sri Lanka"),
+  MEX = list(country = "Mexico"),
+  NGA = list(country = "Nigeria"),
+  VNM = list(country = "Vietnam")
+)
+
+jsonlite::write_json(country_meta, "public/data/countryMeta.json")

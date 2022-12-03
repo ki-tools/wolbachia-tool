@@ -1,13 +1,39 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Container, Box } from '@mui/material';
+import { Container, Box, Divider, AppBar } from '@mui/material';
+import { alpha, useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Map from './Map';
 
-export default function Tool({ sections }) {
+// import Container from '../main/Container';
+import Sidebar from './Sidebar';
+
+export default function Tool({
+  sections,
+  meta,
+  countryIndex,
+  inputs,
+  setInputs,
+}) {
+  const theme = useTheme();
+
   const location = useLocation();
   const hash = location.hash;
   const [pop, setPop] = useState(0);
-  const [countryCode, setCountryCode] = useState('BGD');
+
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
+
+  const [openSidebar, setOpenSidebar] = useState(false);
+
+  const handleSidebarOpen = () => {
+    setOpenSidebar(true);
+  };
+
+  const handleSidebarClose = () => {
+    setOpenSidebar(false);
+  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -25,9 +51,46 @@ export default function Tool({ sections }) {
     }, 0);
   }, [hash]); // do this on route change
 
+  if (!meta) {
+    return null;
+  }
+
+  const open = isMd ? false : openSidebar;
+
+  return (
+    <Box>
+      <Sidebar
+        onClose={handleSidebarClose}
+        open={open}
+        variant={isMd ? 'permanent' : 'temporary'}
+        inputs={inputs}
+        setInputs={setInputs}
+      />
+      <main>
+        <Box
+          display="flex"
+          flex="1 1 auto"
+          overflow="hidden"
+          paddingLeft={{ md: '300px' }}
+        >
+          <Box display="flex" flex="1 1 auto" overflow="hidden">
+            <Box flex="1 1 auto" height="100%" overflow="auto" padding={2}>
+              <Map countryCode={Object.keys(meta)[countryIndex]} pop={pop} />
+
+              {/* <Divider />
+              <Container paddingY={4}>
+                <Footer />
+              </Container> */}
+            </Box>
+          </Box>
+        </Box>
+      </main>
+    </Box>
+  );
+
   return (
     <Container maxWidth="xl">
-      <Map countryCode={countryCode} pop={pop} />
+      <Map countryCode={Object.keys(meta)[countryIndex]} pop={pop} />
       <Box sx={{ mr: 2, ml: 2 }}>
         {sections.map((section) => (
           <div key={section.name}>

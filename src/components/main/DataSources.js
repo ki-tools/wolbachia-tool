@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
+// import Divider from '@mui/material/Divider';
 import LaunchApp from './LaunchApp';
 // import useMediaQuery from '@mui/material/useMediaQuery';
 import Container from './Container';
@@ -251,7 +251,9 @@ const DataSources = () => {
                     >
                       {item.title}
                     </Typography>
-                    <Typography color="text.secondary">{item.text}</Typography>
+                    <Typography component="div" color="text.secondary">
+                      {item.text}
+                    </Typography>
                   </Box>
                 </Box>
               </Grid>
