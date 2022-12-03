@@ -1,54 +1,23 @@
-import { useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
 import useScrollSpy from 'react-use-scrollspy';
 import Header from './components/Header';
-import Main from './components/Main';
-import Tool from './components/Tool';
+import Main from './components/main/Main';
+import Tool from './components/tool/Tool';
 // import 'aos/dist/aos.css';
+import useCountryMeta from './services/useCountryMeta';
+import { INPUTS } from './constants';
 
-const theme = createTheme({
-  typography: {
-    fontFamily: `"Nunito Sans", "Helvetica", "Arial", sans-serif`,
-  },
-  palette: {
-    action: {
-      selected: 'red',
-      selectedOpacity: 0.5,
-    },
-    alternate: {
-      main: '#f7faff',
-      dark: '#edf1f7',
-    },
-    cardShadow: 'rgba(23, 70, 161, .11)',
-    mode: 'light',
-    primary: {
-      main: '#377dff',
-      light: '#467de3',
-      dark: '#2f6ad9',
-      contrastText: '#fff',
-    },
-    secondary: {
-      light: '#ffb74d',
-      main: '#f9b934',
-      dark: '#FF9800',
-      contrastText: 'rgba(0, 0, 0, 0.87)',
-    },
-    text: {
-      primary: '#1e2022',
-      secondary: '#677788',
-    },
-    divider: 'rgba(0, 0, 0, 0.12)',
-    background: {
-      paper: '#ffffff',
-      default: '#ffffff',
-      level2: '#f5f5f5',
-      level1: '#ffffff',
-    },
-  },
+const initialState = {};
+Object.entries(INPUTS).forEach(([key, val]) => {
+  initialState[key] = val.default;
 });
 
 export default function App() {
+  const { isLoading, error, data: meta } = useCountryMeta();
+  const [countryIndex, setCountryIndex] = useState(0);
+  const [inputs, setInputs] = useState(initialState);
+
   const sections = {
     main: [
       { name: 'Home', hash: 'home', ref: useRef(null) },
@@ -95,23 +64,38 @@ export default function App() {
     offsetPx: -440,
   });
 
+  // if (isLoading) return 'Loading...';
+  // if (error) return 'An error has occurred: ' + error.message;
+
   return (
-    <ThemeProvider theme={theme}>
-      <div>
-        <Header
-          sections={sections}
-          activeMainSection={activeMainSection}
-          activeToolSection={activeToolSection}
-        />
-        <Routes>
-          <Route path="/">
-            <Route index element={<Main sections={sections.main} />} />
-            <Route path="tool" element={<Tool sections={sections.tool} />} />
-            <Route path="*" element={<NoMatch />} />
-          </Route>
-        </Routes>
-      </div>
-    </ThemeProvider>
+    <div>
+      <Header
+        sections={sections}
+        activeMainSection={activeMainSection}
+        activeToolSection={activeToolSection}
+        countryIndex={countryIndex}
+        setCountryIndex={setCountryIndex}
+        meta={meta}
+      />
+      <Routes>
+        <Route path="/">
+          <Route index element={<Main sections={sections.main} />} />
+          <Route
+            path="tool"
+            element={
+              <Tool
+                sections={sections.tool}
+                countryIndex={countryIndex}
+                meta={meta}
+                inputs={inputs}
+                setInputs={setInputs}
+              />
+            }
+          />
+          <Route path="*" element={<NoMatch />} />
+        </Route>
+      </Routes>
+    </div>
   );
 }
 
