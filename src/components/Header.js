@@ -9,10 +9,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Divider from '@mui/material/Divider';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { useLocation, useNavigate } from 'react-router-dom';
+import ToolHeader from './ToolHeader';
 
 function Header({
   sections,
@@ -21,6 +20,7 @@ function Header({
   meta,
   countryIndex,
   setCountryIndex,
+  onSidebarOpen,
 }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const { pathname } = useLocation();
@@ -37,10 +37,6 @@ function Header({
   const handleNavMenuSelect = (val) => {
     setAnchorElNav(null);
     navigate(val, { state: { prevPath: pathname } });
-  };
-
-  const handleCountryChange = (event) => {
-    setCountryIndex(event.target.value);
   };
 
   const title = (
@@ -174,83 +170,16 @@ function Header({
         </Toolbar>
       </Container>
       {pathname === '/tool' && meta && (
-        <Box sx={{ width: '100%', background: '#444444', height: '46px' }}>
-          <Container
-            maxWidth="xl"
-            sx={{ background: '#444444', display: 'flex' }}
-          >
-            <Box>
-              <FormControl
-                variant="standard"
-                sx={{
-                  m: 1,
-                  minWidth: 240,
-                  marginTop: '10px',
-                  bgcolor: 'primary.main',
-                  borderRadius: 2,
-                }}
-              >
-                <Select
-                  size="small"
-                  value={countryIndex}
-                  onChange={handleCountryChange}
-                  disableUnderline
-                  inputProps={{ 'aria-label': 'Without label' }}
-                  sx={{
-                    color: '#ffffff',
-                    fontWeight: 600,
-                    '& .MuiSvgIcon-root': {
-                      color: 'white',
-                    },
-                    '& .MuiSelect-select': {
-                      paddingLeft: 1,
-                      paddingTop: '2px',
-                      paddingBottom: '2px',
-                      borderRadius: 2,
-                      // background: '#5d5d5d',
-                    },
-                    // ':before': { borderBottomColor: 'white' },
-                  }}
-                >
-                  {Object.entries(meta).map(([key, value], ii) => (
-                    <MenuItem key={key} value={ii}>
-                      {value.country}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Box>
-            <Box
-              sx={{
-                flexGrow: 1,
-                display: { xs: 'none', md: 'none', lg: 'flex' },
-                justifyContent: 'end',
-              }}
-            >
-              {sections.tool.map((section, ii) => (
-                <Button
-                  size="small"
-                  key={section.name}
-                  variant={
-                    pathname === '/tool' && activeToolSection === ii
-                      ? 'contained'
-                      : 'text'
-                  }
-                  onClick={() => handleNavMenuSelect(`/tool#${section.hash}`)}
-                  sx={{
-                    my: 1,
-                    mx: 0.5,
-                    color: 'white',
-                    display: 'block',
-                    fontWeight: 700,
-                  }}
-                >
-                  {section.name}
-                </Button>
-              ))}
-            </Box>
-          </Container>
-        </Box>
+        <ToolHeader
+          meta={meta}
+          sections={sections}
+          countryIndex={countryIndex}
+          setCountryIndex={setCountryIndex}
+          onSidebarOpen={onSidebarOpen}
+          activeToolSection={activeToolSection}
+          pathname={pathname}
+          handleNavMenuSelect={handleNavMenuSelect}
+        />
       )}
     </AppBar>
   );

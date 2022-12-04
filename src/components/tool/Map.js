@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Skeleton } from '@mui/material';
+import Skeleton from '@mui/material/Skeleton';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 // import * as L from 'leaflet';
 import { feature } from 'topojson-client';

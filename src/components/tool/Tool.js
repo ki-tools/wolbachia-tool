@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Container, Box, Divider, AppBar } from '@mui/material';
-import { alpha, useTheme } from '@mui/material/styles';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Map from './Map';
 
@@ -14,6 +15,8 @@ export default function Tool({
   countryIndex,
   inputs,
   setInputs,
+  openSidebar,
+  handleSidebarClose,
 }) {
   const theme = useTheme();
 
@@ -24,16 +27,6 @@ export default function Tool({
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
-
-  const [openSidebar, setOpenSidebar] = useState(false);
-
-  const handleSidebarOpen = () => {
-    setOpenSidebar(true);
-  };
-
-  const handleSidebarClose = () => {
-    setOpenSidebar(false);
-  };
 
   useEffect(() => {
     setTimeout(() => {

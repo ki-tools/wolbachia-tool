@@ -16,7 +16,7 @@ const PromoNumbers = () => {
 
   return (
     <Box sx={{ backgroundColor: '#f7faff' }}>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" style={{ boxSizing: 'border-box' }}>
         <Box marginBottom={3}>
           {/* <Typography
             sx={{
@@ -40,7 +40,7 @@ const PromoNumbers = () => {
           >
             About this tool
           </Typography>
-          <Card sx={{ padding: 4 }}>
+          <Card elevation={0} sx={{ padding: 4 }}>
             <Typography
               variant="h6"
               align={'left'}
@@ -73,7 +73,7 @@ const PromoNumbers = () => {
           </Card>
         </Box>{' '}
         <Box marginBottom={3}>
-          <Card>
+          <Card elevation={0}>
             <CardContent sx={{ padding: 4 }}>
               <Box>
                 <Typography
@@ -110,7 +110,7 @@ const PromoNumbers = () => {
           </Card>
         </Box>
         <Box>
-          <Card>
+          <Card elevation={0}>
             <CardContent sx={{ padding: 4 }}>
               <Box>
                 <Typography

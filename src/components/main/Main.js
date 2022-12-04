@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Container, Divider } from '@mui/material';
+import Container from '@mui/material/Container';
 import Hero from './Hero';
 import UserGuide from './UserGuide';
 import DataSources from './DataSources';
 import Calculations from './Calculations';
 import About from './About';
-import LaunchApp from './LaunchApp';
 
 export default function Main({ sections }) {
   const location = useLocation();

@@ -15,31 +15,74 @@ const content = [
     items: [
       {
         title: 'Total population',
-        description: 'To be added',
+        description: (
+          <span className="input-par">
+            Total population in the administrative level 2 area
+          </span>
+        ),
       },
       {
         title: 'Target population',
-        description: 'To be added',
+        description: (
+          <span className="input-par">
+            Total population in the 'target' of the administrative 2 area
+          </span>
+        ),
       },
       {
         title: 'Mean dengue incidence',
-        description: 'To be added',
+        description: (
+          <span className="input-par">
+            Total dengue incidence in the administrative 2 area
+          </span>
+        ),
       },
       {
         title: 'Total number of cases',
-        description: 'To be added',
+        description: (
+          <>
+            <span className="input-par">
+              Total population in the administrative 2 area
+            </span>{' '}
+            &times;{' '}
+            <span className="input-par">
+              dengue incidence in the administrative 2 area
+            </span>
+          </>
+        ),
       },
       {
         title: 'Total number of hospitalized cases',
-        description: 'To be added',
+        description: (
+          <>
+            <span className="input-par">Total number of cases</span> &times;{' '}
+            <span className="input-par">
+              percentage of cases seeking care in hospitalized setting
+            </span>
+          </>
+        ),
       },
       {
         title: 'Total number of ambulatory cases',
-        description: 'To be added',
+        description: (
+          <>
+            <span className="input-par">Total number of cases</span> &times;{' '}
+            <span className="input-par">
+              percentage of cases seeking care in an outpatient setting
+            </span>
+          </>
+        ),
       },
       {
         title: 'Total number of not medically-attended cases',
-        description: 'To be added',
+        description: (
+          <>
+            <span className="input-par">Total number of cases</span> &times;{' '}
+            <span className="input-par">
+              percentage of cases seeking care in a non-medical setting
+            </span>
+          </>
+        ),
       },
     ],
   },
@@ -196,6 +239,15 @@ const Calculations = () => {
             Information about calculations and assumptions used in the tool is
             provided below.
           </Typography>
+          <Typography
+            variant="h6"
+            align={'center'}
+            color={'text.secondary'}
+            data-aos={'fade-up'}
+          >
+            For any 5-, 10-, or 20-year estimates, all costs / benefits are
+            multiplied by the year.
+          </Typography>{' '}
         </Box>
         <Box>
           {content.map((section, j) => (

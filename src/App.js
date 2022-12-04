@@ -18,6 +18,16 @@ export default function App() {
   const [countryIndex, setCountryIndex] = useState(0);
   const [inputs, setInputs] = useState(initialState);
 
+  const [openSidebar, setOpenSidebar] = useState(false);
+
+  const handleSidebarOpen = () => {
+    setOpenSidebar(true);
+  };
+
+  const handleSidebarClose = () => {
+    setOpenSidebar(false);
+  };
+
   const sections = {
     main: [
       { name: 'Home', hash: 'home', ref: useRef(null) },
@@ -76,6 +86,7 @@ export default function App() {
         countryIndex={countryIndex}
         setCountryIndex={setCountryIndex}
         meta={meta}
+        onSidebarOpen={handleSidebarOpen}
       />
       <Routes>
         <Route path="/">
@@ -89,6 +100,8 @@ export default function App() {
                 meta={meta}
                 inputs={inputs}
                 setInputs={setInputs}
+                openSidebar={openSidebar}
+                handleSidebarClose={handleSidebarClose}
               />
             }
           />
