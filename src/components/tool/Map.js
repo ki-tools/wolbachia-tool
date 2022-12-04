@@ -32,10 +32,10 @@ export default function Map({ countryCode, inputs }) {
   const style = (feature) => {
     // areasqkm, areatsqkm, country_id, gaul_code, name, tarpop, totdeng, totpop
     const {
-      properties: { totdeng },
+      properties: { totdenm },
     } = feature;
     return {
-      fillColor: interpolateViridis((totdeng - 0.0214589) / 0.013216),
+      fillColor: interpolateViridis((totdenm - 0.0214589) / 0.013216),
       weight: 1,
       opacity: 1,
       color: 'rgba(0, 0, 0, 0.5)',

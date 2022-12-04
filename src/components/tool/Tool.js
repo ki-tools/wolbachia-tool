@@ -19,7 +19,7 @@ export default function Tool({
   handleSidebarClose,
 }) {
   const theme = useTheme();
-
+  console.log('meta', meta);
   const location = useLocation();
   const hash = location.hash;
 

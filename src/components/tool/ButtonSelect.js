@@ -16,6 +16,7 @@ export default function ButtonSelect({
       <ButtonGroup orientation={orientation} sx={{ width: '100%' }}>
         {INPUTS[nm].values.map((item, ii) => (
           <Button
+            key={item}
             sx={{ width: '100%' }}
             size="small"
             variant={inputs[nm] === item ? 'contained' : 'outlined'}

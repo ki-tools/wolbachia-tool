@@ -17,6 +17,7 @@ export default function RadioSel({ inputs, nm, handleChange }) {
       >
         {INPUTS[nm].values.map((item, ii) => (
           <StyledFormControlLabel
+            key={item}
             value={item}
             control={<Radio size="small" />}
             label={INPUTS[nm].valueLabels[ii]}

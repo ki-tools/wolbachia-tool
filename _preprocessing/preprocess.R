@@ -1,6 +1,3 @@
-tmp <- sf::read_sf("_preprocessing/data/250")
-
-
 # this file preprocesses the gpkg files into a single list of data frames
 # which is loaded by the shiny app
 # the names of the list are the country IDs (e.g. BF, BRA, COL, etc.)
@@ -10,16 +7,18 @@ library(rmapshaper)
 library(geojsonio)
 
 req_vars <- c(
-  "gaul_code", # admin 2 unique code
-  "country_id", # three letter country ID
   "name", # name of the admin 2 area (district, division, etc)
-  "areasqkm", # total area of admin 2 geography in squared kilometers
-  "areatsqkm", # targeted area of admin 2 geography in squared kilometers
+  "gaul_code", # admin 2 unique code
   "totpop", # total population in the admin 2 geography
-  "tarpop", # target population in the admin 2 geography
-  "totdeng" # mean dengue incidence in the admin 2 geography
-  # "tardeng" # mean dengue incidence in target area of admin2 geo
+  "targetpop", # target population in the admin 2 geography
+  "totdenm", # mean dengue incidence in the admin 2 geography
+  "totalarea", # total area of admin 2 geography in squared kilometers
+  "targetarea", # targeted area of admin 2 geography in squared kilometers
+  "country_id" # three letter country ID
 )
+# these are ignored:
+# [1] "admin_leve" "gaul_num"   "pf_endemic" "pv_endemic"
+# [5] "shape_area" "shape_leng"
 
 if (!dir.exists("public/data")) {
   dir.create("public/data")
@@ -38,12 +37,7 @@ process <- function(pop) {
 
   shp_path <- file.path("_preprocessing/data", pop)
   shp <- sf::read_sf(shp_path) %>%
-    dplyr::rename_all(tolower)
-
-  idx <- which(names(shp) == "area_sqkm")
-  if (length(idx) == 1) {
-    names(shp)[idx] <- "areasqkm"
-  }
+    rename_all(tolower)
 
   dat <- shp %>%
     select(all_of(c(req_vars, "geometry")))
@@ -51,8 +45,7 @@ process <- function(pop) {
 
   dat <- dat %>%
     mutate(across(c(
-      "areasqkm", "areatsqkm", "totpop", "tarpop",
-      "totdeng"
+      "totalarea", "targetarea", "totpop", "targetpop", "totdenm"
     ), fix_numeric))
 
   ds <- split(dat, dat$country_id)
@@ -66,22 +59,41 @@ process <- function(pop) {
   }
 }
 
-process("0")
 process("250")
 process("500")
-process("750")
 process("1000")
+process("1500")
 
+# ------------------- country metadata ------------------- #
 
-country_meta <- list(
-  BGD = list(country = "Bangladesh"),
-  BRA = list(country = "Brazil"),
-  COL = list(country = "Columbia"),
-  IDN = list(country = "Indonesia"),
-  LKA = list(country = "Sri Lanka"),
-  MEX = list(country = "Mexico"),
-  NGA = list(country = "Nigeria"),
-  VNM = list(country = "Vietnam")
+library(readxl)
+
+keep <- c(
+  "iso_3", "country", "daly_per_case", "direct_ambu",
+  "direct_hosp", "direct_non_medical", "indirect_ambu", "indirect_hosp",
+  "indirect_non_medical", "percent_ambu", "percent_hosp",
+  "percent_non_medical"
 )
 
-jsonlite::write_json(country_meta, "public/data/countryMeta.json")
+meta <- read_xlsx("_preprocessing/country_meta.xlsx") %>%
+  rename_all(tolower) %>%
+  select(all_of(keep))
+
+country_meta <- meta %>%
+  split(meta$iso_3) %>%
+  lapply(as.list)
+
+jsonlite::write_json(country_meta, "public/data/countryMeta.json",
+  auto_unbox = TRUE
+)
+
+# country_meta <- list(
+#   BGD = list(country = "Bangladesh"),
+#   BRA = list(country = "Brazil"),
+#   COL = list(country = "Columbia"),
+#   IDN = list(country = "Indonesia"),
+#   LKA = list(country = "Sri Lanka"),
+#   MEX = list(country = "Mexico"),
+#   NGA = list(country = "Nigeria"),
+#   VNM = list(country = "Vietnam")
+# )

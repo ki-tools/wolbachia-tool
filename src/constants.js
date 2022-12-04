@@ -9,12 +9,12 @@ export const INPUTS = {
   },
   POPDEN: {
     default: 1500,
-    values: [250, 500, 1000, 1500],
+    values: [1500, 1000, 500, 250],
     valueLabels: [
-      '\u2265 250 people per km\u00b2',
-      '\u2265 500 people per km\u00b2',
-      '\u2265 1,000 people per km\u00b2',
       '\u2265 1,500 people per km\u00b2',
+      '\u2265 1,000 people per km\u00b2',
+      '\u2265 500 people per km\u00b2',
+      '\u2265 250 people per km\u00b2',
     ],
     label: 'Population density',
     helpText: undefined,
@@ -174,3 +174,219 @@ export const INPUTS = {
     helpText: undefined,
   },
 };
+
+// 5_year_benefits_discounted: 4.70886
+// 10_year_benefits_discounted: 8.752529
+// 20_year_benefits_discounted: 15.20686
+// 5_year_costs: 3.000798291
+// 10_year_costs: 3.167078222
+// 20_year_costs: 3.238879794
+
+export const VARS = [
+  {
+    name: 'name',
+    label: 'Name',
+    type: 'string',
+    tables: ['burden', 'where', 'benefits', 'additional'],
+    // source is geo data
+  },
+  {
+    name: 'gaul_code',
+    label: 'GAUL code',
+    type: 'string',
+    tables: ['burden', 'where', 'benefits', 'additional'],
+    // source is geo data
+  },
+  {
+    name: 'totpop',
+    label: 'Total population',
+    type: 'number',
+    tables: ['burden'],
+    // source is geo data
+  },
+  {
+    name: 'targetpop',
+    label: 'Target population',
+    type: 'number',
+    tables: ['burden'],
+    // source is geo data
+  },
+  {
+    name: 'totdenm',
+    label: 'Mean dengue incidence',
+    type: 'number',
+    tables: ['burden'],
+    // source is geo data
+  },
+  {
+    name: 'targetarea',
+    label: '',
+    type: 'number',
+    tables: [],
+    // source is geo data
+  },
+  {
+    name: 'totalcases',
+    label: 'Total number of cases of dengue (without intervention)',
+    type: 'number',
+    tables: ['burden'],
+    // totdenm * targetpop
+  },
+  {
+    name: 'totaldalys',
+    label: 'Total number of DALYs (without intervention)',
+    type: 'number',
+    tables: ['burden'],
+    // totalcases * daly_per_case (country dataset)
+  },
+  {
+    name: 'totalhosp',
+    label: 'Total number of hospitalized cases (without intervention)',
+    type: 'number',
+    tables: ['burden'],
+    // totalcases * percent_hosp (country dataset)
+  },
+  {
+    name: 'totalambu',
+    label: 'Total number of ambulatory cases (without intervention)',
+    type: 'number',
+    tables: ['burden'],
+    // totalcases * percent_ambu (country dataset)
+  },
+  {
+    name: 'totalnonmedical',
+    label: 'Total number of non-medically treated cases (without intervention)',
+    type: 'number',
+    tables: ['burden'],
+    // totalcases * percent_non_medical (country dataset)
+  },
+  {
+    name: 'areacovered',
+    label: 'Area covered by intervention',
+    type: 'number',
+    tables: ['where'],
+    // targetarea (spatial dataset) * COVERAGE_DEFAULT (user-input)
+  },
+  {
+    name: 'popcovered',
+    label: 'Population covered by intervention',
+    type: 'number',
+    tables: ['where'],
+    // targetpop * COVERAGE_DEFAULT (user-input)
+  },
+  {
+    name: 'totalcost',
+    label: 'Total cost of intervention',
+    type: 'number',
+    tables: ['where'],
+    // see below for calculation
+  },
+  {
+    name: 'costperperson',
+    label: 'Cost per person',
+    type: 'number',
+    tables: ['where'],
+    // totalcost / popcovered
+  },
+  {
+    name: 'costperavertedcase',
+    label: 'Cost per case averted',
+    type: 'number',
+    tables: ['where'],
+    // totalcost / ((popcovered * totdenm) * EFFECTIVENESS_DEFAULT)
+  },
+  {
+    name: '',
+    label: '',
+    type: 'number',
+    tables: ['where'],
+    //
+  },
+  {
+    name: 'costperaverteddaly',
+    label: 'Cost per daly averted',
+    type: 'number',
+    tables: ['where'],
+    // totalcost / (((popcovered *totdenm)* daly_per_case (country dataset)) EFFECTIVENESS_DEFAULT))
+  },
+  {
+    name: 'avertedcases',
+    label: 'Cases averted',
+    type: 'number',
+    tables: ['benefits'],
+    // (popcovered *totdenm) * EFFECTIVENESS_DEFAULT
+  },
+  {
+    name: 'averteddalys',
+    label: 'DALYs averted',
+    type: 'number',
+    tables: ['benefits'],
+    // ((popcovered * totdenm) * daly_per_case (country dataset)) EFFECTIVENESS_DEFAULT))
+  },
+  {
+    name: 'hospaverted',
+    label: 'Hospitalized cases averted',
+    type: 'number',
+    tables: ['benefits'],
+    // avertedcases * percent_hosp (country dataset)
+  },
+  {
+    name: 'ambuaverted',
+    label: 'Ambulatory cases averted',
+    type: 'number',
+    tables: ['benefits'],
+    // avertedcases * percent_ambu (country dataset)
+  },
+  {
+    name: 'nonmedicalaverted',
+    label: 'Non-medically treated cases averted',
+    type: 'number',
+    tables: ['benefits'],
+    // avertedcases * percent_non_medical (country dataset)
+  },
+  {
+    name: 'directhospcosts',
+    label: 'Direct hospitalized costs averted',
+    type: 'number',
+    tables: ['additional'],
+    // hospaverted * direct_hosp (country dataset)
+  },
+  {
+    name: 'directambucosts',
+    label: 'Direct ambulatory costs averted',
+    type: 'number',
+    tables: ['additional'],
+    // ambuaverted * direct_ambu (country dataset)
+  },
+  {
+    name: 'directnonmedicalcosts',
+    label: 'Direct non-medical costs averted',
+    type: 'number',
+    tables: ['additional'],
+    // ambuaverted * direct_non_medical (country dataset)
+  },
+  {
+    name: 'indirecthospcosts',
+    label: 'Indirect hospitalized costs averted',
+    type: 'number',
+    tables: ['additional'],
+    // hospaverted * indirect_hosp (country dataset)
+  },
+  {
+    name: 'indirectambucosts',
+    label: 'Indirect ambulatory costs averted',
+    type: 'number',
+    tables: ['additional'],
+    // ambuaverted * indirect_ambu (country dataset)
+  },
+  {
+    name: 'indirectnonmedicalcosts',
+    label: 'Indirect non-medical costs averted',
+    type: 'number',
+    tables: ['additional'],
+    // ambuaverted * indirect_non_medical (country dataset)
+  },
+];
+
+// totalcost = PLANNING_DEFAULT + PREP_DEFAULT + PRODUCTION_DEFAULT + DISTRIBUTION_DEFAULT + RELEASE_DEFAULT + MONITORING_DEFAULT (IF PHASE_BASED = 1) * AREACOVERED
+// totalcost  = WORKPLAN_DEFAULT + COMMUNITY_DEFAULT + FACILITY_SETUP_DEFAULT + LINE_CREATION_DEFAULT + MOSPROD_DEFAULT + QUALITYMANAGEMENT_DEFAULT + QUALITY_ASSURANCE_DEFAULT + EGG_DEPLOYMENT_DEFAULT + DELIVER_EGGS_DEFAULT + ADAPTIVE_MANAGEMENT_DEFAULT + MEASURINGCOMMUNITY_DEFAULT + MONITORING_WOLBACHIA  (IF PHASE_BASED = 0) * AREACOVERED
