@@ -22,7 +22,6 @@ export default function Tool({
 
   const location = useLocation();
   const hash = location.hash;
-  const [pop, setPop] = useState(0);
 
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -68,7 +67,10 @@ export default function Tool({
         >
           <Box display="flex" flex="1 1 auto" overflow="hidden">
             <Box flex="1 1 auto" height="100%" overflow="auto" padding={2}>
-              <Map countryCode={Object.keys(meta)[countryIndex]} pop={pop} />
+              <Map
+                countryCode={Object.keys(meta)[countryIndex]}
+                inputs={inputs}
+              />
 
               {/* <Divider />
               <Container paddingY={4}>
@@ -83,7 +85,6 @@ export default function Tool({
 
   return (
     <Container maxWidth="xl">
-      <Map countryCode={Object.keys(meta)[countryIndex]} pop={pop} />
       <Box sx={{ mr: 2, ml: 2 }}>
         {sections.map((section) => (
           <div key={section.name}>

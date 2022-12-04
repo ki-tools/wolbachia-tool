@@ -7,8 +7,12 @@ import { bbox } from 'topojson-client';
 import { interpolateViridis } from 'd3-scale-chromatic';
 import useTopojson from '../../services/useTopojson';
 
-export default function Map({ countryCode, pop }) {
-  const { isLoading, error, data: topo } = useTopojson(countryCode, pop);
+export default function Map({ countryCode, inputs }) {
+  const {
+    isLoading,
+    error,
+    data: topo,
+  } = useTopojson(countryCode, inputs.POPDEN);
 
   const geojson = useMemo(
     () => !isLoading && !error && feature(topo, topo.objects.foo),
@@ -73,7 +77,7 @@ export default function Map({ countryCode, pop }) {
           minZoom={0}
         />
         <GeoJSON
-          key={countryCode}
+          key={`${countryCode}-${inputs.POPDEN}`}
           data={geojson}
           style={style}
           onEachFeature={onHover}

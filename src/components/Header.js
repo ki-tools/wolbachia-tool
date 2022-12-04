@@ -139,6 +139,8 @@ function Header({
           >
             {sections.main.map((section, ii) => (
               <Button
+                disableRipple
+                disableFocusRipple
                 key={section.name}
                 variant={
                   pathname === '/' && activeMainSection === ii
@@ -152,6 +154,8 @@ function Header({
               </Button>
             ))}
             <Button
+              disableRipple
+              disableFocusRipple
               variant={pathname === '/tool' ? 'contained' : 'outlined'}
               onClick={() =>
                 handleNavMenuSelect(`/tool#${sections.tool[0].hash}`)

@@ -25,7 +25,7 @@ export default function ToolHeader({
       <Box
         // maxWidth="xl"
         sx={{ background: '#444444', display: 'flex' }}
-        style={{ width: '100%', paddingLeft: 8, paddingRight: 24 }}
+        style={{ maxWidth: '100%', marginLeft: 8, marginRight: 20 }}
       >
         <Box
           sx={{ display: { xs: 'block', md: 'none' }, marginTop: '10px' }}
@@ -98,6 +98,8 @@ export default function ToolHeader({
         >
           {sections.tool.map((section, ii) => (
             <Button
+              disableRipple
+              disableFocusRipple
               size="small"
               key={section.name}
               variant={

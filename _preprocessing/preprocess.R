@@ -1,3 +1,6 @@
+tmp <- sf::read_sf("_preprocessing/data/250")
+
+
 # this file preprocesses the gpkg files into a single list of data frames
 # which is loaded by the shiny app
 # the names of the list are the country IDs (e.g. BF, BRA, COL, etc.)
