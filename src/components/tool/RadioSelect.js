@@ -29,7 +29,7 @@ export default function RadioSel({ inputs, nm, handleChange }) {
 }
 
 const StyledFormControlLabel = styled(FormControlLabel)(({ theme }) => ({
-  '& .MuiRadio-root': { padding: '4px', paddingLeft: '14px' },
+  '& .MuiRadio-root': { padding: '4px', marginLeft: '14px' },
   '& .MuiFormControlLabel-label': {
     fontSize: '14px',
   },
