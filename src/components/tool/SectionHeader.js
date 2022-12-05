@@ -1,6 +1,6 @@
 import Typography from '@mui/material/Typography';
 
-export default function SectionHeader({ title }) {
+export default function SectionHeader({ title, ...props }) {
   return (
     <Typography
       variant="caption"
@@ -11,6 +11,7 @@ export default function SectionHeader({ title }) {
         marginBottom: 1,
         display: 'block',
       }}
+      {...props}
     >
       {title}
     </Typography>

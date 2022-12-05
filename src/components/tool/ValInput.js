@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 import { INPUTS } from '../../constants';
 
-export default function ValueInput({ inputs, nm, handleChange }) {
+export default function ValInput({ inputs, nm, handleChange }) {
   const label = `${INPUTS[nm].label} ($${INPUTS[
     nm
   ].range[0].toLocaleString()}-$${INPUTS[nm].range[1].toLocaleString()})`;
@@ -22,7 +22,7 @@ export default function ValueInput({ inputs, nm, handleChange }) {
   );
 }
 
-const StyledTextField = styled(TextField)(({ theme }) => ({
+export const StyledTextField = styled(TextField)(({ theme }) => ({
   '& .MuiInputBase-input': {
     padding: '4px 0 1px',
   },

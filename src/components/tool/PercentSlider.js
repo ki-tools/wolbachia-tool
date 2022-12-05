@@ -12,9 +12,9 @@ export default function PercentSlider({ inputs, nm, handleChange }) {
   };
 
   return (
-    <Box marginBottom={0.5}>
+    <Box marginBottom={0} marginTop={0}>
       <SectionHeader title={INPUTS[nm].label} />
-      <Box sx={{ width: 262, mt: 1.5, boxSixing: 'border-box' }}>
+      <Box sx={{ width: 262, mt: 1, boxSixing: 'border-box' }}>
         <StyledSlider
           aria-label="effectiveness"
           value={value}

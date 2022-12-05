@@ -9,9 +9,10 @@ export default function ButtonSelect({
   nm,
   handleChange,
   orientation = 'horizontal',
+  pb = 2.5,
 }) {
   return (
-    <Box paddingBottom={2.5} sx={{ width: '100%' }}>
+    <Box paddingBottom={pb} sx={{ width: '100%' }}>
       <SectionHeader title={INPUTS[nm].label} />
       <ButtonGroup orientation={orientation} sx={{ width: '100%' }}>
         {INPUTS[nm].values.map((item, ii) => (

@@ -29,7 +29,7 @@ export default function Table({ data, which }) {
   }, [which]);
 
   return (
-    <Box sx={{ height: 631, width: '100%' }}>
+    <Box sx={{ height: 455, width: '100%' }}>
       <DataGrid
         getRowId={(row) => row.gaul_code}
         rows={rows}
@@ -37,6 +37,16 @@ export default function Table({ data, which }) {
         pageSize={10}
         rowsPerPageOptions={[10, 25, 50]}
         disableSelectionOnClick
+        density="compact"
+        sx={{
+          fontFamily: 'PT Mono',
+          fontSize: '14px',
+          '& .MuiDataGrid-columnHeaderTitle': {
+            textOverflow: 'clip',
+            whiteSpace: 'break-spaces',
+            lineHeight: 1,
+          },
+        }}
       />
     </Box>
   );

@@ -173,6 +173,16 @@ export const INPUTS = {
     range: [0, 3000],
     helpText: undefined,
   },
+  CONSTR: {
+    default: false,
+    label: 'Constrain budget',
+    helpText: undefined,
+  },
+  CNSTRAMT: {
+    default: 0,
+    label: 'Budget limit',
+    helpText: undefined,
+  },
 };
 
 // 5_year_benefits_discounted: 4.70886

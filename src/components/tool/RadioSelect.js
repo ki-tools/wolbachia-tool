@@ -8,8 +8,8 @@ import { INPUTS } from '../../constants';
 
 export default function RadioSel({ inputs, nm, handleChange }) {
   return (
-    <Box paddingBottom={2}>
-      <SectionHeader title={INPUTS[nm].label} />
+    <Box paddingBottom={1}>
+      <SectionHeader title={INPUTS[nm].label} style={{ height: 14 }} />
       <RadioGroup
         name="radio-buttons-group"
         value={inputs[nm]}
