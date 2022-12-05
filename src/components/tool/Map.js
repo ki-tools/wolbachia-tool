@@ -5,26 +5,18 @@ import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import { feature } from 'topojson-client';
 import { bbox } from 'topojson-client';
 import { interpolateViridis } from 'd3-scale-chromatic';
-import useTopojson from '../../services/useTopojson';
 
-export default function Map({ countryCode, inputs }) {
-  const {
-    isLoading,
-    error,
-    data: topo,
-  } = useTopojson(countryCode, inputs.POPDEN);
+function toKey(inputs) {
+  Object.values(inputs).join('-');
+}
 
+export default function Map({ isLoading, topo, inputs, countryIndex }) {
   const geojson = useMemo(
-    () => !isLoading && !error && feature(topo, topo.objects.foo),
-    [isLoading, error, topo, countryCode]
+    () => !isLoading && feature(topo, topo.objects.foo),
+    [isLoading, topo]
   );
 
-  const bb = useMemo(
-    () => !isLoading && !error && bbox(topo),
-    [isLoading, error, topo]
-  );
-
-  if (error) return 'An error has occurred: ' + error.message;
+  const bb = useMemo(() => !isLoading && bbox(topo), [isLoading, topo]);
 
   // console.log(topo);
   // console.log(geojson);
@@ -61,7 +53,7 @@ export default function Map({ countryCode, inputs }) {
   return (
     <div style={{ height: 600, width: '100%' }}>
       <MapContainer
-        key={countryCode}
+        key={countryIndex}
         bounds={[
           [bb[1], bb[0]],
           [bb[3], bb[2]],
@@ -77,7 +69,7 @@ export default function Map({ countryCode, inputs }) {
           minZoom={0}
         />
         <GeoJSON
-          key={`${countryCode}-${inputs.POPDEN}`}
+          key={`${countryIndex}-${inputs.POPDEN}`}
           data={geojson}
           style={style}
           onEachFeature={onHover}

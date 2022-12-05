@@ -182,208 +182,243 @@ export const INPUTS = {
 // 10_year_costs: 3.167078222
 // 20_year_costs: 3.238879794
 
+export const TABLES = {
+  BURDEN: [
+    'name',
+    'gaul_code',
+    'totpop',
+    'targetpop',
+    'totdenm',
+    'totalcases',
+    'totaldalys',
+    'totalhosp',
+    'totalambu',
+    'totalnonmedical',
+  ],
+  WHERE: [
+    'name',
+    'gaul_code',
+    'areacovered',
+    'popcovered',
+    'totalcost',
+    'costperperson',
+    'costperavertedcase',
+    'costperaverteddaly',
+  ],
+  BENEFITS: [
+    'name',
+    'gaul_code',
+    'avertedcases',
+    'averteddalys',
+    'hospaverted',
+    'ambuaverted',
+    'nonmedicalaverted',
+  ],
+  ADDITIONAL: [
+    'name',
+    'gaul_code',
+    'directhospcosts',
+    'directambucosts',
+    'directnonmedicalcosts',
+    'indirecthospcosts',
+    'indirectambucosts',
+    'indirectnonmedicalcosts',
+  ],
+};
+
 export const VARS = [
   {
     name: 'name',
     label: 'Name',
     type: 'string',
-    tables: ['burden', 'where', 'benefits', 'additional'],
     // source is geo data
   },
   {
     name: 'gaul_code',
     label: 'GAUL code',
     type: 'string',
-    tables: ['burden', 'where', 'benefits', 'additional'],
     // source is geo data
   },
   {
     name: 'totpop',
     label: 'Total population',
     type: 'number',
-    tables: ['burden'],
+    digits: 2,
     // source is geo data
   },
   {
     name: 'targetpop',
     label: 'Target population',
     type: 'number',
-    tables: ['burden'],
+    digits: 2,
     // source is geo data
   },
   {
     name: 'totdenm',
     label: 'Mean dengue incidence',
     type: 'number',
-    tables: ['burden'],
+    digits: 2,
     // source is geo data
   },
   {
     name: 'targetarea',
     label: '',
     type: 'number',
-    tables: [],
+    digits: 2,
     // source is geo data
   },
   {
     name: 'totalcases',
     label: 'Total number of cases of dengue (without intervention)',
     type: 'number',
-    tables: ['burden'],
+    digits: 2,
     // totdenm * targetpop
   },
   {
     name: 'totaldalys',
     label: 'Total number of DALYs (without intervention)',
     type: 'number',
-    tables: ['burden'],
+    digits: 2,
     // totalcases * daly_per_case (country dataset)
   },
   {
     name: 'totalhosp',
     label: 'Total number of hospitalized cases (without intervention)',
     type: 'number',
-    tables: ['burden'],
+    digits: 2,
     // totalcases * percent_hosp (country dataset)
   },
   {
     name: 'totalambu',
     label: 'Total number of ambulatory cases (without intervention)',
     type: 'number',
-    tables: ['burden'],
+    digits: 2,
     // totalcases * percent_ambu (country dataset)
   },
   {
     name: 'totalnonmedical',
     label: 'Total number of non-medically treated cases (without intervention)',
     type: 'number',
-    tables: ['burden'],
+    digits: 2,
     // totalcases * percent_non_medical (country dataset)
   },
   {
     name: 'areacovered',
     label: 'Area covered by intervention',
     type: 'number',
-    tables: ['where'],
+    digits: 2,
     // targetarea (spatial dataset) * COVERAGE_DEFAULT (user-input)
   },
   {
     name: 'popcovered',
     label: 'Population covered by intervention',
     type: 'number',
-    tables: ['where'],
+    digits: 2,
     // targetpop * COVERAGE_DEFAULT (user-input)
   },
   {
     name: 'totalcost',
     label: 'Total cost of intervention',
     type: 'number',
-    tables: ['where'],
+    digits: 2,
     // see below for calculation
   },
   {
     name: 'costperperson',
     label: 'Cost per person',
     type: 'number',
-    tables: ['where'],
+    digits: 2,
     // totalcost / popcovered
   },
   {
     name: 'costperavertedcase',
     label: 'Cost per case averted',
     type: 'number',
-    tables: ['where'],
+    digits: 2,
     // totalcost / ((popcovered * totdenm) * EFFECTIVENESS_DEFAULT)
-  },
-  {
-    name: '',
-    label: '',
-    type: 'number',
-    tables: ['where'],
-    //
   },
   {
     name: 'costperaverteddaly',
     label: 'Cost per daly averted',
     type: 'number',
-    tables: ['where'],
+    digits: 2,
     // totalcost / (((popcovered *totdenm)* daly_per_case (country dataset)) EFFECTIVENESS_DEFAULT))
   },
   {
     name: 'avertedcases',
     label: 'Cases averted',
     type: 'number',
-    tables: ['benefits'],
+    digits: 2,
     // (popcovered *totdenm) * EFFECTIVENESS_DEFAULT
   },
   {
     name: 'averteddalys',
     label: 'DALYs averted',
     type: 'number',
-    tables: ['benefits'],
+    digits: 2,
     // ((popcovered * totdenm) * daly_per_case (country dataset)) EFFECTIVENESS_DEFAULT))
   },
   {
     name: 'hospaverted',
     label: 'Hospitalized cases averted',
     type: 'number',
-    tables: ['benefits'],
+    digits: 2,
     // avertedcases * percent_hosp (country dataset)
   },
   {
     name: 'ambuaverted',
     label: 'Ambulatory cases averted',
     type: 'number',
-    tables: ['benefits'],
+    digits: 2,
     // avertedcases * percent_ambu (country dataset)
   },
   {
     name: 'nonmedicalaverted',
     label: 'Non-medically treated cases averted',
     type: 'number',
-    tables: ['benefits'],
+    digits: 2,
     // avertedcases * percent_non_medical (country dataset)
   },
   {
     name: 'directhospcosts',
     label: 'Direct hospitalized costs averted',
     type: 'number',
-    tables: ['additional'],
+    digits: 2,
     // hospaverted * direct_hosp (country dataset)
   },
   {
     name: 'directambucosts',
     label: 'Direct ambulatory costs averted',
     type: 'number',
-    tables: ['additional'],
+    digits: 2,
     // ambuaverted * direct_ambu (country dataset)
   },
   {
     name: 'directnonmedicalcosts',
     label: 'Direct non-medical costs averted',
     type: 'number',
-    tables: ['additional'],
+    digits: 2,
     // ambuaverted * direct_non_medical (country dataset)
   },
   {
     name: 'indirecthospcosts',
     label: 'Indirect hospitalized costs averted',
     type: 'number',
-    tables: ['additional'],
+    digits: 2,
     // hospaverted * indirect_hosp (country dataset)
   },
   {
     name: 'indirectambucosts',
     label: 'Indirect ambulatory costs averted',
     type: 'number',
-    tables: ['additional'],
+    digits: 2,
     // ambuaverted * indirect_ambu (country dataset)
   },
   {
     name: 'indirectnonmedicalcosts',
     label: 'Indirect non-medical costs averted',
     type: 'number',
-    tables: ['additional'],
+    digits: 2,
     // ambuaverted * indirect_non_medical (country dataset)
   },
 ];

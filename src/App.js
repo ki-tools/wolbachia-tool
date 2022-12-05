@@ -94,15 +94,19 @@ export default function App() {
           <Route
             path="tool"
             element={
-              <Tool
-                sections={sections.tool}
-                countryIndex={countryIndex}
-                meta={meta}
-                inputs={inputs}
-                setInputs={setInputs}
-                openSidebar={openSidebar}
-                handleSidebarClose={handleSidebarClose}
-              />
+              <>
+                {meta && (
+                  <Tool
+                    sections={sections.tool}
+                    countryIndex={countryIndex}
+                    meta={meta}
+                    inputs={inputs}
+                    setInputs={setInputs}
+                    openSidebar={openSidebar}
+                    handleSidebarClose={handleSidebarClose}
+                  />
+                )}
+              </>
             }
           />
           <Route path="*" element={<NoMatch />} />
