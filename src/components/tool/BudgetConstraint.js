@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import SectionHeader from './SectionHeader';
 import { INPUTS } from '../../constants';
-import { StyledTextField } from './ValInput';
+import ValInput from './ValInput';
 
 export default function BudgetConstraint({ inputs, setInputs, handleChange }) {
   const handleCheck = (event) => {
@@ -31,15 +31,7 @@ export default function BudgetConstraint({ inputs, setInputs, handleChange }) {
         />
       </FormGroup>
       {inputs.CONSTR && (
-        <StyledTextField
-          sx={{ width: '100%' }}
-          label={INPUTS.CNSTRAMT.label}
-          variant="standard"
-          value={inputs.CNSTRAMT}
-          onChange={(event) => handleChange(event.target.value, 'CNSTRAMT')}
-          type="number"
-          size="small"
-        />
+        <ValInput inputs={inputs} nm="CNSTRAMT" handleChange={handleChange} />
       )}
     </Box>
   );

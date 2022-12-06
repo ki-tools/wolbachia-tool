@@ -1,8 +1,26 @@
 import { useMemo } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { DataGrid } from '@mui/x-data-grid';
+import {
+  DataGrid,
+  GridToolbarContainer,
+  GridToolbarExport,
+  GridToolbarQuickFilter,
+} from '@mui/x-data-grid';
 import { VARS, TABLES } from '../../constants';
+
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer>
+      {/* <GridToolbarColumnsButton /> */}
+      {/* <GridToolbarFilterButton /> */}
+      {/* <GridToolbarDensitySelector /> */}
+      <GridToolbarExport csvOptions={{ fileName: 'wolbachia_tool_export' }} />
+      <Box sx={{ flex: 1 }} />
+      <GridToolbarQuickFilter />
+    </GridToolbarContainer>
+  );
+}
 
 export default function Table({ data, which, sec }) {
   const columns = useMemo(() => {
@@ -59,6 +77,14 @@ export default function Table({ data, which, sec }) {
         headerHeight={90}
         autoHeight
         density="compact"
+        components={{ Toolbar: CustomToolbar }}
+        componentsProps={{
+          toolbar: {
+            showQuickFilter: true,
+            quickFilterProps: { debounceMs: 500 },
+            printOptions: { disableToolbarButton: true },
+          },
+        }}
         sx={{
           '& .MuiDataGrid-cell': {
             fontFamily: 'PT Mono',

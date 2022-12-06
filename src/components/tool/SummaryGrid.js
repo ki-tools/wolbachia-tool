@@ -8,7 +8,7 @@ export default function SummaryGrid({ items, tots }) {
       sx={{
         flexGrow: 1,
         color: '#ffffff',
-        fontSize: '26px',
+        fontSize: '22px',
         fontWeight: 700,
       }}
       marginBottom={2}
