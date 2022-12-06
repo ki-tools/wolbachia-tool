@@ -1,14 +1,16 @@
 import { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Map from './Map';
-import useTopojson from '../../services/useTopojson';
+import MapControls from './MapControls';
+import MapLegend from './MapLegend';
 import Sidebar from './Sidebar';
-import { VARS, TABLES } from '../../constants';
 import Table from './Table';
+import useTopojson from '../../services/useTopojson';
+import SummaryGrid from './SummaryGrid';
+import { SUMMS } from '../../constants';
 
 export default function Tool({
   sections,
@@ -50,7 +52,7 @@ export default function Tool({
     }, 0);
   }, [hash]); // do this on route change
 
-  const data = useMemo(() =>
+  const { data, calcTopo, tots } = useMemo(() =>
     calculateData(topo, Object.values(meta)[countryIndex], inputs)
   );
 
@@ -78,45 +80,56 @@ export default function Tool({
           overflow="hidden"
           paddingLeft={{ md: '300px' }}
           sx={{ flexDirection: 'column' }}
+          id={`sec-${sections[0].hash}`}
+          ref={sections[0].ref}
         >
           <Box display="flex" flex="1 1 auto" overflow="hidden">
-            <Box flex="1 1 auto" height="100%" overflow="auto" padding={2}>
+            <Box
+              flex="1 1 auto"
+              height="100%"
+              overflow="auto"
+              padding={2}
+              sx={{ position: 'relative' }}
+            >
+              <MapControls />
+              <MapLegend />
               <Map
                 isLoading={isLoading}
-                topo={topo}
+                topo={calcTopo}
                 inputs={inputs}
                 countryIndex={countryIndex}
               />
-
-              {/* <Divider />
-              <Container paddingY={4}>
-                <Footer />
-              </Container> */}
             </Box>
-          </Box>
-          <Box sx={{ mr: 2, ml: 2 }}>
-            <h2 id={`sec-${sections[0].hash}`} ref={sections[0].ref}>
-              {sections[0].title}
-            </h2>
-            <Table data={data} which="BURDEN" />
           </Box>
           <Box sx={{ mr: 2, ml: 2 }}>
             <h2 id={`sec-${sections[1].hash}`} ref={sections[1].ref}>
               {sections[1].title}
             </h2>
-            <Table data={data} which="WHERE" />
+            <SummaryGrid items={SUMMS.BURDEN} tots={tots} />
+            <Table data={data} which="BURDEN" sec={sections[1]} />
           </Box>
           <Box sx={{ mr: 2, ml: 2 }}>
             <h2 id={`sec-${sections[2].hash}`} ref={sections[2].ref}>
               {sections[2].title}
             </h2>
-            <Table data={data} which="BENEFITS" />
+            <SummaryGrid items={SUMMS.IMPLEMENTATION} tots={tots} />
+            <h3 style={{ marginBottom: 0 }}>Total cost breakdown</h3>
+            <SummaryGrid items={SUMMS.IMPLEMENTATION2} tots={tots} />
+            <Table data={data} which="IMPLEMENTATION" sec={sections[2]} />
           </Box>
           <Box sx={{ mr: 2, ml: 2 }}>
             <h2 id={`sec-${sections[3].hash}`} ref={sections[3].ref}>
               {sections[3].title}
             </h2>
-            <Table data={data} which="ADDITIONAL" />
+            <SummaryGrid items={SUMMS.REDUCTION} tots={tots} />
+            <Table data={data} which="REDUCTION" sec={sections[3]} />
+          </Box>
+          <Box sx={{ mr: 2, ml: 2 }}>
+            <h2 id={`sec-${sections[4].hash}`} ref={sections[4].ref}>
+              {sections[4].title}
+            </h2>
+            <SummaryGrid items={SUMMS.ADDBENEFITS} tots={tots} />
+            <Table data={data} which="ADDBENEFITS" sec={sections[4]} />
           </Box>
         </Box>
       </main>
@@ -126,15 +139,10 @@ export default function Tool({
 
 function calculateData(topo, cmeta, inputs) {
   if (!topo) {
-    return null;
+    return { data: null, tots: null };
   }
 
-  const res = {
-    BURDEN: [],
-    WHERE: [],
-    BENEFITS: [],
-    ADDITIONAL: [],
-  };
+  const newTopo = JSON.parse(JSON.stringify(topo));
 
   topo.objects.foo.geometries.forEach((d, ii) => {
     const props = d.properties;
@@ -170,62 +178,157 @@ function calculateData(topo, cmeta, inputs) {
           inputs.WOLMON +
           inputs.DETREL) *
         areacovered;
-      // Q: DETREL not in PPT
+    }
+
+    let totplan, totprep, totprod, totdist, totrel, totmonit;
+    if (inputs.PHSACT === 'PHASE') {
+      totplan = inputs.PLAN * areacovered;
+      totprep = inputs.PREP * areacovered;
+      totprod = inputs.PROD * areacovered;
+      totdist = inputs.DIST * areacovered;
+      totrel = inputs.REL * areacovered;
+      totmonit = inputs.MONIT * areacovered;
+    } else {
+      totplan = (inputs.WRKPLN + inputs.DETREL) * areacovered;
+      totprep = inputs.COMMUN * areacovered;
+      totprod =
+        (inputs.FACSET + inputs.LINCRE + inputs.MOSPRD + inputs.QM) *
+        areacovered;
+      totdist = inputs.DELEGG * areacovered;
+      totrel = (inputs.EGGDEP + inputs.QA) * areacovered;
+      totmonit += (inputs.ADMAN + inputs.COMSEN + inputs.WOLMON) * areacovered;
     }
 
     const popcovered = props.targetpop * inputs.COV;
-    res.BURDEN.push({
-      name: props.name,
-      gaul_code: props.gaul_code,
-      totpop: props.totpop,
-      targetpop: props.targetpop,
-      totdenm: props.totdenm,
-      totalcases: totalcases,
-      totaldalys: totalcases * cmeta.daly_per_case,
-      totalhosp: totalcases * cmeta.percent_hosp,
-      totalambu: totalcases * cmeta.percent_ambu,
-      totalnonmedical: totalcases * cmeta.percent_non_medical,
-    });
-
-    res.WHERE.push({
-      name: props.name,
-      gaul_code: props.gaul_code,
-      areacovered: areacovered,
-      popcovered: popcovered,
-      totalcost: totalcost,
-      costperperson: totalcost / popcovered,
-      costperavertedcase: totalcost / (popcovered * props.totdenm * inputs.EFF),
-      costperaverteddaly:
-        totalcost /
-        (popcovered * props.totdenm * cmeta.daly_per_case * inputs.EFF),
-    });
+    const totaldalys = totalcases * cmeta.daly_per_case;
 
     const avertedcases = popcovered * props.totdenm * inputs.EFF;
     const hospaverted = avertedcases * cmeta.percent_hosp;
     const ambuaverted = avertedcases * cmeta.percent_ambu;
     const nonmedicalaverted = avertedcases * cmeta.percent_non_medical;
-    res.BENEFITS.push({
+    const averteddalys =
+      popcovered * props.totdenm * cmeta.daly_per_case * inputs.EFF;
+
+    const directhospcosts = hospaverted * cmeta.direct_hosp;
+    const directambucosts = ambuaverted * cmeta.direct_ambu;
+    const directnonmedicalcosts = nonmedicalaverted * cmeta.direct_non_medical;
+    const indirecthospcosts = hospaverted * cmeta.indirect_hosp;
+    const indirectambucosts = ambuaverted * cmeta.indirect_ambu;
+    const indirectnonmedicalcosts =
+      nonmedicalaverted * cmeta.indirect_non_medical;
+
+    const curRow = {
       name: props.name,
       gaul_code: props.gaul_code,
+      // burden
+      totpop: props.totpop,
+      targetpop: props.targetpop,
+      totdenm: props.totdenm,
+      totalcases: totalcases,
+      totaldalys: totaldalys,
+      totalhosp: totalcases * cmeta.percent_hosp,
+      totalambu: totalcases * cmeta.percent_ambu,
+      totalnonmedical: totalcases * cmeta.percent_non_medical,
+      // implementation
+      areacovered: areacovered,
+      popcovered: popcovered,
+      totalcost: totalcost,
+      totplan: totplan,
+      totprep: totprep,
+      totprod: totprod,
+      totdist: totdist,
+      totrel: totrel,
+      totmonit: totmonit,
+      costperperson: totalcost / popcovered,
+      costperavertedcase: totalcost / (popcovered * props.totdenm * inputs.EFF),
+      costperaverteddaly:
+        totalcost /
+        (popcovered * props.totdenm * cmeta.daly_per_case * inputs.EFF),
+      // reduction
       avertedcases: avertedcases,
-      averteddalys:
-        popcovered * props.totdenm * props.daly_per_case * inputs.EFF,
+      averteddalys: averteddalys,
       hospaverted: hospaverted,
       ambuaverted: ambuaverted,
       nonmedicalaverted: nonmedicalaverted,
-    });
-
-    res.ADDITIONAL.push({
-      name: props.name,
-      gaul_code: props.gaul_code,
-      directhospcosts: hospaverted * cmeta.direct_hosp,
-      directambucosts: ambuaverted * cmeta.direct_ambu,
-      directnonmedicalcosts: nonmedicalaverted * cmeta.direct_non_medical,
-      indirecthospcosts: hospaverted * cmeta.indirect_hosp,
-      indirectambucosts: ambuaverted * cmeta.indirect_ambu,
-      indirectnonmedicalcosts: nonmedicalaverted * cmeta.indirect_non_medical,
-    });
+      // addbenefits
+      directhospcosts: directhospcosts,
+      directambucosts: directambucosts,
+      directnonmedicalcosts: directnonmedicalcosts,
+      indirecthospcosts: indirecthospcosts,
+      indirectambucosts: indirectambucosts,
+      indirectnonmedicalcosts: indirectnonmedicalcosts,
+    };
+    newTopo.objects.foo.geometries[ii].properties = {
+      ...newTopo.objects.foo.geometries[ii].properties,
+      ...curRow,
+    };
   });
 
-  return res;
+  if (inputs.CONSTR) {
+    const cpp = newTopo.objects.foo.geometries.map((d, ii) => ({
+      cost: d.properties.costperperson,
+      idx: ii,
+    }));
+    cpp.sort((a, b) => a.cost - b.cost);
+    let curSum = 0;
+    const cumSum = [];
+    const budget = inputs.CNSTRAMT || 0;
+    cpp.forEach((el) => {
+      curSum += newTopo.objects.foo.geometries[el.idx].properties.totalcost;
+      cumSum.push({
+        x: curSum,
+        gaul_code: newTopo.objects.foo.geometries[el.idx].properties.gaul_code,
+      });
+    });
+    const keepCodes = cumSum
+      .filter((el) => el.x < budget)
+      .map((el) => el.gaul_code);
+
+    newTopo.objects.foo.geometries = newTopo.objects.foo.geometries.filter(
+      (el) => keepCodes.includes(el.properties.gaul_code)
+    );
+  }
+
+  const tots = {
+    totalcases: 0,
+    totaldalys: 0,
+    popcovered: 0,
+    totalcost: 0,
+    totplan: 0,
+    totprep: 0,
+    totprod: 0,
+    totdist: 0,
+    totrel: 0,
+    totmonit: 0,
+    avertedcases: 0,
+    averteddalys: 0,
+    tothealthsystem: 0,
+    toteconomic: 0,
+  };
+
+  newTopo.objects.foo.geometries.forEach((d) => {
+    const row = d.properties;
+    tots.totalcases += row.totalcases;
+    tots.totaldalys += row.totaldalys;
+    tots.popcovered += row.popcovered;
+    tots.totalcost += row.totalcost;
+    tots.totplan += row.totplan;
+    tots.totprep += row.totprep;
+    tots.totprod += row.totprod;
+    tots.totdist += row.totdist;
+    tots.totrel += row.totrel;
+    tots.totmonit += row.totmonit;
+    tots.avertedcases += row.avertedcases;
+    tots.averteddalys += row.averteddalys;
+    tots.tothealthsystem +=
+      row.directhospcosts + row.directambucosts + row.directnonmedicalcosts;
+    tots.toteconomic +=
+      row.indirecthospcosts +
+      row.indirectambucosts +
+      row.indirectnonmedicalcosts;
+  });
+
+  const data = newTopo.objects.foo.geometries.map((d) => d.properties);
+
+  return { data, calcTopo: newTopo, tots };
 }

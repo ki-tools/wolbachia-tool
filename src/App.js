@@ -6,7 +6,7 @@ import Main from './components/main/Main';
 import Tool from './components/tool/Tool';
 // import 'aos/dist/aos.css';
 import useCountryMeta from './services/useCountryMeta';
-import { INPUTS } from './constants';
+import { INPUTS, SECTEXT } from './constants';
 
 const initialState = {};
 Object.entries(INPUTS).forEach(([key, val]) => {
@@ -38,27 +38,59 @@ export default function App() {
     ],
     tool: [
       {
+        name: 'Map',
+        hash: 'map',
+        ref: useRef(null),
+      },
+      {
         name: 'Dengue Burden',
-        title: 'What is the dengue burden in my country?',
-        hash: 'Section1',
+        hash: 'burden',
+        title: (
+          <span>
+            What is the dengue burden in my country? Should I consider{' '}
+            <em>Wolbachia?</em>
+          </span>
+        ),
+        tblTitle: 'Dengue burden estimates',
+        text: SECTEXT.BURDEN,
         ref: useRef(null),
       },
       {
         name: 'Where to Focus and Cost',
-        title: 'Where should I implement Wolbachia and how much will it cost?',
-        hash: 'Section2',
+        hash: 'implementation',
+        title: (
+          <span>
+            Where should I implement <em>Wolbachia</em> and how much will it
+            cost?
+          </span>
+        ),
+        tblTitle: 'Implementation estimates',
+        text: SECTEXT.IMPLEMENTATION,
         ref: useRef(null),
       },
       {
         name: 'Reduction Benefits',
-        title: 'What are the dengue reduction benefits?',
-        hash: 'Section3',
+        hash: 'reduction',
+        title: (
+          <span>
+            What are the dengue reduction benefits of implementing{' '}
+            <em>Wolbachia</em>?
+          </span>
+        ),
+        tblTitle: 'Dengue reduction estimates',
+        text: SECTEXT.REDUCTION,
         ref: useRef(null),
       },
       {
         name: 'Additional Benefits',
-        title: 'What are additional benefits?',
-        hash: 'Section4',
+        hash: 'addbenefits',
+        title: (
+          <span>
+            What are additional benefits of implementing <em>Wolbachia</em>?
+          </span>
+        ),
+        tblTitle: 'Health system & economic benefit estimates',
+        text: SECTEXT.ADDBENEFITS,
         ref: useRef(null),
       },
     ],

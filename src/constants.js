@@ -205,7 +205,7 @@ export const TABLES = {
     'totalambu',
     'totalnonmedical',
   ],
-  WHERE: [
+  IMPLEMENTATION: [
     'name',
     'gaul_code',
     'areacovered',
@@ -215,7 +215,7 @@ export const TABLES = {
     'costperavertedcase',
     'costperaverteddaly',
   ],
-  BENEFITS: [
+  REDUCTION: [
     'name',
     'gaul_code',
     'avertedcases',
@@ -224,7 +224,7 @@ export const TABLES = {
     'ambuaverted',
     'nonmedicalaverted',
   ],
-  ADDITIONAL: [
+  ADDBENEFITS: [
     'name',
     'gaul_code',
     'directhospcosts',
@@ -235,6 +235,38 @@ export const TABLES = {
     'indirectnonmedicalcosts',
   ],
 };
+
+export const COLORMENU = [
+  { title: 'Burden' },
+  { option: 'totpop' },
+  { option: 'targetpop' },
+  { option: 'totdenm' },
+  { option: 'totalcases' },
+  { option: 'totaldalys' },
+  { option: 'totalhosp' },
+  { option: 'totalambu' },
+  { option: 'totalnonmedical' },
+  { title: 'Implementation' },
+  { option: 'areacovered' },
+  { option: 'popcovered' },
+  { option: 'totalcost' },
+  { option: 'costperperson' },
+  { option: 'costperavertedcase' },
+  { option: 'costperaverteddaly' },
+  { title: 'Reduction' },
+  { option: 'avertedcases' },
+  { option: 'averteddalys' },
+  { option: 'hospaverted' },
+  { option: 'ambuaverted' },
+  { option: 'nonmedicalaverted' },
+  { title: 'Additional Benefits' },
+  { option: 'directhospcosts' },
+  { option: 'directambucosts' },
+  { option: 'directnonmedicalcosts' },
+  { option: 'indirecthospcosts' },
+  { option: 'indirectambucosts' },
+  { option: 'indirectnonmedicalcosts' },
+];
 
 export const VARS = [
   {
@@ -247,20 +279,23 @@ export const VARS = [
     name: 'gaul_code',
     label: 'GAUL code',
     type: 'string',
+    width: 90,
     // source is geo data
   },
   {
     name: 'totpop',
     label: 'Total population',
     type: 'number',
-    digits: 2,
+    digits: 0,
+    width: 130,
     // source is geo data
   },
   {
     name: 'targetpop',
     label: 'Target population',
     type: 'number',
-    digits: 2,
+    digits: 0,
+    width: 130,
     // source is geo data
   },
   {
@@ -268,6 +303,7 @@ export const VARS = [
     label: 'Mean dengue incidence',
     type: 'number',
     digits: 2,
+    width: 100,
     // source is geo data
   },
   {
@@ -317,40 +353,42 @@ export const VARS = [
     label: 'Area covered by intervention',
     type: 'number',
     digits: 2,
+    width: 130,
     // targetarea (spatial dataset) * COVERAGE_DEFAULT (user-input)
   },
   {
     name: 'popcovered',
     label: 'Population covered by intervention',
     type: 'number',
-    digits: 2,
+    digits: 0,
     // targetpop * COVERAGE_DEFAULT (user-input)
   },
   {
     name: 'totalcost',
     label: 'Total cost of intervention',
-    type: 'number',
+    type: 'currency',
     digits: 2,
     // see below for calculation
   },
   {
     name: 'costperperson',
     label: 'Cost per person',
-    type: 'number',
+    type: 'currency',
     digits: 2,
+    width: 135,
     // totalcost / popcovered
   },
   {
     name: 'costperavertedcase',
     label: 'Cost per case averted',
-    type: 'number',
+    type: 'currency',
     digits: 2,
     // totalcost / ((popcovered * totdenm) * EFFECTIVENESS_DEFAULT)
   },
   {
     name: 'costperaverteddaly',
     label: 'Cost per daly averted',
-    type: 'number',
+    type: 'currency',
     digits: 2,
     // totalcost / (((popcovered *totdenm)* daly_per_case (country dataset)) EFFECTIVENESS_DEFAULT))
   },
@@ -359,6 +397,7 @@ export const VARS = [
     label: 'Cases averted',
     type: 'number',
     digits: 2,
+    width: 130,
     // (popcovered *totdenm) * EFFECTIVENESS_DEFAULT
   },
   {
@@ -366,6 +405,7 @@ export const VARS = [
     label: 'DALYs averted',
     type: 'number',
     digits: 2,
+    width: 130,
     // ((popcovered * totdenm) * daly_per_case (country dataset)) EFFECTIVENESS_DEFAULT))
   },
   {
@@ -373,6 +413,7 @@ export const VARS = [
     label: 'Hospitalized cases averted',
     type: 'number',
     digits: 2,
+    width: 130,
     // avertedcases * percent_hosp (country dataset)
   },
   {
@@ -380,6 +421,7 @@ export const VARS = [
     label: 'Ambulatory cases averted',
     type: 'number',
     digits: 2,
+    width: 130,
     // avertedcases * percent_ambu (country dataset)
   },
   {
@@ -392,46 +434,171 @@ export const VARS = [
   {
     name: 'directhospcosts',
     label: 'Direct hospitalized costs averted',
-    type: 'number',
+    type: 'currency',
     digits: 2,
     // hospaverted * direct_hosp (country dataset)
   },
   {
     name: 'directambucosts',
     label: 'Direct ambulatory costs averted',
-    type: 'number',
+    type: 'currency',
     digits: 2,
     // ambuaverted * direct_ambu (country dataset)
   },
   {
     name: 'directnonmedicalcosts',
     label: 'Direct non-medical costs averted',
-    type: 'number',
+    type: 'currency',
     digits: 2,
     // ambuaverted * direct_non_medical (country dataset)
   },
   {
     name: 'indirecthospcosts',
     label: 'Indirect hospitalized costs averted',
-    type: 'number',
+    type: 'currency',
     digits: 2,
     // hospaverted * indirect_hosp (country dataset)
   },
   {
     name: 'indirectambucosts',
     label: 'Indirect ambulatory costs averted',
-    type: 'number',
+    type: 'currency',
     digits: 2,
     // ambuaverted * indirect_ambu (country dataset)
   },
   {
     name: 'indirectnonmedicalcosts',
     label: 'Indirect non-medical costs averted',
-    type: 'number',
+    type: 'currency',
     digits: 2,
     // ambuaverted * indirect_non_medical (country dataset)
   },
 ];
 
-// totalcost = PLANNING_DEFAULT + PREP_DEFAULT + PRODUCTION_DEFAULT + DISTRIBUTION_DEFAULT + RELEASE_DEFAULT + MONITORING_DEFAULT (IF PHASE_BASED = 1) * AREACOVERED
-// totalcost  = WORKPLAN_DEFAULT + COMMUNITY_DEFAULT + FACILITY_SETUP_DEFAULT + LINE_CREATION_DEFAULT + MOSPROD_DEFAULT + QUALITYMANAGEMENT_DEFAULT + QUALITY_ASSURANCE_DEFAULT + EGG_DEPLOYMENT_DEFAULT + DELIVER_EGGS_DEFAULT + ADAPTIVE_MANAGEMENT_DEFAULT + MEASURINGCOMMUNITY_DEFAULT + MONITORING_WOLBACHIA  (IF PHASE_BASED = 0) * AREACOVERED
+export const VARLOOKUP = {};
+VARS.forEach((d) => {
+  VARLOOKUP[d.name] = d;
+});
+
+export const SECTEXT = {
+  BURDEN:
+    'To determine whether you should or should not implement Wolbachia in your country or target geography, we would recommend reviewing the dengue burden overall and in each geography. In the following table, we present data for each second Global Administrative Unit Layer (GAUL)  within the selected country. Data includes the total area (km² ), the target area (km² ), the total population, the target population, the mean dengue incidence, dengue cases, dengue DALYs,  and the number of cases which are treated in a hospital inpatient setting, treated an outpatient/ambulatory setting, and not treated in medical settings. The table can be sorted by each of the presented indicators. Specific observations can be found by using the search bar.',
+  IMPLEMENTATION:
+    'To understand where to implement Wolbachia given your set inputs, we present a summary of the area (km² ) covered by Wolbachia (i.e., the target area based on population density  multiplied by the intervention coverage), the population covered by the intervention (i.e., the population in the target area multiplied by the intervention coverage), the total cost of the Wolbachia intervention in each second administrative unit, and the cost per person covered. The table can be sorted by each of the presented indicators. Specific observations can be found by using the search bar.',
+  REDUCTION:
+    'To understand the impact of Wolbachia in terms  of the number of dengue cases which could be averted, we present the number of cases, DALYs, hospitalized cases, ambulatory cases, and not-medically treated cases averted within each geography. The table can be sorted by each of the presented indicators. Specific observations can be found by using the search bar.',
+  ADDBENEFITS:
+    'To understand the impact of Wolbachia in terms  of the number of dengue cases which could be averted, we present the number of cases, DALYs, hospitalized cases, ambulatory cases, and not-medically treated cases averted within each geography. The table can be sorted by each of the presented indicators. Specific observations can be found by using the search bar.',
+};
+
+const cols = ['#76B7B2', '#E15759', '#F28E2B', '#59A14F', '#B07AA1', '#4E79A7'];
+const gr = '#666666';
+
+export const SUMMS = {
+  BURDEN: [
+    {
+      title: 'Total cases',
+      var: 'totalcases',
+      dollars: false,
+      color: cols[0],
+      n: 6,
+    },
+    {
+      title: 'Total DALYs',
+      var: 'totaldalys',
+      dollars: false,
+      color: cols[1],
+      n: 6,
+    },
+  ],
+  IMPLEMENTATION: [
+    {
+      title: (
+        <span>
+          Total population covered by <em>Wolbachia</em>
+        </span>
+      ),
+      var: 'popcovered',
+      dollars: false,
+      color: cols[0],
+      n: 6,
+    },
+    {
+      title: 'Total cost',
+      var: 'totalcost',
+      dollars: true,
+      color: cols[1],
+      n: 6,
+    },
+  ],
+  IMPLEMENTATION2: [
+    {
+      title: 'Planning',
+      var: 'totplan',
+      dollars: true,
+      n: 4,
+      color: gr,
+    },
+    {
+      title: 'Prepration',
+      var: 'totprep',
+      dollars: true,
+      n: 4,
+      color: gr,
+    },
+    {
+      title: 'Production',
+      var: 'totprod',
+      dollars: true,
+      n: 4,
+      color: gr,
+    },
+    {
+      title: 'Distribution',
+      var: 'totdist',
+      dollars: true,
+      n: 4,
+      color: gr,
+    },
+    { title: 'Release', var: 'totrel', dollars: true, n: 4, color: gr },
+    {
+      title: 'Monitoring',
+      var: 'totmonit',
+      dollars: true,
+      n: 4,
+      color: gr,
+    },
+  ],
+  REDUCTION: [
+    {
+      title: 'Total cases averted',
+      var: 'avertedcases',
+      dollars: false,
+      n: 6,
+      color: cols[0],
+    },
+    {
+      title: 'Total DALYs averted',
+      var: 'averteddalys',
+      dollars: false,
+      n: 6,
+      color: cols[1],
+    },
+  ],
+  ADDBENEFITS: [
+    {
+      title: 'Total health system costs averted',
+      var: 'tothealthsystem',
+      dollars: true,
+      n: 6,
+      color: cols[0],
+    },
+    {
+      title: 'Total economic costs averted',
+      var: 'toteconomic',
+      dollars: true,
+      n: 6,
+      color: cols[1],
+    },
+  ],
+};

@@ -14,7 +14,7 @@ export default function ValInput({ inputs, nm, handleChange }) {
         label={label}
         variant="standard"
         value={inputs[nm]}
-        onChange={(event) => handleChange(event.target.value, nm)}
+        onChange={(event) => handleChange(Number(event.target.value), nm)}
         type="number"
         size="small"
       />

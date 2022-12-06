@@ -51,13 +51,21 @@ export default function Map({ isLoading, topo, inputs, countryIndex }) {
   }
 
   return (
-    <div style={{ height: 600, width: '100%' }}>
+    <div style={{ height: 500, width: '100%' }}>
       <MapContainer
         key={countryIndex}
         bounds={[
           [bb[1], bb[0]],
           [bb[3], bb[2]],
         ]}
+        // maxBounds={[
+        //   [bb[1], bb[0]],
+        //   [bb[3], bb[2]],
+        // ]}
+        scrollWheelZoom={false}
+        maxBoundsViscosity={1}
+        // doubleClickZoom={true}
+        attributionControl={false}
       >
         <TileLayer
           url={`https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}${
@@ -66,10 +74,10 @@ export default function Map({ isLoading, topo, inputs, countryIndex }) {
           attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions">CARTO</a>'
           subdomains="abcd"
           maxZoom={20}
-          minZoom={0}
+          minZoom={4}
         />
         <GeoJSON
-          key={`${countryIndex}-${inputs.POPDEN}`}
+          key={`${countryIndex}-${inputs.POPDEN}-${geojson.features.length}`}
           data={geojson}
           style={style}
           onEachFeature={onHover}

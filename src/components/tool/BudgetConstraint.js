@@ -12,7 +12,7 @@ export default function BudgetConstraint({ inputs, setInputs, handleChange }) {
     const newInputs = { ...inputs };
     newInputs.CONSTR = event.target.checked;
     if (event.target.checked) {
-      newInputs.CNSTRAMT = 1234;
+      newInputs.CNSTRAMT = 1000000;
     }
     setInputs(newInputs);
   };
