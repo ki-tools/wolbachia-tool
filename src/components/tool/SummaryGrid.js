@@ -7,7 +7,7 @@ export default function SummaryGrid({ items, tots }) {
     <Box
       sx={{
         flexGrow: 1,
-        color: '#ffffff',
+        color: 'rgba(255, 255, 255, 0.9)',
         fontSize: '22px',
         fontWeight: 700,
       }}

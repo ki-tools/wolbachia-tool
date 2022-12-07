@@ -87,7 +87,7 @@ const Hero = () => {
           position={'relative'}
         >
           <Box width={1} order={{ xs: 2, md: 1 }}>
-            <Container>
+            <Container sx={{ boxSizing: 'border-box' }}>
               <LeftSide />
             </Container>
           </Box>

@@ -3,9 +3,9 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import SectionHeader from './SectionHeader';
-import { INPUTS } from '../../constants';
+import { INPUTS } from '../../../constants';
 
-export default function PercentSlider({ inputs, nm, handleChange }) {
+export default function PercentSlider({ inputs, nm, handleChange, tooltip }) {
   const [value, setValue] = useState(inputs[nm] * 100);
   const handleSliderChange = (event, newValue) => {
     setValue(newValue);
@@ -13,7 +13,7 @@ export default function PercentSlider({ inputs, nm, handleChange }) {
 
   return (
     <Box marginBottom={0} marginTop={0}>
-      <SectionHeader title={INPUTS[nm].label} />
+      <SectionHeader title={INPUTS[nm].label} tooltip={tooltip} />
       <Box sx={{ width: 262, mt: 1, boxSixing: 'border-box' }}>
         <StyledSlider
           aria-label="effectiveness"

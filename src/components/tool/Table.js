@@ -5,14 +5,15 @@ import {
   DataGrid,
   GridToolbarContainer,
   GridToolbarExport,
+  GridToolbarColumnsButton,
   GridToolbarQuickFilter,
 } from '@mui/x-data-grid';
-import { VARS, TABLES } from '../../constants';
+import { VARS, TABLES, TABLESORT } from '../../constants';
 
 function CustomToolbar() {
   return (
     <GridToolbarContainer>
-      {/* <GridToolbarColumnsButton /> */}
+      <GridToolbarColumnsButton />
       {/* <GridToolbarFilterButton /> */}
       {/* <GridToolbarDensitySelector /> */}
       <GridToolbarExport csvOptions={{ fileName: 'wolbachia_tool_export' }} />
@@ -72,7 +73,7 @@ export default function Table({ data, which, sec }) {
         rows={data}
         columns={columns}
         pageSize={10}
-        rowsPerPageOptions={[10, 25, 50]}
+        // rowsPerPageOptions={[10, 25, 50]}
         disableSelectionOnClick
         headerHeight={90}
         autoHeight
@@ -83,6 +84,11 @@ export default function Table({ data, which, sec }) {
             showQuickFilter: true,
             quickFilterProps: { debounceMs: 500 },
             printOptions: { disableToolbarButton: true },
+          },
+        }}
+        initialState={{
+          sorting: {
+            sortModel: TABLESORT[which],
           },
         }}
         sx={{

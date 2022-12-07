@@ -4,12 +4,16 @@ import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { styled } from '@mui/material/styles';
 import SectionHeader from './SectionHeader';
-import { INPUTS } from '../../constants';
+import { INPUTS } from '../../../constants';
 
-export default function RadioSel({ inputs, nm, handleChange }) {
+export default function RadioSel({ inputs, nm, handleChange, tooltip }) {
   return (
     <Box paddingBottom={1}>
-      <SectionHeader title={INPUTS[nm].label} style={{ height: 14 }} />
+      <SectionHeader
+        title={INPUTS[nm].label}
+        style={{ height: 14 }}
+        tooltip={tooltip}
+      />
       <RadioGroup
         name="radio-buttons-group"
         value={inputs[nm]}

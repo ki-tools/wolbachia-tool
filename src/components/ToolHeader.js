@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import Box from '@mui/material/Box';
 import TuneIcon from '@mui/icons-material/Tune';
 // import SettingsIcon from '@mui/icons-material/Settings';
@@ -9,16 +10,24 @@ import MenuItem from '@mui/material/MenuItem';
 export default function ToolHeader({
   meta,
   onSidebarOpen,
-  countryIndex,
-  setCountryIndex,
+  countryCode,
+  setCountryCode,
   sections,
   activeToolSection,
   pathname,
   handleNavMenuSelect,
 }) {
   const handleCountryChange = (event) => {
-    setCountryIndex(event.target.value);
+    setCountryCode(event.target.value);
   };
+
+  const metaArray = useMemo(
+    () =>
+      Object.values(meta)
+        .map((d) => ({ iso_3: d.iso_3, country: d.country }))
+        .sort((a, b) => a.country.localeCompare(b.country)),
+    [meta]
+  );
 
   return (
     <Box sx={{ width: '100%', background: '#444444', height: '46px' }}>
@@ -61,7 +70,7 @@ export default function ToolHeader({
           >
             <Select
               size="small"
-              value={countryIndex}
+              value={countryCode}
               onChange={handleCountryChange}
               disableUnderline
               inputProps={{ 'aria-label': 'Without label' }}
@@ -81,9 +90,9 @@ export default function ToolHeader({
                 // ':before': { borderBottomColor: 'white' },
               }}
             >
-              {Object.entries(meta).map(([key, value], ii) => (
-                <MenuItem key={key} value={ii}>
-                  {value.country}
+              {metaArray.map((d, ii) => (
+                <MenuItem key={d.iso_3} value={d.iso_3}>
+                  {d.country}
                 </MenuItem>
               ))}
             </Select>

@@ -77,7 +77,10 @@ keep <- c(
 
 meta <- read_xlsx("_preprocessing/country_meta.xlsx") %>%
   rename_all(tolower) %>%
-  select(all_of(keep))
+  select(all_of(keep)) %>%
+  arrange(country)
+
+filter(meta, country == "Indonesia") # IDN
 
 country_meta <- meta %>%
   split(meta$iso_3) %>%
@@ -86,14 +89,3 @@ country_meta <- meta %>%
 jsonlite::write_json(country_meta, "public/data/countryMeta.json",
   auto_unbox = TRUE
 )
-
-# country_meta <- list(
-#   BGD = list(country = "Bangladesh"),
-#   BRA = list(country = "Brazil"),
-#   COL = list(country = "Columbia"),
-#   IDN = list(country = "Indonesia"),
-#   LKA = list(country = "Sri Lanka"),
-#   MEX = list(country = "Mexico"),
-#   NGA = list(country = "Nigeria"),
-#   VNM = list(country = "Vietnam")
-# )

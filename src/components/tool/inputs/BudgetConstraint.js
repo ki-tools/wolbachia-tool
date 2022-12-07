@@ -4,10 +4,15 @@ import FormGroup from '@mui/material/FormGroup';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import SectionHeader from './SectionHeader';
-import { INPUTS } from '../../constants';
+import { INPUTS } from '../../../constants';
 import ValInput from './ValInput';
 
-export default function BudgetConstraint({ inputs, setInputs, handleChange }) {
+export default function BudgetConstraint({
+  inputs,
+  setInputs,
+  handleChange,
+  tooltip,
+}) {
   const handleCheck = (event) => {
     const newInputs = { ...inputs };
     newInputs.CONSTR = event.target.checked;
@@ -27,7 +32,9 @@ export default function BudgetConstraint({ inputs, setInputs, handleChange }) {
             },
           }}
           control={<Checkbox checked={inputs.CONSTR} onChange={handleCheck} />}
-          label={<SectionHeader title={INPUTS.CONSTR.label} />}
+          label={
+            <SectionHeader title={INPUTS.CONSTR.label} tooltip={tooltip} />
+          }
         />
       </FormGroup>
       {inputs.CONSTR && (

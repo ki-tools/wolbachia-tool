@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import { NumericFormat } from 'react-number-format';
 import { styled } from '@mui/material/styles';
-import { INPUTS } from '../../constants';
+import { INPUTS } from '../../../constants';
 
 export default function ValInput({ inputs, nm, handleChange }) {
   let label;

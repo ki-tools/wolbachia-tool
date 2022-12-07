@@ -10,6 +10,7 @@ import Divider from '@mui/material/Divider';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
+import Link from '@mui/material/Link';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ToolHeader from './ToolHeader';
 
@@ -18,8 +19,8 @@ function Header({
   activeMainSection,
   activeToolSection,
   meta,
-  countryIndex,
-  setCountryIndex,
+  countryCode,
+  setCountryCode,
   onSidebarOpen,
 }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -41,8 +42,28 @@ function Header({
 
   const title = (
     <>
-      <Box sx={{ mr: 2 }} style={{ marginLeft: -12 }}>
-        <img height="45" src="images/start_header_black.png" alt="START logo" />
+      <Box style={{ marginLeft: -12, marginRight: 10 }}>
+        <Link sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
+          <img
+            height="45"
+            src="images/start_header_black.png"
+            alt="START logo"
+          />
+        </Link>
+        <Link sx={{ display: { xs: 'none', sm: 'block', md: 'none' } }}>
+          <img
+            height="45"
+            src="images/start_header_black_logo_text.png"
+            alt="START logo"
+          />
+        </Link>
+        <Link sx={{ display: { xs: 'block', sm: 'none' } }}>
+          <img
+            height="45"
+            src="images/start_header_black_logo_only.png"
+            alt="START logo"
+          />
+        </Link>
       </Box>
       <Typography
         variant="h6"
@@ -177,8 +198,8 @@ function Header({
         <ToolHeader
           meta={meta}
           sections={sections}
-          countryIndex={countryIndex}
-          setCountryIndex={setCountryIndex}
+          countryCode={countryCode}
+          setCountryCode={setCountryCode}
           onSidebarOpen={onSidebarOpen}
           activeToolSection={activeToolSection}
           pathname={pathname}

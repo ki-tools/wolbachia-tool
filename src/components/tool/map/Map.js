@@ -10,7 +10,7 @@ function toKey(inputs) {
   Object.values(inputs).join('-');
 }
 
-export default function Map({ isLoading, topo, inputs, countryIndex }) {
+export default function Map({ isLoading, topo, inputs, countryCode }) {
   const geojson = useMemo(
     () => !isLoading && feature(topo, topo.objects.foo),
     [isLoading, topo]
@@ -53,7 +53,7 @@ export default function Map({ isLoading, topo, inputs, countryIndex }) {
   return (
     <div style={{ height: 500, width: '100%' }}>
       <MapContainer
-        key={countryIndex}
+        key={countryCode}
         bounds={[
           [bb[1], bb[0]],
           [bb[3], bb[2]],
@@ -77,7 +77,7 @@ export default function Map({ isLoading, topo, inputs, countryIndex }) {
           minZoom={4}
         />
         <GeoJSON
-          key={`${countryIndex}-${inputs.POPDEN}-${geojson.features.length}`}
+          key={`${countryCode}-${inputs.POPDEN}-${geojson.features.length}`}
           data={geojson}
           style={style}
           onEachFeature={onHover}

@@ -8,7 +8,7 @@ export const INPUTS = {
     helpText: undefined,
   },
   POPDEN: {
-    default: 1500,
+    default: 1000,
     values: [1500, 1000, 500, 250],
     valueLabels: [
       '\u2265 1,500 people per km\u00b2',
@@ -27,8 +27,11 @@ export const INPUTS = {
     helpText: undefined,
   },
   TIMFRM: {
-    default: 1,
-    values: [1, 5, 10, 20],
+    default: 0,
+    values: [0, 1, 2, 3],
+    multiplier: [1, 5, 10, 20],
+    benefitsDiscounted: [1, 4.70886, 8.752529, 15.20686],
+    costs: [1, 3.000798291, 3.167078222, 3.238879794],
     valueLabels: ['1 year', '5 years', '10 years', '20 years'],
     label: 'Time frame',
     helpText: undefined,
@@ -185,12 +188,44 @@ export const INPUTS = {
   },
 };
 
-// 5_year_benefits_discounted: 4.70886
-// 10_year_benefits_discounted: 8.752529
-// 20_year_benefits_discounted: 15.20686
-// 5_year_costs: 3.000798291
-// 10_year_costs: 3.167078222
-// 20_year_costs: 3.238879794
+export const TOOLTIPS = {
+  TARG: (
+    <span>
+      There are two options for selecting which areas (administrative 2 units)
+      to target with the <em>Wolbachia</em> program. You can select either areas
+      based on a population density cutoff (number of people per {'km\u00b2'})
+      or by selecting a disease reduction target (12.5% or 25%). Details on both
+      methods are included in the 'Data Sources' section.
+    </span>
+  ),
+  EFF: (
+    <span>
+      Select your estimate of <em>Wolbachia's</em> effectiveness in averting
+      dengue cases.
+    </span>
+  ),
+  COV: (
+    <span>
+      Select what percentage of target areas you expect to release{' '}
+      <em>Wolbachia</em>
+      mosquitoes or eggs. This input reflects that many {'km\u00b2'}, even with
+      high population density, may have areas (e.g., parks, green space) where
+      there are limited people, indicating that Wolbachia-containing
+      mosquitoes/eggs would not be released there.
+    </span>
+  ),
+  COSTS:
+    "Select your estimates of costs, either on the phase-based or activity-based level. All values should be in dollars per km\u00b2. Expand the 'cost detail' section to update cost inputs. Details on the activities included in each phase / activity are included in the 'Data Sources'. section",
+  BUDGET: (
+    <span>
+      If you have a specific budget constraint, please enter it here. Based on
+      this constraint, administrative areas will be prioritized based on the
+      most cost-effective (defined as lowest cost per person covered by{' '}
+      <em>Wolbachia</em>).
+    </span>
+  ),
+  TIME: 'Select the time frame for the implementation costs and benefits. 5-, 10-, and 20- year costs and benefits are discounted.',
+};
 
 export const TABLES = {
   BURDEN: [
@@ -233,7 +268,16 @@ export const TABLES = {
     'indirecthospcosts',
     'indirectambucosts',
     'indirectnonmedicalcosts',
+    'healthsystemcosts',
+    'economiccosts',
   ],
+};
+
+export const TABLESORT = {
+  BURDEN: [{ field: 'totdenm', sort: 'desc' }],
+  IMPLEMENTATION: [{ field: 'costperperson', sort: 'asc' }],
+  REDUCTION: [{ field: 'avertedcases', sort: 'desc' }],
+  ADDBENEFITS: [{ field: 'healthsystemcosts', sort: 'desc' }],
 };
 
 export const COLORMENU = [
@@ -273,6 +317,7 @@ export const VARS = [
     name: 'name',
     label: 'Name',
     type: 'string',
+    width: 200,
     // source is geo data
   },
   {
@@ -302,8 +347,8 @@ export const VARS = [
     name: 'totdenm',
     label: 'Mean dengue incidence',
     type: 'number',
-    digits: 2,
-    width: 100,
+    digits: 4,
+    width: 120,
     // source is geo data
   },
   {
@@ -317,35 +362,35 @@ export const VARS = [
     name: 'totalcases',
     label: 'Total number of cases of dengue (without intervention)',
     type: 'number',
-    digits: 2,
+    digits: 0,
     // totdenm * targetpop
   },
   {
     name: 'totaldalys',
     label: 'Total number of DALYs (without intervention)',
     type: 'number',
-    digits: 2,
+    digits: 0,
     // totalcases * daly_per_case (country dataset)
   },
   {
     name: 'totalhosp',
     label: 'Total number of hospitalized cases (without intervention)',
     type: 'number',
-    digits: 2,
+    digits: 0,
     // totalcases * percent_hosp (country dataset)
   },
   {
     name: 'totalambu',
     label: 'Total number of ambulatory cases (without intervention)',
     type: 'number',
-    digits: 2,
+    digits: 0,
     // totalcases * percent_ambu (country dataset)
   },
   {
     name: 'totalnonmedical',
     label: 'Total number of non-medically treated cases (without intervention)',
     type: 'number',
-    digits: 2,
+    digits: 0,
     // totalcases * percent_non_medical (country dataset)
   },
   {
@@ -396,7 +441,7 @@ export const VARS = [
     name: 'avertedcases',
     label: 'Cases averted',
     type: 'number',
-    digits: 2,
+    digits: 0,
     width: 130,
     // (popcovered *totdenm) * EFFECTIVENESS_DEFAULT
   },
@@ -404,7 +449,7 @@ export const VARS = [
     name: 'averteddalys',
     label: 'DALYs averted',
     type: 'number',
-    digits: 2,
+    digits: 0,
     width: 130,
     // ((popcovered * totdenm) * daly_per_case (country dataset)) EFFECTIVENESS_DEFAULT))
   },
@@ -412,7 +457,7 @@ export const VARS = [
     name: 'hospaverted',
     label: 'Hospitalized cases averted',
     type: 'number',
-    digits: 2,
+    digits: 0,
     width: 130,
     // avertedcases * percent_hosp (country dataset)
   },
@@ -420,7 +465,7 @@ export const VARS = [
     name: 'ambuaverted',
     label: 'Ambulatory cases averted',
     type: 'number',
-    digits: 2,
+    digits: 0,
     width: 130,
     // avertedcases * percent_ambu (country dataset)
   },
@@ -428,7 +473,7 @@ export const VARS = [
     name: 'nonmedicalaverted',
     label: 'Non-medically treated cases averted',
     type: 'number',
-    digits: 2,
+    digits: 0,
     // avertedcases * percent_non_medical (country dataset)
   },
   {
@@ -473,6 +518,20 @@ export const VARS = [
     digits: 2,
     // ambuaverted * indirect_non_medical (country dataset)
   },
+  {
+    name: 'healthsystemcosts',
+    label: 'Total health system costs',
+    type: 'currency',
+    digits: 2,
+    // directhospcosts + directambucosts + directnonmedicalcosts
+  },
+  {
+    name: 'economiccosts',
+    label: 'Total economic costs',
+    type: 'currency',
+    digits: 2,
+    // indirecthospcosts + indirectambucosts + indirectnonmedicalcosts
+  },
 ];
 
 export const VARLOOKUP = {};
@@ -482,9 +541,9 @@ VARS.forEach((d) => {
 
 export const SECTEXT = {
   BURDEN:
-    'To determine whether you should or should not implement Wolbachia in your country or target geography, we would recommend reviewing the dengue burden overall and in each geography. In the following table, we present data for each second Global Administrative Unit Layer (GAUL)  within the selected country. Data includes the total area (km² ), the target area (km² ), the total population, the target population, the mean dengue incidence, dengue cases, dengue DALYs,  and the number of cases which are treated in a hospital inpatient setting, treated an outpatient/ambulatory setting, and not treated in medical settings. The table can be sorted by each of the presented indicators. Specific observations can be found by using the search bar.',
+    'To determine whether you should or should not implement Wolbachia in your country or target geography, we would recommend reviewing the dengue burden overall and in each geography. In the following table, we present data for each second Global Administrative Unit Layer (GAUL)  within the selected country. Data includes the total area (km\u00b2), the target area (km² ), the total population, the target population, the mean dengue incidence, dengue cases, dengue DALYs,  and the number of cases which are treated in a hospital inpatient setting, treated an outpatient/ambulatory setting, and not treated in medical settings. The table can be sorted by each of the presented indicators. Specific observations can be found by using the search bar.',
   IMPLEMENTATION:
-    'To understand where to implement Wolbachia given your set inputs, we present a summary of the area (km² ) covered by Wolbachia (i.e., the target area based on population density  multiplied by the intervention coverage), the population covered by the intervention (i.e., the population in the target area multiplied by the intervention coverage), the total cost of the Wolbachia intervention in each second administrative unit, and the cost per person covered. The table can be sorted by each of the presented indicators. Specific observations can be found by using the search bar.',
+    'To understand where to implement Wolbachia given your set inputs, we present a summary of the area (km\u00b2) covered by Wolbachia (i.e., the target area based on population density  multiplied by the intervention coverage), the population covered by the intervention (i.e., the population in the target area multiplied by the intervention coverage), the total cost of the Wolbachia intervention in each second administrative unit, and the cost per person covered. The table can be sorted by each of the presented indicators. Specific observations can be found by using the search bar.',
   REDUCTION:
     'To understand the impact of Wolbachia in terms  of the number of dengue cases which could be averted, we present the number of cases, DALYs, hospitalized cases, ambulatory cases, and not-medically treated cases averted within each geography. The table can be sorted by each of the presented indicators. Specific observations can be found by using the search bar.',
   ADDBENEFITS:

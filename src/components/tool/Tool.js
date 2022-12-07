@@ -3,19 +3,19 @@ import { useLocation } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import Map from './Map';
-import MapControls from './MapControls';
-import MapLegend from './MapLegend';
+import Map from './map/Map';
+import MapControls from './map/MapControls';
+import MapLegend from './map/MapLegend';
 import Sidebar from './Sidebar';
 import Table from './Table';
 import useTopojson from '../../services/useTopojson';
 import SummaryGrid from './SummaryGrid';
-import { SUMMS } from '../../constants';
+import { SUMMS, INPUTS } from '../../constants';
 
 export default function Tool({
   sections,
   meta,
-  countryIndex,
+  countryCode,
   inputs,
   setInputs,
   openSidebar,
@@ -30,7 +30,7 @@ export default function Tool({
     isLoading,
     error,
     data: topo,
-  } = useTopojson(Object.keys(meta)[countryIndex], inputs.POPDEN);
+  } = useTopojson(countryCode, inputs.POPDEN);
 
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -53,7 +53,7 @@ export default function Tool({
   }, [hash]); // do this on route change
 
   const { data, calcTopo, tots } = useMemo(() =>
-    calculateData(topo, Object.values(meta)[countryIndex], inputs)
+    calculateData(topo, meta[countryCode], inputs)
   );
 
   if (!meta || !data) {
@@ -97,7 +97,7 @@ export default function Tool({
                 isLoading={isLoading}
                 topo={calcTopo}
                 inputs={inputs}
-                countryIndex={countryIndex}
+                countryCode={countryCode}
               />
             </Box>
           </Box>
@@ -147,7 +147,8 @@ function calculateData(topo, cmeta, inputs) {
   topo.objects.foo.geometries.forEach((d, ii) => {
     const props = d.properties;
 
-    const totalcases = props.totdenm * props.targetpop;
+    const totalcases =
+      props.totdenm * props.targetpop * INPUTS.TIMFRM.multiplier[inputs.TIMFRM];
     const areacovered = props.targetarea * inputs.COV;
 
     let totalcost;
@@ -160,7 +161,8 @@ function calculateData(topo, cmeta, inputs) {
           inputs.DIST +
           inputs.REL +
           inputs.MONIT) *
-        areacovered;
+        areacovered *
+        INPUTS.TIMFRM.costs[inputs.TIMFRM];
     } else {
       // activity-based
       totalcost =
@@ -199,15 +201,20 @@ function calculateData(topo, cmeta, inputs) {
       totmonit += (inputs.ADMAN + inputs.COMSEN + inputs.WOLMON) * areacovered;
     }
 
-    const popcovered = props.targetpop * inputs.COV;
+    const popcovered =
+      props.targetpop *
+      inputs.COV *
+      INPUTS.TIMFRM.benefitsDiscounted[inputs.TIMFRM];
     const totaldalys = totalcases * cmeta.daly_per_case;
 
     const avertedcases = popcovered * props.totdenm * inputs.EFF;
+    // * INPUTS.TIMFRM.benefitsDiscounted[inputs.TIMFRM];
     const hospaverted = avertedcases * cmeta.percent_hosp;
     const ambuaverted = avertedcases * cmeta.percent_ambu;
     const nonmedicalaverted = avertedcases * cmeta.percent_non_medical;
     const averteddalys =
       popcovered * props.totdenm * cmeta.daly_per_case * inputs.EFF;
+    // * INPUTS.TIMFRM.benefitsDiscounted[inputs.TIMFRM];
 
     const directhospcosts = hospaverted * cmeta.direct_hosp;
     const directambucosts = ambuaverted * cmeta.direct_ambu;
@@ -257,6 +264,10 @@ function calculateData(topo, cmeta, inputs) {
       indirecthospcosts: indirecthospcosts,
       indirectambucosts: indirectambucosts,
       indirectnonmedicalcosts: indirectnonmedicalcosts,
+      healthsystemcosts:
+        directhospcosts + directambucosts + directnonmedicalcosts,
+      economiccosts:
+        indirecthospcosts + indirectambucosts + indirectnonmedicalcosts,
     };
     newTopo.objects.foo.geometries[ii].properties = {
       ...newTopo.objects.foo.geometries[ii].properties,
@@ -320,12 +331,8 @@ function calculateData(topo, cmeta, inputs) {
     tots.totmonit += row.totmonit;
     tots.avertedcases += row.avertedcases;
     tots.averteddalys += row.averteddalys;
-    tots.tothealthsystem +=
-      row.directhospcosts + row.directambucosts + row.directnonmedicalcosts;
-    tots.toteconomic +=
-      row.indirecthospcosts +
-      row.indirectambucosts +
-      row.indirectnonmedicalcosts;
+    tots.tothealthsystem += row.healthsystemcosts;
+    tots.toteconomic += row.economiccosts;
   });
 
   const data = newTopo.objects.foo.geometries.map((d) => d.properties);

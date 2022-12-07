@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import useScrollSpy from 'react-use-scrollspy';
 import Header from './components/Header';
@@ -15,7 +15,8 @@ Object.entries(INPUTS).forEach(([key, val]) => {
 
 export default function App() {
   const { isLoading, error, data: meta } = useCountryMeta();
-  const [countryIndex, setCountryIndex] = useState(0);
+  console.log(meta);
+  const [countryCode, setCountryCode] = useState('IDN');
   const [inputs, setInputs] = useState(initialState);
 
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -115,8 +116,8 @@ export default function App() {
         sections={sections}
         activeMainSection={activeMainSection}
         activeToolSection={activeToolSection}
-        countryIndex={countryIndex}
-        setCountryIndex={setCountryIndex}
+        countryCode={countryCode}
+        setCountryCode={setCountryCode}
         meta={meta}
         onSidebarOpen={handleSidebarOpen}
       />
@@ -130,7 +131,7 @@ export default function App() {
                 {meta && (
                   <Tool
                     sections={sections.tool}
-                    countryIndex={countryIndex}
+                    countryCode={countryCode}
                     meta={meta}
                     inputs={inputs}
                     setInputs={setInputs}

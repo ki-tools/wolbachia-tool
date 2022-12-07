@@ -6,7 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import ListSubheader from '@mui/material/ListSubheader';
 
-import { COLORMENU, VARLOOKUP } from '../../constants';
+import { COLORMENU, VARLOOKUP } from '../../../constants';
 
 export default function MapControls() {
   const [colorVar, setColorVar] = useState('costperperson');

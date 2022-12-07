@@ -33,7 +33,7 @@ const content = [
           >
             Brady et al. 2020
           </Link>
-          ) have reported costs per km2 within these phases.
+          {') have reported costs per km\u00b2 within these phases.'}
         </div>
         <div>
           <Button
@@ -124,9 +124,9 @@ const content = [
         <Link target="_blank" rel="noreferrer" href="https://www.worldpop.org">
           WorldPop
         </Link>{' '}
-        The data used was unconstrained 1 km resolution estimates of population
-        count and population density, adjusted to match UN Population estimates
-        and measured in units of persons per km2.
+        {
+          'The data used was unconstrained 1 km resolution estimates of population count and population density, adjusted to match UN Population estimates and measured in units of persons per km\u00b2.'
+        }
       </span>
     ),
   },
