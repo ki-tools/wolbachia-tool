@@ -15,9 +15,9 @@ Object.entries(INPUTS).forEach(([key, val]) => {
 
 export default function App() {
   const { isLoading, error, data: meta } = useCountryMeta();
-  console.log(meta);
   const [countryCode, setCountryCode] = useState('IDN');
   const [inputs, setInputs] = useState(initialState);
+  const [colorVar, setColorVar] = useState('costperperson');
 
   const [openSidebar, setOpenSidebar] = useState(false);
 
@@ -137,6 +137,8 @@ export default function App() {
                     setInputs={setInputs}
                     openSidebar={openSidebar}
                     handleSidebarClose={handleSidebarClose}
+                    colorVar={colorVar}
+                    setColorVar={setColorVar}
                   />
                 )}
               </>

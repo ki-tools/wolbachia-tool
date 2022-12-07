@@ -10,7 +10,14 @@ function toKey(inputs) {
   Object.values(inputs).join('-');
 }
 
-export default function Map({ isLoading, topo, inputs, countryCode }) {
+export default function Map({
+  isLoading,
+  topo,
+  inputs,
+  countryCode,
+  colorVar,
+  colorScale,
+}) {
   const geojson = useMemo(
     () => !isLoading && feature(topo, topo.objects.foo),
     [isLoading, topo]
@@ -23,14 +30,13 @@ export default function Map({ isLoading, topo, inputs, countryCode }) {
 
   const style = (feature) => {
     // areasqkm, areatsqkm, country_id, gaul_code, name, tarpop, totdeng, totpop
-    const {
-      properties: { totdenm },
-    } = feature;
+    const colorVal = feature.properties[colorVar];
     return {
-      fillColor: interpolateViridis((totdenm - 0.0214589) / 0.013216),
+      fillColor: colorScale(colorVal),
       weight: 1,
       opacity: 1,
-      color: 'rgba(0, 0, 0, 0.5)',
+      color: colorScale(colorVal),
+      // color: 'rgba(0, 0, 0, 0.5)',
       fillOpacity: 0.6,
     };
   };

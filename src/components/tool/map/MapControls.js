@@ -8,9 +8,7 @@ import ListSubheader from '@mui/material/ListSubheader';
 
 import { COLORMENU, VARLOOKUP } from '../../../constants';
 
-export default function MapControls() {
-  const [colorVar, setColorVar] = useState('costperperson');
-
+export default function MapControls({ colorVar, setColorVar }) {
   const handleChange = (event) => {
     setColorVar(event.target.value);
   };

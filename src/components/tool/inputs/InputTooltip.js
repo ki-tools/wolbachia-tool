@@ -4,9 +4,9 @@ import Box from '@mui/material/Box';
 import InfoIcon from '@mui/icons-material/Info';
 
 export default function InputTooltip({ text }) {
-  // if (!text) {
-  // return null;
-  // }
+  if (!text) {
+    return null;
+  }
   return (
     <Tooltip
       disableFocusListener

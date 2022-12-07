@@ -10,7 +10,9 @@ import Sidebar from './Sidebar';
 import Table from './Table';
 import useTopojson from '../../services/useTopojson';
 import SummaryGrid from './SummaryGrid';
-import { SUMMS, INPUTS } from '../../constants';
+import { SUMMS, INPUTS, COLORMENU } from '../../constants';
+import { interpolateViridis } from 'd3-scale-chromatic';
+import { scaleLinear, scaleThreshold } from 'd3-scale';
 
 export default function Tool({
   sections,
@@ -20,6 +22,8 @@ export default function Tool({
   setInputs,
   openSidebar,
   handleSidebarClose,
+  colorVar,
+  setColorVar,
 }) {
   const theme = useTheme();
 
@@ -52,15 +56,26 @@ export default function Tool({
     }, 0);
   }, [hash]); // do this on route change
 
-  const { data, calcTopo, tots } = useMemo(() =>
+  const { data, calcTopo, tots, ranges } = useMemo(() =>
     calculateData(topo, meta[countryCode], inputs)
   );
 
   if (!meta || !data) {
     return null;
   }
-
+  // ;
   if (error) return 'An error has occurred: ' + error.message;
+
+  const bins = scaleLinear()
+    .domain([ranges[colorVar].min, ranges[colorVar].max])
+    .nice(10)
+    .ticks(10);
+
+  const qCols = Array.from(Array(bins.length + 1).keys()).map((v) =>
+    interpolateViridis(v / bins.length)
+  );
+
+  const colorScale = scaleThreshold().domain(bins).range(qCols);
 
   const open = isMd ? false : openSidebar;
 
@@ -91,13 +106,15 @@ export default function Tool({
               padding={2}
               sx={{ position: 'relative' }}
             >
-              <MapControls />
-              <MapLegend />
+              <MapControls colorVar={colorVar} setColorVar={setColorVar} />
+              <MapLegend colorVar={colorVar} colorScale={colorScale} />
               <Map
                 isLoading={isLoading}
                 topo={calcTopo}
                 inputs={inputs}
                 countryCode={countryCode}
+                colorVar={colorVar}
+                colorScale={colorScale}
               />
             </Box>
           </Box>
@@ -143,6 +160,9 @@ function calculateData(topo, cmeta, inputs) {
   }
 
   const newTopo = JSON.parse(JSON.stringify(topo));
+
+  // for map legend
+  const ranges = {};
 
   topo.objects.foo.geometries.forEach((d, ii) => {
     const props = d.properties;
@@ -273,6 +293,29 @@ function calculateData(topo, cmeta, inputs) {
       ...newTopo.objects.foo.geometries[ii].properties,
       ...curRow,
     };
+    if (ii === 0) {
+      COLORMENU.forEach((item) => {
+        if (item.option) {
+          ranges[item.option] = {
+            min: curRow[item.option],
+            max: curRow[item.option],
+          };
+        }
+      });
+    } else {
+      COLORMENU.forEach((item) => {
+        if (item.option) {
+          ranges[item.option].min = Math.min(
+            ranges[item.option].min,
+            curRow[item.option]
+          );
+          ranges[item.option].max = Math.max(
+            ranges[item.option].max,
+            curRow[item.option]
+          );
+        }
+      });
+    }
   });
 
   if (inputs.CONSTR) {
@@ -337,5 +380,5 @@ function calculateData(topo, cmeta, inputs) {
 
   const data = newTopo.objects.foo.geometries.map((d) => d.properties);
 
-  return { data, calcTopo: newTopo, tots };
+  return { data, calcTopo: newTopo, tots, ranges };
 }
