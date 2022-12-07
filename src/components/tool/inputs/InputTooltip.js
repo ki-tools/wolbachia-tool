@@ -9,6 +9,7 @@ export default function InputTooltip({ text }) {
   // }
   return (
     <Tooltip
+      disableFocusListener
       title={<span style={{ fontSize: '14px' }}>{text}</span>}
       placement="right"
       arrow
