@@ -9,18 +9,20 @@ export default function InputTooltip({ text }) {
   // }
   return (
     <Tooltip
-      title={<span style={{ fontSize: '12px' }}>{text}</span>}
+      title={<span style={{ fontSize: '14px' }}>{text}</span>}
       placement="right"
       arrow
     >
       <Box
         sx={{
           display: 'inline-block',
-          // verticalAlign: 'top',
-          paddingLeft: 1,
+          verticalAlign: 'bottom',
+          paddingLeft: 0.5,
         }}
       >
-        <InfoIcon sx={{ fontSize: '16px' }} />
+        <IconButton size="small">
+          <InfoIcon sx={{ fontSize: '16px' }} />
+        </IconButton>
       </Box>
     </Tooltip>
   );

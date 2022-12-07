@@ -11,7 +11,7 @@ export default function SectionHeader({ title, tooltip, ...props }) {
         sx={{
           fontWeight: 700,
           textTransform: 'uppercase',
-          marginBottom: 1,
+          marginBottom: '11px',
           display: 'block',
         }}
         {...props}
