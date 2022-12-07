@@ -1,10 +1,11 @@
+import * as ReactDOMServer from 'react-dom/server';
 import React, { useMemo } from 'react';
 import Skeleton from '@mui/material/Skeleton';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 // import * as L from 'leaflet';
 import { feature } from 'topojson-client';
 import { bbox } from 'topojson-client';
-import { interpolateViridis } from 'd3-scale-chromatic';
+import MapTooltip from './MapTooltip';
 
 function toKey(inputs) {
   Object.values(inputs).join('-');
@@ -42,10 +43,16 @@ export default function Map({
   };
 
   const onHover = (feature, layer) => {
-    const name = feature.properties.name;
     layer.on('mouseover', function (e) {
       e.target.setStyle({ fillOpacity: 0.8, weight: 2 });
-      layer.bindTooltip(name, { sticky: true }).openTooltip();
+      layer
+        .bindTooltip(
+          ReactDOMServer.renderToString(
+            <MapTooltip data={feature.properties} colorVar={colorVar} />
+          ),
+          { sticky: true, offset: [20, 0] }
+        )
+        .openTooltip();
     });
     layer.on('mouseout', function (e) {
       e.target.setStyle({ fillOpacity: 0.6, weight: 1 });
@@ -53,7 +60,7 @@ export default function Map({
   };
 
   if (isLoading) {
-    return <Skeleton variant="rectangular" width="100%" height={600} />;
+    return <Skeleton variant="rectangular" width="100%" height={500} />;
   }
 
   return (

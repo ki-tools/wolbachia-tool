@@ -13,7 +13,9 @@ export default function PercentSlider({ inputs, nm, handleChange, tooltip }) {
 
   return (
     <Box marginBottom={0} marginTop={0}>
-      <SectionHeader title={INPUTS[nm].label} tooltip={tooltip} />
+      <Box sx={{ marginBottom: '-6px' }}>
+        <SectionHeader title={INPUTS[nm].label} tooltip={tooltip} />
+      </Box>
       <Box sx={{ width: 262, mt: 1, boxSixing: 'border-box' }}>
         <StyledSlider
           aria-label="effectiveness"
@@ -67,5 +69,8 @@ const StyledSlider = styled(Slider)(({ theme }) => ({
   },
   '& .MuiSlider-mark': {
     // display: 'none',
+  },
+  '& .MuiSlider-root': {
+    marginBottom: '14px !important',
   },
 }));

@@ -60,7 +60,7 @@ export default function Tool({
     calculateData(topo, meta[countryCode], inputs)
   );
 
-  if (!meta || !data) {
+  if (!meta || !data || !ranges) {
     return null;
   }
   // ;
@@ -68,14 +68,23 @@ export default function Tool({
 
   const bins = scaleLinear()
     .domain([ranges[colorVar].min, ranges[colorVar].max])
-    .nice(10)
-    .ticks(10);
+    .nice()
+    .ticks(8);
 
-  const qCols = Array.from(Array(bins.length + 1).keys()).map((v) =>
-    interpolateViridis(v / bins.length)
-  );
+  const qCols = [
+    0,
+    ...Array.from(Array(bins.length - 1).keys()),
+    bins.length - 2,
+  ].map((v) => interpolateViridis(v / (bins.length - 2)));
 
   const colorScale = scaleThreshold().domain(bins).range(qCols);
+
+  let footerText = '';
+  const nEntities = topo.objects.foo.geometries.length;
+  const nCalcEntities = calcTopo.objects.foo.geometries.length;
+  if (inputs.CONSTR && nEntities !== nCalcEntities) {
+    footerText = `Showing ${nCalcEntities} of ${nEntities} that meet the budget constraint`;
+  }
 
   const open = isMd ? false : openSidebar;
 
@@ -107,7 +116,7 @@ export default function Tool({
               sx={{ position: 'relative' }}
             >
               <MapControls colorVar={colorVar} setColorVar={setColorVar} />
-              <MapLegend colorVar={colorVar} colorScale={colorScale} />
+              <MapLegend colorVar={colorVar} bins={bins} qCols={qCols} />
               <Map
                 isLoading={isLoading}
                 topo={calcTopo}
@@ -123,7 +132,12 @@ export default function Tool({
               {sections[1].title}
             </h2>
             <SummaryGrid items={SUMMS.BURDEN} tots={tots} />
-            <Table data={data} which="BURDEN" sec={sections[1]} />
+            <Table
+              data={data}
+              which="BURDEN"
+              sec={sections[1]}
+              footerText={footerText}
+            />
           </Box>
           <Box sx={{ mr: 2, ml: 2 }}>
             <h2 id={`sec-${sections[2].hash}`} ref={sections[2].ref}>
@@ -132,21 +146,36 @@ export default function Tool({
             <SummaryGrid items={SUMMS.IMPLEMENTATION} tots={tots} />
             <h3 style={{ marginBottom: 0 }}>Total cost breakdown</h3>
             <SummaryGrid items={SUMMS.IMPLEMENTATION2} tots={tots} />
-            <Table data={data} which="IMPLEMENTATION" sec={sections[2]} />
+            <Table
+              data={data}
+              which="IMPLEMENTATION"
+              sec={sections[2]}
+              footerText={footerText}
+            />
           </Box>
           <Box sx={{ mr: 2, ml: 2 }}>
             <h2 id={`sec-${sections[3].hash}`} ref={sections[3].ref}>
               {sections[3].title}
             </h2>
             <SummaryGrid items={SUMMS.REDUCTION} tots={tots} />
-            <Table data={data} which="REDUCTION" sec={sections[3]} />
+            <Table
+              data={data}
+              which="REDUCTION"
+              sec={sections[3]}
+              footerText={footerText}
+            />
           </Box>
           <Box sx={{ mr: 2, ml: 2 }}>
             <h2 id={`sec-${sections[4].hash}`} ref={sections[4].ref}>
               {sections[4].title}
             </h2>
             <SummaryGrid items={SUMMS.ADDBENEFITS} tots={tots} />
-            <Table data={data} which="ADDBENEFITS" sec={sections[4]} />
+            <Table
+              data={data}
+              which="ADDBENEFITS"
+              sec={sections[4]}
+              footerText={footerText}
+            />
           </Box>
         </Box>
       </main>
@@ -199,7 +228,8 @@ function calculateData(topo, cmeta, inputs) {
           inputs.COMSEN +
           inputs.WOLMON +
           inputs.DETREL) *
-        areacovered;
+        areacovered *
+        INPUTS.TIMFRM.costs[inputs.TIMFRM];
     }
 
     let totplan, totprep, totprod, totdist, totrel, totmonit;
@@ -305,14 +335,11 @@ function calculateData(topo, cmeta, inputs) {
     } else {
       COLORMENU.forEach((item) => {
         if (item.option) {
-          ranges[item.option].min = Math.min(
-            ranges[item.option].min,
-            curRow[item.option]
-          );
-          ranges[item.option].max = Math.max(
-            ranges[item.option].max,
-            curRow[item.option]
-          );
+          const curVal = curRow[item.option];
+          if (typeof curVal === 'number' && isFinite(curVal)) {
+            ranges[item.option].min = Math.min(ranges[item.option].min, curVal);
+            ranges[item.option].max = Math.max(ranges[item.option].max, curVal);
+          }
         }
       });
     }
