@@ -43,21 +43,36 @@ function Header({
   const title = (
     <>
       <Box style={{ marginLeft: -12, marginRight: 10 }}>
-        <Link sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
+        <Link
+          target="_blank"
+          rel="noreferrer"
+          href="http://uwstartcenter.org/"
+          sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}
+        >
           <img
             height="45"
             src="images/start_header_black.png"
             alt="START logo"
           />
         </Link>
-        <Link sx={{ display: { xs: 'none', sm: 'block', md: 'none' } }}>
+        <Link
+          target="_blank"
+          rel="noreferrer"
+          href="http://uwstartcenter.org/"
+          sx={{ display: { xs: 'none', sm: 'block', md: 'none' } }}
+        >
           <img
             height="45"
             src="images/start_header_black_logo_text.png"
             alt="START logo"
           />
         </Link>
-        <Link sx={{ display: { xs: 'block', sm: 'none' } }}>
+        <Link
+          target="_blank"
+          rel="noreferrer"
+          href="http://uwstartcenter.org/"
+          sx={{ display: { xs: 'block', sm: 'none' } }}
+        >
           <img
             height="45"
             src="images/start_header_black_logo_only.png"
