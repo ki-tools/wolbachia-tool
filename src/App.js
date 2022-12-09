@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import useScrollSpy from 'react-use-scrollspy';
 import Header from './components/Header';
@@ -6,7 +6,7 @@ import Main from './components/main/Main';
 import Tool from './components/tool/Tool';
 // import 'aos/dist/aos.css';
 import useCountryMeta from './services/useCountryMeta';
-import { INPUTS, SECTEXT } from './constants';
+import { INPUTS, TOOLSECTEXT } from './constants';
 
 const initialState = {};
 Object.entries(INPUTS).forEach(([key, val]) => {
@@ -14,7 +14,7 @@ Object.entries(INPUTS).forEach(([key, val]) => {
 });
 
 export default function App() {
-  const { isLoading, error, data: meta } = useCountryMeta();
+  const { data: meta } = useCountryMeta();
   const [countryCode, setCountryCode] = useState('IDN');
   const [inputs, setInputs] = useState(initialState);
   const [colorVar, setColorVar] = useState('costperperson');
@@ -41,6 +41,8 @@ export default function App() {
       {
         name: 'Map',
         hash: 'map',
+        infoTitle: 'Data Visualization',
+        text: TOOLSECTEXT.MAP,
         ref: useRef(null),
       },
       {
@@ -52,8 +54,8 @@ export default function App() {
             <em>Wolbachia?</em>
           </span>
         ),
-        tblTitle: 'Dengue burden estimates',
-        text: SECTEXT.BURDEN,
+        infoTitle: 'Dengue burden estimates',
+        text: TOOLSECTEXT.BURDEN,
         ref: useRef(null),
       },
       {
@@ -65,8 +67,8 @@ export default function App() {
             cost?
           </span>
         ),
-        tblTitle: 'Implementation estimates',
-        text: SECTEXT.IMPLEMENTATION,
+        infoTitle: 'Implementation estimates',
+        text: TOOLSECTEXT.IMPLEMENTATION,
         ref: useRef(null),
       },
       {
@@ -78,8 +80,8 @@ export default function App() {
             <em>Wolbachia</em>?
           </span>
         ),
-        tblTitle: 'Dengue reduction estimates',
-        text: SECTEXT.REDUCTION,
+        infoTitle: 'Dengue reduction estimates',
+        text: TOOLSECTEXT.REDUCTION,
         ref: useRef(null),
       },
       {
@@ -90,8 +92,8 @@ export default function App() {
             What are additional benefits of implementing <em>Wolbachia</em>?
           </span>
         ),
-        tblTitle: 'Health system & economic benefit estimates',
-        text: SECTEXT.ADDBENEFITS,
+        infoTitle: 'Health system & economic benefit estimates',
+        text: TOOLSECTEXT.ADDBENEFITS,
         ref: useRef(null),
       },
     ],

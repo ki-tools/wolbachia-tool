@@ -7,9 +7,9 @@ import { feature } from 'topojson-client';
 import { bbox } from 'topojson-client';
 import MapTooltip from './MapTooltip';
 
-function toKey(inputs) {
-  Object.values(inputs).join('-');
-}
+// function toKey(inputs) {
+//   Object.values(inputs).join('-');
+// }
 
 export default function Map({
   isLoading,

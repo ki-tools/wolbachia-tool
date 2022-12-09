@@ -13,6 +13,7 @@ import SummaryGrid from './SummaryGrid';
 import { SUMMS, INPUTS, COLORMENU } from '../../constants';
 import { interpolateViridis } from 'd3-scale-chromatic';
 import { scaleLinear, scaleThreshold } from 'd3-scale';
+import InfoSection from './InfoSection';
 
 export default function Tool({
   sections,
@@ -107,6 +108,9 @@ export default function Tool({
           id={`sec-${sections[0].hash}`}
           ref={sections[0].ref}
         >
+          <Box sx={{ mt: 2, mr: 2, ml: 2 }}>
+            <InfoSection sec={sections[0]} />
+          </Box>{' '}
           <Box display="flex" flex="1 1 auto" overflow="hidden">
             <Box
               flex="1 1 auto"

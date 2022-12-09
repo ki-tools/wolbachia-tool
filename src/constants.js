@@ -1,3 +1,6 @@
+import Link from '@mui/material/Link';
+import Box from '@mui/material/Box';
+
 export const INPUTS = {
   // misc
   TARPLN: {
@@ -27,7 +30,7 @@ export const INPUTS = {
     helpText: undefined,
   },
   TIMFRM: {
-    default: 0,
+    default: 1,
     values: [0, 1, 2, 3],
     multiplier: [1, 5, 10, 20],
     benefitsDiscounted: [1, 4.70886, 8.752529, 15.20686],
@@ -207,11 +210,10 @@ export const TOOLTIPS = {
   COV: (
     <span>
       Select what percentage of target areas you expect to release{' '}
-      <em>Wolbachia</em>
-      mosquitoes or eggs. This input reflects that many {'km\u00b2'}, even with
-      high population density, may have areas (e.g., parks, green space) where
-      there are limited people, indicating that Wolbachia-containing
-      mosquitoes/eggs would not be released there.
+      <em>Wolbachia</em> mosquitoes or eggs. This input reflects that many{' '}
+      {'km\u00b2'}, even with high population density, may have areas (e.g.,
+      parks, green space) where there are limited people, indicating that
+      Wolbachia-containing mosquitoes/eggs would not be released there.
     </span>
   ),
   COSTS:
@@ -539,15 +541,78 @@ VARS.forEach((d) => {
   VARLOOKUP[d.name] = d;
 });
 
-export const SECTEXT = {
-  BURDEN:
-    'To determine whether you should or should not implement Wolbachia in your country or target geography, we would recommend reviewing the dengue burden overall and in each geography. In the following table, we present data for each second Global Administrative Unit Layer (GAUL)  within the selected country. Data includes the total area (km\u00b2), the target area (km² ), the total population, the target population, the mean dengue incidence, dengue cases, dengue DALYs,  and the number of cases which are treated in a hospital inpatient setting, treated an outpatient/ambulatory setting, and not treated in medical settings. The table can be sorted by each of the presented indicators. Specific observations can be found by using the search bar.',
-  IMPLEMENTATION:
-    'To understand where to implement Wolbachia given your set inputs, we present a summary of the area (km\u00b2) covered by Wolbachia (i.e., the target area based on population density  multiplied by the intervention coverage), the population covered by the intervention (i.e., the population in the target area multiplied by the intervention coverage), the total cost of the Wolbachia intervention in each second administrative unit, and the cost per person covered. The table can be sorted by each of the presented indicators. Specific observations can be found by using the search bar.',
-  REDUCTION:
-    'To understand the impact of Wolbachia in terms  of the number of dengue cases which could be averted, we present the number of cases, DALYs, hospitalized cases, ambulatory cases, and not-medically treated cases averted within each geography. The table can be sorted by each of the presented indicators. Specific observations can be found by using the search bar.',
-  ADDBENEFITS:
-    'To understand the impact of Wolbachia in terms  of the number of dengue cases which could be averted, we present the number of cases, DALYs, hospitalized cases, ambulatory cases, and not-medically treated cases averted within each geography. The table can be sorted by each of the presented indicators. Specific observations can be found by using the search bar.',
+export const TOOLSECTEXT = {
+  MAP: (
+    <Box>
+      To determine whether you should or should not implement <em>Wolbachia</em>{' '}
+      in your country or target geography and where you should target{' '}
+      <em>Wolbachia</em>
+      implementation efforts, we would recommend reviewing the following map of
+      key indicators. Detailed data is included in the tables below. However,
+      this map serves as a visualization to understand the geographic
+      distribution of the target areas, population, and dengue burden, which
+      provides a useful overview.
+      <Box>
+        Indicators included in the map are baseline data (e.g., the dengue
+        burden in the country and selected geographies), the implementation
+        outcomes (e.g., cost per person, cost per case averted); the dengue
+        reduction benefits (e.g., cases averted), and additional benefits (i.e.,
+        direct and indirect costs averted). You can use the dropdown menu to
+        select a specific indicator to appear on the map. We recommend zooming
+        in using the + and - button in the left upper corner or by
+        double-clicking on the desired zoom point. When you hover over selected
+        geographies, the indicator values will appear.
+      </Box>
+    </Box>
+  ),
+  BURDEN: (
+    <span>
+      To determine whether you should or should not implement <em>Wolbachia</em>{' '}
+      in your country or target geography, we would recommend reviewing the
+      dengue burden overall and in each geography. In the following table, we
+      present data for each second Global Administrative Unit Layer (GAUL)
+      within the selected country. Data includes the total area (km\u00b2), the
+      target area (km² ), the total population, the target population, the mean
+      dengue incidence, dengue cases, dengue DALYs, and the number of cases
+      which are treated in a hospital inpatient setting, treated an
+      outpatient/ambulatory setting, and not treated in medical settings. The
+      table can be sorted by each of the presented indicators. Specific
+      observations can be found by using the search bar.
+    </span>
+  ),
+  IMPLEMENTATION: (
+    <span>
+      To understand where to implement <em>Wolbachia</em> given your set inputs,
+      we present a summary of the area (km\u00b2) covered by <em>Wolbachia</em>{' '}
+      (i.e., the target area based on population density multiplied by the
+      intervention coverage), the population covered by the intervention (i.e.,
+      the population in the target area multiplied by the intervention
+      coverage), the total cost of the <em>Wolbachia</em> intervention in each
+      second administrative unit, and the cost per person covered. The table can
+      be sorted by each of the presented indicators. Specific observations can
+      be found by using the search bar.
+    </span>
+  ),
+  REDUCTION: (
+    <span>
+      'To understand the impact of <em>Wolbachia</em> in terms of the number of
+      dengue cases which could be averted, we present the number of cases,
+      DALYs, hospitalized cases, ambulatory cases, and not-medically treated
+      cases averted within each geography. The table can be sorted by each of
+      the presented indicators. Specific observations can be found by using the
+      search bar.
+    </span>
+  ),
+  ADDBENEFITS: (
+    <span>
+      To understand the impact of <em>Wolbachia</em> in terms of the number of
+      dengue cases which could be averted, we present the number of cases,
+      DALYs, hospitalized cases, ambulatory cases, and not-medically treated
+      cases averted within each geography. The table can be sorted by each of
+      the presented indicators. Specific observations can be found by using the
+      search bar.
+    </span>
+  ),
 };
 
 const cols = ['#76B7B2', '#E15759', '#F28E2B', '#59A14F', '#B07AA1', '#4E79A7'];
@@ -661,3 +726,220 @@ export const SUMMS = {
     },
   ],
 };
+
+// fills in the content in main/DataSources.js
+// the optional `extraText` will show up in a dialog box, useful if there's too much text to show by default
+export const DATA_SOURCES_CONTENT = [
+  {
+    title: (
+      <span>
+        Cost ranges for <em>Wolbachia</em> implementation by phase and activity
+      </span>
+    ),
+    text: (
+      <span>
+        Costs have been generalized to common program phases which include
+        planning, preparation, production, distribution, release, and
+        monitoring, and common activities within those phases. Prior
+        cost-effectiveness analyses (
+        <Link
+          target="_blank"
+          rel="noreferrer"
+          href="https://bmcmedicine.biomedcentral.com/articles/10.1186/s12916-020-01638-2"
+        >
+          Brady et al. 2020
+        </Link>
+        {') have reported costs per km\u00b2 within these phases.'}
+      </span>
+    ),
+    extraText: (
+      <Box>
+        <ul>
+          <li>
+            Planning refers to creating a coordinated release plan using data
+            sources for geospatial disease burden, population demographics,
+            health systems costing, environmental covariates, and vector
+            bionomics.
+          </li>
+          <li>
+            Preparation refers to regulatory and stakeholder engagement
+            logistics such as Environmental Impact Assessments, social
+            mobilization, and setting up procurement agreements.
+          </li>
+          <li>
+            Production refers to building or leasing an appropriate facility,
+            training staff, and rearing a breeding line of mass-produced
+            mosquitos. Additional guidance on estimating these costs can be
+            found at the following dashboard developed by our collaborators at
+            Coupa.
+          </li>
+          <li>
+            Distribution refers to sex-sorting followed by transportation to
+            release areas via ground or air shipping. Additional guidance on
+            estimating these costs can be found at the following dashboard
+            developed by our collaborators at Coupa.
+          </li>
+          <li>
+            Release refers to the release of live adults or placement of eggs
+            along pre-determined release grid to cover maximum relevant program
+            area.
+          </li>
+          <li>
+            Monitoring refers to three types of monitoring: environmental
+            monitoring to ensure no unplanned effects on relevant ecological
+            niches; entomological monitoring to determine intervention
+            establishment in local vectors; epidemiological monitoring to
+            measure impact on human disease in target areas for determining
+            effectiveness.
+          </li>
+        </ul>
+        <p>
+          Cost data for mosquito release technologies are not publicly shared by
+          implementers. Publicly available information (e.g., in academic and
+          grey literature) varies drastically. Based on budget estimates,
+          publicly available literature, and key informant interviews, costs
+          were aggregated to the program category and averaged to determine a
+          range for each category of phases and activities.
+        </p>
+      </Box>
+    ),
+  },
+  {
+    title: 'Dengue burden',
+    text: (
+      <span>
+        We relied on modelled raster data for burden as asymptomatic and
+        symptomatic dengue and malaria are severely underreported. Symptomatic
+        dengue burden was extracted from spatial raster datasets provided by{' '}
+        <Link
+          target="_blank"
+          rel="noreferrer"
+          href="https://www.nature.com/articles/nature12060"
+        >
+          Bhatt et al. 2013
+        </Link>
+        .
+      </span>
+    ),
+  },
+  {
+    title: 'Dengue disability',
+    text: (
+      <span>
+        Estimates of DALYs and cases were extracted from{' '}
+        <Link
+          target="_blank"
+          rel="noreferrer"
+          href="https://www.healthdata.org/gbd/2019"
+        >
+          The Institute for Health Metrics and Evaluation (IHME)
+        </Link>
+        . Based on the national estimates, we calculated the DALYs per dengue
+        case.
+      </span>
+    ),
+  },
+  {
+    title: 'Administrative divisions',
+    text: (
+      <span>
+        Administrative divisions for each secondary administrative unit were
+        obtained from{' '}
+        <Link
+          target="_blank"
+          rel="noreferrer"
+          href="https://data.review.fao.org/map/catalog/srv/api/records/7e6357e6-0893-4b61-a26d-eb09a04eed72"
+        >
+          GAUL within the Food and Agriculture organization of the UN
+        </Link>
+        .
+      </span>
+    ),
+  },
+  {
+    title: 'Population',
+    text: (
+      <span>
+        Population raster spatial datasets were accessed from{' '}
+        <Link target="_blank" rel="noreferrer" href="https://www.worldpop.org">
+          WorldPop
+        </Link>{' '}
+        {
+          'The data used was unconstrained 1 km resolution estimates of population count and population density, adjusted to match UN Population estimates and measured in units of persons per km\u00b2.'
+        }
+      </span>
+    ),
+  },
+  {
+    title: 'Effectiveness',
+    text: (
+      <span>
+        The default value for effectiveness was extracted from a recent study in
+        Yogyakarta demonstrating that Wolbachia led to a 77% (95% Confidence
+        Interval: 65-85%) reduction in dengue incidence (
+        <Link
+          target="_blank"
+          rel="noreferrer"
+          href="https://www.nejm.org/doi/full/10.1056/NEJMoa2030243"
+        >
+          Utarini et al. 2021
+        </Link>
+        ).
+      </span>
+    ),
+  },
+  {
+    title: 'Healthcare utilization & cost of illness',
+    text: (
+      <span>
+        Estimates of healthcare utilization for each type of case (hospitalized,
+        ambulatory, non-medically attended) were derived from a study evaluating
+        the global economic burden of dengue (
+        <Link
+          target="_blank"
+          rel="noreferrer"
+          href="https://pubmed.ncbi.nlm.nih.gov/27091092/"
+        >
+          Shepard et al. 2016
+        </Link>
+        . The study provides estimates for the percentage of people with dengue
+        that receive care in a hospital setting, ambulatory/outpatient setting,
+        and non-medical setting. It also estimates direct, medical costs and
+        indirect (lost wages) associated with each type of case in each country.
+        .
+      </span>
+    ),
+  },
+  {
+    title: 'Discounting rates',
+    text: (
+      <span>
+        A discount rate of 3% was applied to the costs and benefits for the 5-,
+        10-, and 20-year estimates. This discounting rate is recommended by the
+        World Health Organization (
+        <Link
+          target="_blank"
+          rel="noreferrer"
+          href="https://apps.who.int/iris/bitstream/handle/10665/42699/9241546018.pdf?sequence=1"
+        >
+          Baltussen, 2003
+        </Link>
+        ).
+      </span>
+    ),
+  },
+  {
+    title: 'Disease reduction targets',
+    text: (
+      <span>
+        Priority administrative 2 units were selected for 12.5% and 25% national
+        reduction based on the work of one of our collaborators (Tiley, K.,
+        Entwistle, J., Thomas, B., Yakob L., Brady, O.J. Using models and maps
+        to inform Target Product Profiles and Preferred Product Characteristics:
+        the example of <em>Wolbachia</em> replacement. Manuscript in
+        preparation). Details regarding the methodology for selecting those
+        areas are described in the manuscript above.
+      </span>
+    ),
+  },
+];

@@ -9,6 +9,24 @@ import Container from './Container';
 // import { useTheme } from '@mui/material/styles';
 import LaunchApp from './LaunchApp';
 
+// ['#76B7B2', '#E15759', '#F28E2B', '#59A14F', '#B07AA1', '#4E79A7'];
+
+function PreDef({ children }) {
+  return <span style={{ color: '#59A14F' }}>{children}</span>;
+}
+
+function UserInput({ children }) {
+  return <span style={{ color: '#F28E2B' }}>{children}</span>;
+}
+
+function Calc({ children }) {
+  return <span style={{ color: '#E15759' }}>{children}</span>;
+}
+
+function Times() {
+  return <> &times; </>;
+}
+
 const content = [
   {
     section: 'Dengue burden estimates',
@@ -16,38 +34,43 @@ const content = [
       {
         title: 'Total population',
         description: (
-          <span className="input-par">
-            Total population in the administrative level 2 area
-          </span>
+          <PreDef>Total population in the administrative level 2 area</PreDef>
         ),
       },
       {
         title: 'Target population',
         description: (
-          <span className="input-par">
-            Total population in the 'target' of the administrative 2 area
-          </span>
+          <>
+            <PreDef>
+              Total population in the 'target' of the administrative 2 area
+            </PreDef>
+            <Times />
+            <UserInput>coverage</UserInput>
+          </>
         ),
       },
       {
         title: 'Mean dengue incidence',
         description: (
-          <span className="input-par">
-            Total dengue incidence in the administrative 2 area
-          </span>
+          <PreDef>Total dengue incidence in the administrative 2 area</PreDef>
         ),
       },
       {
         title: 'Total number of cases',
         description: (
           <>
-            <span className="input-par">
-              Total population in the administrative 2 area
-            </span>{' '}
-            &times;{' '}
-            <span className="input-par">
-              dengue incidence in the administrative 2 area
-            </span>
+            <PreDef>Total population in the administrative 2 area</PreDef>
+            <Times />
+            <UserInput>coverage</UserInput>
+            <Times />
+            <PreDef>Total dengue incidence in the administrative 2 area</PreDef>
+            <Box>
+              {' '}
+              <em>
+                For 5, 10,and 20 year estimates, the cases are multiplied by 5,
+                10, and 20 respectively.
+              </em>
+            </Box>
           </>
         ),
       },
@@ -55,10 +78,11 @@ const content = [
         title: 'Total number of hospitalized cases',
         description: (
           <>
-            <span className="input-par">Total number of cases</span> &times;{' '}
-            <span className="input-par">
+            <Calc>Total number of cases</Calc>
+            <Times />
+            <PreDef>
               percentage of cases seeking care in hospitalized setting
-            </span>
+            </PreDef>
           </>
         ),
       },
@@ -66,10 +90,11 @@ const content = [
         title: 'Total number of ambulatory cases',
         description: (
           <>
-            <span className="input-par">Total number of cases</span> &times;{' '}
-            <span className="input-par">
+            <Calc>Total number of cases</Calc>
+            <Times />
+            <PreDef>
               percentage of cases seeking care in an outpatient setting
-            </span>
+            </PreDef>
           </>
         ),
       },
@@ -77,10 +102,11 @@ const content = [
         title: 'Total number of not medically-attended cases',
         description: (
           <>
-            <span className="input-par">Total number of cases</span> &times;{' '}
-            <span className="input-par">
+            <Calc>Total number of cases</Calc>
+            <Times />
+            <PreDef>
               percentage of cases seeking care in a non-medical setting
-            </span>
+            </PreDef>
           </>
         ),
       },
@@ -90,44 +116,94 @@ const content = [
     section: 'Implementation estimates',
     items: [
       {
-        title: (
-          <span>
-            Total population covered by <em>Wolbachia</em>
-          </span>
-        ),
-        description: 'To be added',
-      },
-      {
-        title: 'Total cost',
-        description: 'To be added',
-      },
-      {
-        title: 'Mean cost per person',
-        description: 'To be added',
-      },
-      {
         title: 'Area covered by intervention',
-        description: 'To be added',
+        description: (
+          <>
+            <PreDef>target area</PreDef>
+            <Times />
+            <UserInput>coverage</UserInput>
+          </>
+        ),
       },
       {
         title: 'Population covered by intervention',
-        description: 'To be added',
+        description: (
+          <>
+            <PreDef>target population</PreDef>
+            <Times />
+            <UserInput>coverage</UserInput>
+          </>
+        ),
+      },
+      {
+        title: 'Total cost (phase-based)',
+        description: (
+          <>
+            (<UserInput>cost of planning</UserInput> +{' '}
+            <UserInput>cost of preparation</UserInput> +{' '}
+            <UserInput>cost of production</UserInput> +{' '}
+            <UserInput>cost of distribution</UserInput> +{' '}
+            <UserInput>cost of release</UserInput> +{' '}
+            <UserInput>cost of monitoring</UserInput>) <Times /> (
+            <PreDef>target area</PreDef>
+            <Times /> <UserInput>coverage</UserInput>)
+          </>
+        ),
+      },
+      {
+        title: 'Total cost (activity-based)',
+        description: (
+          <>
+            (<UserInput>define workplan and budget</UserInput> +{' '}
+            <UserInput>determine release methodology</UserInput> +{' '}
+            <UserInput>enroll community participation</UserInput> +{' '}
+            <UserInput>facility setup</UserInput> +{' '}
+            <UserInput>mosquito line creation</UserInput> +{' '}
+            <UserInput>mosquito production</UserInput> +{' '}
+            <UserInput>quality management and control</UserInput> +{' '}
+            <UserInput>deliver eggs/adults to distribution points</UserInput> +{' '}
+            <UserInput>egg/adult deployments</UserInput> +{' '}
+            <UserInput>quality assurance</UserInput> +{' '}
+            <UserInput>adaptive management</UserInput> +{' '}
+            <UserInput>measure community sentiment</UserInput> +{' '}
+            <UserInput>monitoring in the field</UserInput>) <Times /> (
+            <PreDef>target area</PreDef>
+            <Times /> <UserInput>coverage</UserInput>)
+          </>
+        ),
+      },
+      {
+        title: 'Mean cost per person',
+        description: (
+          <>
+            <Calc>total cost</Calc> /{' '}
+            <Calc>population covered by intervention</Calc>
+          </>
+        ),
+      },
+      {
+        title: 'Area covered by intervention',
+        description: <></>,
+      },
+      {
+        title: 'Population covered by intervention',
+        description: <></>,
       },
       {
         title: 'Total cost of intervention',
-        description: 'To be added',
+        description: <></>,
       },
       {
         title: 'Cost per person',
-        description: 'To be added',
+        description: <></>,
       },
       {
         title: 'Cost per case averted',
-        description: 'To be added',
+        description: <></>,
       },
       {
         title: 'Cost per DALY averted',
-        description: 'To be added',
+        description: <></>,
       },
     ],
   },
@@ -136,31 +212,31 @@ const content = [
     items: [
       {
         title: 'Total cases averted',
-        description: 'To be added',
+        description: <></>,
       },
       {
         title: 'Total DALYs averted',
-        description: 'To be added',
+        description: <></>,
       },
       {
         title: 'Cases averted',
-        description: 'To be added',
+        description: <></>,
       },
       {
         title: 'DALYs averted',
-        description: 'To be added',
+        description: <></>,
       },
       {
         title: 'Hospitalized cases averted',
-        description: 'To be added',
+        description: <></>,
       },
       {
         title: 'Ambulatory cases averted',
-        description: 'To be added',
+        description: <></>,
       },
       {
         title: 'Non-medically attended cases averted',
-        description: 'To be added',
+        description: <></>,
       },
     ],
   },
@@ -169,35 +245,35 @@ const content = [
     items: [
       {
         title: 'Total health system costs averted',
-        description: 'To be added',
+        description: <></>,
       },
       {
         title: 'Total economic costs averted',
-        description: 'To be added',
+        description: <></>,
       },
       {
         title: 'Direct hospitalized costs averted',
-        description: 'To be added',
+        description: <></>,
       },
       {
         title: 'Direct ambulatory costs averted',
-        description: 'To be added',
+        description: <></>,
       },
       {
         title: 'Direct not-medically attended costs averted',
-        description: 'To be added',
+        description: <></>,
       },
       {
         title: 'Indirect hospitalized costs averted',
-        description: 'To be added',
+        description: <></>,
       },
       {
         title: 'Indirect ambulatory costs averted',
-        description: 'To be added',
+        description: <></>,
       },
       {
         title: 'Indirect not-medically attended costs averted',
-        description: 'To be added',
+        description: <></>,
       },
     ],
   },

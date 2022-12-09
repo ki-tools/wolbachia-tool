@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import {
   DataGrid,
   GridToolbarContainer,
@@ -10,6 +9,7 @@ import {
   GridFooterContainer,
   GridPagination,
 } from '@mui/x-data-grid';
+import InfoSection from './InfoSection';
 import { VARS, TABLES, TABLESORT } from '../../constants';
 
 function CustomToolbar() {
@@ -71,19 +71,7 @@ export default function Table({ data, which, sec, footerText }) {
   return (
     // height: 455
     <Box sx={{ width: '100%' }}>
-      <Box sx={{ backgroundColor: '#444444' }} padding={2}>
-        <Typography
-          sx={{
-            color: 'white',
-            fontWeight: 700,
-            fontSize: '18px',
-            textTransform: 'uppercase',
-          }}
-        >
-          {sec.tblTitle}
-        </Typography>
-        <Typography sx={{ color: 'white' }}>{sec.text}</Typography>
-      </Box>
+      <InfoSection sec={sec} />
       <DataGrid
         getRowId={(row) => row.gaul_code}
         rows={data}

@@ -5,32 +5,8 @@ import Button from '@mui/material/Button';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
-import Container from './Container';
-
 const LaunchApp = () => {
   return (
-    // <Container>
-    //   <Box>
-    //     <Typography
-    //       variant="h4"
-    //       color="text.primary"
-    //       align={'center'}
-    //       gutterBottom
-    //       sx={{
-    //         fontWeight: 700,
-    //       }}
-    //     >
-    //       Use the tool
-    //     </Typography>
-    //     <Typography
-    //       variant="h6"
-    //       component="p"
-    //       color="text.secondary"
-    //       sx={{ fontWeight: 400 }}
-    //       align={'center'}
-    //     >
-    //       Use the tool
-    //     </Typography>
     <Box
       display="flex"
       flexDirection={{ xs: 'column', sm: 'row' }}
@@ -40,8 +16,6 @@ const LaunchApp = () => {
     >
       <LaunchAppButton />
     </Box>
-    //   </Box>
-    // </Container>
   );
 };
 

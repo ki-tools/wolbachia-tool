@@ -1,4 +1,3 @@
-import { forwardRef } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -33,10 +32,10 @@ export default function ValInput({ inputs, nm, handleChange }) {
     },
   };
 
-  if (INPUTS[nm].range) {
-    materialUiTextFieldProps.error =
-      inputs[nm] < INPUTS[nm].range[0] || inputs[nm] > INPUTS[nm].range[1];
-  }
+  // if (INPUTS[nm].range) {
+  //   materialUiTextFieldProps.error =
+  //     inputs[nm] < INPUTS[nm].range[0] || inputs[nm] > INPUTS[nm].range[1];
+  // }
 
   return (
     <Box marginBottom={2}>
