@@ -1004,13 +1004,11 @@ export const CALCS = [
             <UserInput>coverage</UserInput>
             <Times />
             <PreDef>Total dengue incidence in the administrative 2 area</PreDef>
-            <Box>
-              {' '}
-              <em>
-                For 5, 10,and 20 year estimates, the cases are multiplied by 5,
-                10, and 20 respectively.
-              </em>
-            </Box>
+            <br />
+            <em>
+              For 5, 10,and 20 year estimates, the cases are multiplied by 5,
+              10, and 20 respectively.
+            </em>
           </>
         ),
       },

@@ -56,8 +56,8 @@ const Calculations = () => {
             multiplied by the year.
           </Typography>{' '}
           <Box align="center" pt={3}>
-            {Object.values(CALCKEY).map((d) => (
-              <Typography sx={{ color: d.color, fontWeight: 700 }}>
+            {Object.values(CALCKEY).map((d, ii) => (
+              <Typography key={ii} sx={{ color: d.color, fontWeight: 700 }}>
                 {d.name}
               </Typography>
             ))}

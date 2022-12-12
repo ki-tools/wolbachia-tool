@@ -6,6 +6,7 @@ import Main from './components/main/Main';
 import Tool from './components/tool/Tool';
 // import 'aos/dist/aos.css';
 import useCountryMeta from './services/useCountryMeta';
+import AppErrorBoundary from './components/AppErrorBoundary';
 import { INPUTS, TOOLSECTEXT } from './constants';
 
 const initialState = {};
@@ -113,7 +114,7 @@ export default function App() {
   // if (error) return 'An error has occurred: ' + error.message;
 
   return (
-    <div>
+    <AppErrorBoundary inputs={inputs}>
       <Header
         sections={sections}
         activeMainSection={activeMainSection}
@@ -149,7 +150,7 @@ export default function App() {
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>
-    </div>
+    </AppErrorBoundary>
   );
 }
 
