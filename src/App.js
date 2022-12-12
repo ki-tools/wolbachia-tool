@@ -114,7 +114,7 @@ export default function App() {
   // if (error) return 'An error has occurred: ' + error.message;
 
   return (
-    <AppErrorBoundary inputs={inputs}>
+    <AppErrorBoundary inputs={{ ...inputs, countryCode, colorVar }}>
       <Header
         sections={sections}
         activeMainSection={activeMainSection}
