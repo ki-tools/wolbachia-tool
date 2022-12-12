@@ -906,7 +906,6 @@ export const DATA_SOURCES_CONTENT = [
         that receive care in a hospital setting, ambulatory/outpatient setting,
         and non-medical setting. It also estimates direct, medical costs and
         indirect (lost wages) associated with each type of case in each country.
-        .
       </span>
     ),
   },
@@ -941,5 +940,374 @@ export const DATA_SOURCES_CONTENT = [
         areas are described in the manuscript above.
       </span>
     ),
+  },
+];
+
+// #4E79A7', ',#F28E2B', ',#E15759', ',#76B7B2', ',#59A14F', ',#EDC948', ',#B07AA1', ',#FF9DA7', ',#9C755F', ',#BAB0AC'
+
+export const CALCKEY = {
+  predef: { color: '#59A14F', name: 'Green: Pre-defined input parameter' },
+  userinput: { color: '#9C755F', name: 'Brown: User input' },
+  calc: { color: '#E15759', name: 'Red: Calculated value' },
+};
+
+function PreDef({ children }) {
+  return <span style={{ color: CALCKEY.predef.color }}>{children}</span>;
+}
+
+function UserInput({ children }) {
+  return <span style={{ color: CALCKEY.userinput.color }}>{children}</span>;
+}
+
+function Calc({ children }) {
+  return <span style={{ color: CALCKEY.calc.color }}>{children}</span>;
+}
+
+function Times() {
+  return <> &times; </>;
+}
+
+export const CALCS = [
+  {
+    section: 'Dengue burden estimates',
+    items: [
+      {
+        title: 'Total population',
+        description: (
+          <PreDef>Total population in the administrative level 2 area</PreDef>
+        ),
+      },
+      {
+        title: 'Target population',
+        description: (
+          <>
+            <PreDef>
+              Total population in the 'target' of the administrative 2 area
+            </PreDef>
+            <Times />
+            <UserInput>coverage</UserInput>
+          </>
+        ),
+      },
+      {
+        title: 'Mean dengue incidence',
+        description: (
+          <PreDef>Total dengue incidence in the administrative 2 area</PreDef>
+        ),
+      },
+      {
+        title: 'Total number of cases',
+        description: (
+          <>
+            <PreDef>Total population in the administrative 2 area</PreDef>
+            <Times />
+            <UserInput>coverage</UserInput>
+            <Times />
+            <PreDef>Total dengue incidence in the administrative 2 area</PreDef>
+            <Box>
+              {' '}
+              <em>
+                For 5, 10,and 20 year estimates, the cases are multiplied by 5,
+                10, and 20 respectively.
+              </em>
+            </Box>
+          </>
+        ),
+      },
+      {
+        title: 'Total number of hospitalized cases',
+        description: (
+          <>
+            <Calc>Total number of cases</Calc>
+            <Times />
+            <PreDef>
+              percentage of cases seeking care in hospitalized setting
+            </PreDef>
+          </>
+        ),
+      },
+      {
+        title: 'Total number of ambulatory cases',
+        description: (
+          <>
+            <Calc>Total number of cases</Calc>
+            <Times />
+            <PreDef>
+              percentage of cases seeking care in an outpatient setting
+            </PreDef>
+          </>
+        ),
+      },
+      {
+        title: 'Total number of not medically-attended cases',
+        description: (
+          <>
+            <Calc>Total number of cases</Calc>
+            <Times />
+            <PreDef>
+              percentage of cases seeking care in a non-medical setting
+            </PreDef>
+          </>
+        ),
+      },
+    ],
+  },
+  {
+    section: 'Implementation estimates',
+    items: [
+      {
+        title: 'Area covered by intervention',
+        description: (
+          <>
+            <PreDef>target area</PreDef>
+            <Times />
+            <UserInput>coverage</UserInput>
+          </>
+        ),
+      },
+      {
+        title: 'Population covered by intervention',
+        description: (
+          <>
+            <PreDef>target population</PreDef>
+            <Times />
+            <UserInput>coverage</UserInput>
+          </>
+        ),
+      },
+      {
+        title: 'Total cost (phase-based)',
+        description: (
+          <>
+            (<UserInput>cost of planning</UserInput> +{' '}
+            <UserInput>cost of preparation</UserInput> +{' '}
+            <UserInput>cost of production</UserInput> +{' '}
+            <UserInput>cost of distribution</UserInput> +{' '}
+            <UserInput>cost of release</UserInput> +{' '}
+            <UserInput>cost of monitoring</UserInput>) <Times /> (
+            <PreDef>target area</PreDef>
+            <Times /> <UserInput>coverage</UserInput>)
+          </>
+        ),
+      },
+      {
+        title: 'Total cost (activity-based)',
+        description: (
+          <>
+            (<UserInput>define workplan and budget</UserInput> +{' '}
+            <UserInput>determine release methodology</UserInput> +{' '}
+            <UserInput>enroll community participation</UserInput> +{' '}
+            <UserInput>facility setup</UserInput> +{' '}
+            <UserInput>mosquito line creation</UserInput> +{' '}
+            <UserInput>mosquito production</UserInput> +{' '}
+            <UserInput>quality management and control</UserInput> +{' '}
+            <UserInput>deliver eggs/adults to distribution points</UserInput> +{' '}
+            <UserInput>egg/adult deployments</UserInput> +{' '}
+            <UserInput>quality assurance</UserInput> +{' '}
+            <UserInput>adaptive management</UserInput> +{' '}
+            <UserInput>measure community sentiment</UserInput> +{' '}
+            <UserInput>monitoring in the field</UserInput>) <Times /> (
+            <PreDef>target area</PreDef>
+            <Times /> <UserInput>coverage</UserInput>)
+          </>
+        ),
+      },
+      {
+        title: 'Mean cost per person',
+        description: (
+          <>
+            <Calc>total cost</Calc> /{' '}
+            <Calc>population covered by intervention</Calc>
+          </>
+        ),
+      },
+      {
+        title: 'Total cost of intervention (phase-based)',
+        description: (
+          <>
+            <UserInput>cost of phase</UserInput> <Times />{' '}
+            <Calc>area covered by intervention</Calc>
+          </>
+        ),
+      },
+      {
+        title: 'Total cost of intervention (activity-based)',
+        description: (
+          <>
+            <UserInput>total cost of each activity within the phase</UserInput>{' '}
+            <Times /> <Calc>area covered by intervention</Calc>
+          </>
+        ),
+      },
+      {
+        title: 'Cost per person',
+        description: (
+          <>
+            <Calc>total cost</Calc> /{' '}
+            <Calc>population covered by intervention</Calc>
+          </>
+        ),
+      },
+      {
+        title: 'Cost per case averted',
+        description: (
+          <>
+            <Calc>total cost</Calc> / (<Calc>cases averted</Calc> <Times />{' '}
+            <UserInput>effectiveness</UserInput>)
+          </>
+        ),
+      },
+      {
+        title: 'Cost per DALY averted',
+        description: (
+          <>
+            <Calc>total cost</Calc> / (<Calc>dalys averted</Calc> <Times />{' '}
+            <UserInput>effectiveness</UserInput>)
+          </>
+        ),
+      },
+    ],
+  },
+  {
+    section: 'Dengue reduction estimates',
+    items: [
+      {
+        title: 'Total cases averted',
+        description: (
+          <>
+            (<UserInput>coverage</UserInput> <Times />{' '}
+            <PreDef>dengue incidence</PreDef>) <Times />{' '}
+            <UserInput>effectiveness</UserInput>
+            <br />
+            <em>
+              For 5, 10, and 20 year estimates, cases averted are discounted by
+              3% each year.
+            </em>
+          </>
+        ),
+      },
+      {
+        title: 'Total DALYs averted',
+        description: (
+          <>
+            (<UserInput>coverage</UserInput> <Times />{' '}
+            <PreDef>dengue incidence</PreDef>) <Times />{' '}
+            <PreDef>DALY_per_case</PreDef> *{' '}
+            <UserInput>effectiveness</UserInput>
+            <br />
+            <em>
+              For 5, 10, and 20 year estimates, cases averted are discounted by
+              3% each year.
+            </em>
+          </>
+        ),
+      },
+      {
+        title: 'Hospitalized cases averted',
+        description: (
+          <>
+            <Calc>cases averted</Calc> <Times />{' '}
+            <PreDef>percent of cases treated in hospitalized setting </PreDef>
+          </>
+        ),
+      },
+      {
+        title: 'Ambulatory cases averted',
+        description: (
+          <>
+            <Calc>cases averted</Calc> <Times />{' '}
+            <PreDef>percent of cases treated in ambulatory setting</PreDef>
+          </>
+        ),
+      },
+      {
+        title: 'Non-medically attended cases averted',
+        description: (
+          <>
+            <Calc>cases averted</Calc> <Times />{' '}
+            <PreDef>percent of cases not medically attended</PreDef>
+          </>
+        ),
+      },
+    ],
+  },
+  {
+    section: 'Health system & economic benefit estimates',
+    items: [
+      {
+        title: 'Total health system costs averted',
+        description: (
+          <>
+            <Calc>direct hospitalized costs</Calc> +{' '}
+            <Calc>direct ambulatory costs</Calc> +{' '}
+            <Calc>direct non-medically attended costs</Calc>
+          </>
+        ),
+      },
+      {
+        title: 'Total economic costs averted',
+        description: (
+          <>
+            <Calc>indirect hospitalized costs</Calc> +{' '}
+            <Calc>indirect ambulatory costs</Calc> +{' '}
+            <Calc>indirect non-medically attended costs</Calc>
+          </>
+        ),
+      },
+      {
+        title: 'Direct hospitalized costs averted',
+        description: (
+          <>
+            <Calc>hospitalized cases averted</Calc> <Times />{' '}
+            <PreDef>direct cost per hospitalized case</PreDef>
+          </>
+        ),
+      },
+      {
+        title: 'Direct ambulatory costs averted',
+        description: (
+          <>
+            <Calc>ambulatory cases averted</Calc> <Times />{' '}
+            <PreDef>direct cost per ambulatory case</PreDef>
+          </>
+        ),
+      },
+      {
+        title: 'Direct not-medically attended costs averted',
+        description: (
+          <>
+            <Calc>not medically attended cases averted</Calc> <Times />{' '}
+            <PreDef>direct cost per not medically attended case</PreDef>
+          </>
+        ),
+      },
+      {
+        title: 'Indirect hospitalized costs averted',
+        description: (
+          <>
+            <Calc>hospitalized cases averted</Calc> <Times />{' '}
+            <PreDef>indirect cost per hospitalized case</PreDef>
+          </>
+        ),
+      },
+      {
+        title: 'Indirect ambulatory costs averted',
+        description: (
+          <>
+            <Calc>ambulatory cases averted</Calc> <Times />{' '}
+            <PreDef>indirect cost per ambulatory case</PreDef>
+          </>
+        ),
+      },
+      {
+        title: 'Indirect not-medically attended costs averted',
+        description: (
+          <>
+            <Calc>not medically attended cases averted</Calc> <Times />{' '}
+            <PreDef>indirect cost per nonmedically attended case</PreDef>
+          </>
+        ),
+      },
+    ],
   },
 ];
