@@ -47,9 +47,9 @@ const SidebarControls = ({ inputs, setInputs }) => {
           <RadioSel inputs={inputs} nm="POPDEN" handleChange={handleChng} />
         </>
       )}
-      {inputs.TARPLN === 'REDTAR' && (
+      {inputs.TARPLN === 'DISRED' && (
         <>
-          <RadioSel inputs={inputs} nm="REDTAR" handleChange={handleChng} />
+          <RadioSel inputs={inputs} nm="DISRED" handleChange={handleChng} />
         </>
       )}
       <Divider sx={{ marginLeft: -2, marginRight: -2, marginBottom: 1 }} />

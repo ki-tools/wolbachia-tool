@@ -35,7 +35,7 @@ export default function Tool({
     isLoading,
     error,
     data: topo,
-  } = useTopojson(countryCode, inputs.POPDEN);
+  } = useTopojson(countryCode, inputs.TARPLN, inputs[inputs.TARPLN]);
 
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,

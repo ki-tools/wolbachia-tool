@@ -6,7 +6,7 @@ export const INPUTS = {
   TARPLN: {
     default: 'POPDEN',
     valueLabels: ['Population density threshold', 'Disease reduction target'],
-    values: ['POPDEN', 'REDTAR'],
+    values: ['POPDEN', 'DISRED'],
     label: 'Targeting criteria',
     helpText: undefined,
   },
@@ -22,10 +22,10 @@ export const INPUTS = {
     label: 'Population density',
     helpText: undefined,
   },
-  REDTAR: {
-    default: 12.5,
-    values: [12.5, 25, 50, 100],
-    valueLabels: ['12.5%', '25%', '50%', '100%'],
+  DISRED: {
+    default: '12_5',
+    values: ['12_5', '25'], //, 50, 100],
+    valueLabels: ['12.5%', '25%'], //, '50%', '100%'],
     label: 'Disease reduction target',
     helpText: undefined,
   },

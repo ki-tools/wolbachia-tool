@@ -29,13 +29,14 @@ fix_numeric <- function(x) {
   as.numeric(x)
 }
 
-process <- function(pop) {
-  message(pop)
-  if (!dir.exists(file.path("public/data", pop))) {
-    dir.create(file.path("public/data", pop))
+process <- function(dir, subdir) {
+  message(subdir)
+  if (!dir.exists(file.path("public/data", dir, subdir))) {
+    dir.create(file.path("public/data", dir, subdir),
+      recursive = TRUE)
   }
 
-  shp_path <- file.path("_preprocessing/data", pop)
+  shp_path <- file.path("_preprocessing/data", dir, subdir)
   shp <- sf::read_sf(shp_path) %>%
     rename_all(tolower)
 
@@ -54,15 +55,18 @@ process <- function(pop) {
     res <- ms_simplify(ds[[nm]], keep = 0.5)
     a <- geojson_json(res)
     b <- geo2topo(a)
-    cat(b, file = file.path("public/data", pop, paste0(nm, ".topojson")))
+    cat(b, file = file.path("public/data", dir, subdir, paste0(nm, ".topojson")))
     # saveRDS(res, file = file.path("public/data", pop, paste0(nm, ".rds")))
   }
 }
 
-process("250")
-process("500")
-process("1000")
-process("1500")
+process("POPDEN", "250")
+process("POPDEN", "500")
+process("POPDEN", "1000")
+process("POPDEN", "1500")
+
+process("DISRED", "12_5")
+process("DISRED", "25")
 
 # ------------------- country metadata ------------------- #
 
