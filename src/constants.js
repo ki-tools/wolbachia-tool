@@ -1,5 +1,14 @@
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
+function NLink({ href, text }) {
+  return (
+    <Link target="_blank" rel="noreferrer" href={href}>
+      {text}
+    </Link>
+  );
+}
 
 export const INPUTS = {
   // misc
@@ -896,65 +905,358 @@ export const DATA_SOURCES_CONTENT = [
         preparation, production, distribution, release, and monitoring, and
         common activities within those phases. Prior cost-effectiveness analyses
         (
-        <Link
-          target="_blank"
-          rel="noreferrer"
+        <NLink
           href="https://bmcmedicine.biomedcentral.com/articles/10.1186/s12916-020-01638-2"
-        >
-          Brady et al. 2020
-        </Link>
+          text="Brady et al. 2020"
+        />
         ) have reported costs per km² within these program phases.
       </span>
     ),
     extraText: (
       <Box>
-        <ul>
-          <li>
+        <Typography sx={{ pt: 1 }}>
+          Costs for <em>Wolbachia</em> have not been publicly shared by
+          implementers. Publicly available information (e.g., in academic and
+          grey literature) varies drastically. Based on budget estimates,
+          publicly available literature, and key informant interviews, costs
+          were aggregated to the program phases and activities and averaged to
+          determine a range for each category of phases and activities.{' '}
+          <b>
+            We would highly recommend that the user inputs their own estimates
+            of costs.
+          </b>
+        </Typography>
+        <Typography sx={{ pt: 1 }}>
+          For the 5-, 10-, 15- year costs, we assume that the programs are the
+          full cost for the first three years of implementation, and then
+          require very little funding after (1% of total budget annually) for
+          monitoring.
+        </Typography>
+        <Typography>
+          There are two cost models for how <em>Wolbachia</em> programs might be
+          scaled up (
+          <NLink
+            href="https://cdn.who.int/media/docs/default-source/ntds/vector-ecology-mangement/context-background-materials-tpp-wolbachia-infected-aedes-aegypti.pdf?sfvrsn=6760a656_3"
+            text="World Health Organization, 2022"
+          />
+          ).
+          <ul>
+            <li>
+              A turnkey model, where a manufacturer is directly responsible for
+              all aspects of the program, including set-up, release, and
+              post-release monitoring.
+            </li>
+            <li>
+              An integrated model, where the manufacturer, who may be local,
+              regional, or global, will supply ready-to-distribute
+              mosquito-release containers while a local organization or
+              vector-control program manages set-up, release, and monitoring.
+            </li>
+          </ul>
+        </Typography>
+        <Typography>
+          It is expected that the integrated model would be more cost-effective
+          given it would leverage existing supply chains and resources. A
+          detailed summary of phases and activities that guide cost inputs are
+          provided below.
+        </Typography>
+        <Typography sx={{ fontSize: 22, fontWeight: 800, pt: 2 }}>
+          Planning
+        </Typography>
+        <Typography sx={{ pt: 1 }}>
+          <b>
             Planning refers to creating a coordinated release plan using data
             sources for geospatial disease burden, population demographics,
             health systems costing, environmental covariates, and vector
             bionomics.
-          </li>
-          <li>
+          </b>{' '}
+          The planning phase of a <em>Wolbachia</em> is critical because
+          adequately characterizing the eventual release area will dictate most
+          future costs. This tool provides insight on to some of these planning
+          and targeting efforts. The necessary steps to the planning phase
+          include identifying data sources for geospatial disease burden,
+          population demographics, health systems costing, environmental
+          covariates, and vector bionomics that are all likely to affect the
+          creation of a coordinated release plan. The necessary vector bionomics
+          will include the primary target Aedes species and other mosquitoes
+          present in each area, the main transmitters of human disease, and how
+          these abundance levels are affected by seasonality. If any of these
+          datasets do not exist and need to be created, this will add
+          substantially to the time and cost involved in the planning stage.
+          Identifying and working with in-country partners to use these data in
+          identifying a release area is an activity that will vary between
+          countries.
+        </Typography>
+        <Typography sx={{ fontSize: 22, fontWeight: 800, pt: 2 }}>
+          Preparation
+        </Typography>
+        <Typography sx={{ pt: 1 }}>
+          <b>
             Preparation refers to regulatory and stakeholder engagement
             logistics such as Environmental Impact Assessments, social
             mobilization, and setting up procurement agreements.
-          </li>
-          <li>
+          </b>{' '}
+          The preparation phase of a<em>Wolbachia</em> includes the regulatory
+          and stakeholder engagement logistics that are critical for
+          programmatic success. Determining and meeting regulatory requirements
+          from country to country is an opaque process, and one that would
+          likely benefit from cooperation and sharing of experiences across
+          implementers and countries. One potential driver of cost in this phase
+          is the completion of an Environmental Impact Assessment, the cost of
+          which may vary depending on the regulatory standards of the country of
+          interest. These costs will also vary with the mosquito target and
+          intervention in question.
+        </Typography>
+        <Typography sx={{ pt: 1 }}>
+          Stakeholder and community engagement costs vary heavily by geography,
+          as well as on the strategies chosen for their completion. For
+          instance, social mobilization and community sensitization can comprise
+          large proportions of a program budget, including up to 23% of total
+          deployment costs in a scaled up Aedes aegypti release by the World
+          Mosquito Program in Northern Australia (
+          <NLink
+            href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6305154/"
+            text="O'Neill et al, 2019"
+          />
+          ). Individual program costs are likely to be variable and highly
+          dependent on the methods used for implementation. For instance, mass
+          media outreach will entail a different range of costs than
+          on-the-ground visits to many affected towns or villages spread across
+          a wide geographic area.
+        </Typography>
+        <Typography sx={{ pt: 1 }}>
+          A key question affecting the costs of these efforts will be the
+          measurement of success. If surveys are undertaken to show the impact
+          of community engagement on public opinion, and if there are target
+          levels of community approval that must be achieved to make the
+          intervention acceptable to program staff or local government
+          officials, these are likely to increase program costs for community
+          engagement in comparison to purely educational efforts. Additionally,
+          if an intervention intends to leverage community in-program
+          distribution or implementation, through egg distribution or insect
+          collection teams (i.e., the integrated model), this may reduce cost in
+          the release and monitoring phases but will also require larger
+          up-front investments in community engagement and training. It is
+          possible that some programs will be able to reduce costs by
+          integrating their community engagement and training efforts with
+          existing programs for dengue control or public health campaigns such
+          as mass drug administration, the likelihood of which will depend on
+          the public health infrastructure and existing health interventions in
+          the geographic area in question.
+        </Typography>
+        <Typography sx={{ fontSize: 22, fontWeight: 800, pt: 2 }}>
+          Production
+        </Typography>
+        <Typography sx={{ pt: 1 }}>
+          <b>
             Production refers to building or leasing an appropriate facility,
             training staff, and rearing a breeding line of mass-produced
-            mosquitos. Additional guidance on estimating these costs can be
-            found at the following dashboard developed by our collaborators at
-            Coupa.
-          </li>
-          <li>
+            mosquitos.
+          </b>{' '}
+          The production phase of a mosquito intervention is typically dominated
+          by fixed costs for mosquito rearing and mass production that are
+          reliant on an established manufacturing facility. Building or leasing
+          an appropriate facility will represent the largest proportion of costs
+          in this phase, as well as recruiting and training the requisite staff
+          for mosquito rearing. Whether a release program uses one central
+          rearing facility and several smaller adult emergence centers, or sends
+          centrally produced eggs internationally will impact costs in this
+          phase by determining the number of facilities to be built and workers
+          to be trained. These considerations are discussed at length in the
+          distribution section. The creation of a mosquito breeding line will
+          generally represent a fixed cost category across intervention sites.
+          For instance, the backcrossing to a native population of mosquitoes is
+          a critical component for <em>Wolbachia</em>
+          interventions.
+        </Typography>
+        <Typography sx={{ pt: 1 }}>
+          Tests for vector competence, including insecticide resistance and
+          health checks of lab-produced mosquitoes, should be fixed from
+          site-to-site, as should activities that ensure line stability and
+          amplification of the original breeding colony. These may include PCR
+          checks of brood stock genetic stability, outcrossing with wild males,
+          the sourcing of human, animal, or synthetic blood, the cost of which
+          will vary depending on the source, as human blood would need to be
+          screened for pathogens, and may present additional ethical,
+          regulatory, and community engagement considerations. Synthetic sources
+          for blood meals such as SkitoSnak are more expensive to produce but
+          present fewer costs for pathogen testing (
+          <NLink
+            href="https://www.nature.com/articles/s41598-018-29415-5#:~:text=To%20overcome%20these%20constraints%2C%20we,yolk%20and%20a%20bicarbonate%20buffer."
+            text="Gonzalez et al, 2018"
+          />
+          ) and less concerns for community misunderstanding.
+        </Typography>
+        <Typography sx={{ fontSize: 22, fontWeight: 800, pt: 2 }}>
+          Distribution
+        </Typography>
+        <Typography sx={{ pt: 1 }}>
+          <b>
             Distribution refers to sex-sorting followed by transportation to
-            release areas via ground or air shipping. Additional guidance on
-            estimating these costs can be found at the following dashboard
-            developed by our collaborators at Coupa.
-          </li>
-          <li>
+            release areas via ground or air shipping.
+          </b>{' '}
+          The proportion of costs dedicated to the distribution and release of
+          lab-augmented mosquitoes will be driven by several factors.
+          Interventions that involve the release of adult mosquitoes must
+          consider survival factors that are independent of those important for
+          egg distribution. Major differences in mosquito genera requirements
+          will drive the cost of distribution and release (for example, the
+          ability to sex-sort pupae which is feasible at scale for Aedes). Once
+          they have been sex-sorted, adult mosquitoes can be chilled and
+          compacted for smooth transport to their release location (
+          <NLink
+            href="https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0008561"
+            text="Zhang et al, 2020"
+          />
+          ). This lowers the metabolism of the adult mosquitoes to a point where
+          large numbers can be compacted into small tubes for transport with a
+          reduced risk of death or injury and eventual competitiveness. For
+          Aedes aegypti mosquitoes, a study has shown that overnight air
+          transport after chilling to a temperature between 7 and 14°C resulted
+          in the highest survival rate when mosquitoes were compacted to 240
+          individuals/cm3, even though this resulted in partial damage to
+          mosquito wings and scales (
+          <NLink
+            href="https://academic-oup-com.offcampus.lib.washington.edu/jinsectscience/article/18/6/2/5153339"
+            text="Chung et al, 2018"
+          />
+          ). Additionally, another study found that Aedes albopictus mosquitoes
+          can maintain high survival rates after chilling to either 5 or 10°C
+          for a maximum of 24 hours ({' '}
+          <NLink
+            href="https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0008561"
+            text="Zhang et al, 2020"
+          />
+          ). Shipping eggs is generally cheaper and typically bears less of a
+          regulatory burden than the shipment of live adults. For those
+          interventions relying upon the shipment of eggs from international or
+          regional production hubs, Aedes eggs can be desiccated and packaged
+          for long-distance transport between 1 and 6 months depending on the
+          species (
+          <NLink
+            href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5654580/"
+            text="Kauffman et al, 2017"
+          />
+          ). If mosquitoes are being delivered internationally via shipments,
+          the costs for specialized shipping requirements and fees must be
+          considered.
+        </Typography>
+        <Typography sx={{ fontSize: 22, fontWeight: 800, pt: 2 }}>
+          Release
+        </Typography>
+        <Typography sx={{ pt: 1 }}>
+          <b>
             Release refers to the release of live adults or placement of eggs
             along pre-determined release grid to cover maximum relevant program
             area.
-          </li>
-          <li>
+          </b>{' '}
+          In-country transportation to release sites has historically been
+          accomplished via ground transportation (
+          <NLink
+            href="http://www-naweb.iaea.org/nafa/ipc/crp/RCM3-Mosquito-handlingtransport.pdf"
+            text="IAEA, 2018"
+          />
+          ), meaning that large variable costs can be accrued in
+          personnel-hours, vehicle costs, and fuel surcharges. Some groups have
+          posited the use of drone technology or light aircraft for targeted
+          airborne release of live mosquitoes ({' '}
+          <NLink
+            href="https://academic-oup-com.offcampus.lib.washington.edu/jinsectscience/article/18/6/2/5153339"
+            text="Chung et al, 2018"
+          />
+          ), but this solution has not yet been implemented at scale, and comes
+          with its own array of financial and technical considerations. The
+          release of adults compared to the placement of eggs will impact cost
+          estimates for programs, as will the size of the release grid and the
+          frequency with which releases are planned. The specific dimensions of
+          a release grid are tied generally to the flight range of the mosquito
+          in question, along with the size of the at-risk area the intervention
+          is designed to affect. Additionally, whether an intervention is
+          self-limiting, or self-sustaining will determine the need for repeated
+          releases within an area over time, or if just one release will be
+          appropriate to allow the intervention to spread throughout a wild
+          mosquito population.
+        </Typography>
+        <Typography sx={{ fontSize: 22, fontWeight: 800, pt: 2 }}>
+          Monitoring
+        </Typography>
+        <Typography sx={{ pt: 1 }}>
+          <b>
             Monitoring refers to three types of monitoring: environmental
             monitoring to ensure no unplanned effects on relevant ecological
             niches; entomological monitoring to determine intervention
             establishment in local vectors; epidemiological monitoring to
             measure impact on human disease in target areas for determining
             effectiveness.
-          </li>
-        </ul>
-        <p>
-          Cost data for mosquito release technologies are not publicly shared by
-          implementers. Publicly available information (e.g., in academic and
-          grey literature) varies drastically. Based on budget estimates,
-          publicly available literature, and key informant interviews, costs
-          were aggregated to the program category and averaged to determine a
-          range for each category of phases and activities.
-        </p>
+          </b>
+          The post-intervention phase of a mosquito release program includes
+          significant proportions of the overall program cost, accounting for
+          nearly one quarter of programmatic costs for a recent World Mosquito
+          Programme city-wide scaled deployment of <em>Wolbachia</em>-infected
+          Aedes mosquitoes in northern Australia (
+          <NLink
+            href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6305154/"
+            text="O'Neill et al, 2019"
+          />
+          ). Most of this cost category is driven by post-release monitoring of
+          environmental, entomological, and epidemiologic outcomes critical to
+          evaluating programmatic success and monitoring any unintended effects
+          of the release program. One aspect of post-intervention monitoring
+          that will impact cost is the size of the intervention area that must
+          be monitored. If the release area is spread out over a large
+          geographical area, the costs of environmental, entomological, and
+          epidemiological monitoring will all likely be higher.
+        </Typography>
+        <Typography sx={{ pt: 1 }}>
+          Much of the cost related to post-intervention environmental monitoring
+          will be determined by the biosafety regulations in the countries where
+          release operations occur. Entomological monitoring for mosquito
+          release involves costs associated with capturing mosquitoes in a
+          systematic fashion from the release area in question, as well as
+          identifying and sorting them by sex and species before examining
+          target species individuals for evidence of intervention effect.
+          Potential indicators for entomological monitoring include vector
+          population size, transgene frequency, and the ability to support
+          pathogen replication (
+          <NLink
+            href="https://www.who.int/tdr/publications/year/2014/Guidance_framework_mosquitoes.pdf"
+            text="WHO, 2014"
+          />
+          ). Costs associated with the establishment of an appropriate capture
+          grid may vary and the actual capture may vary. Once the mosquitoes are
+          captured and sorted, any additional analysis that needs to occur for
+          measuring uptake of the intervention will add to program costs. This
+          would involve determining what proportion of captured mosquitoes have
+          been colonized by the
+          <em>Wolbachia</em>.
+        </Typography>
+        <Typography sx={{ pt: 1 }}>
+          Epidemiological monitoring activities include the detection of lowered
+          incidence of infection or clinical disease in human populations
+          associated with the mosquito release area. Reductions in infections
+          are often measured alongside decreased morbidity and mortality
+          relating to the diseases of interest. If a field trial aims to detect
+          decreasing infection incidence, this will be achievable with a smaller
+          and less expensive cohort compared to field trails that aim to detect
+          decreasing incidence of disease, as clinical disease development is
+          not guaranteed in all those infected (
+          <NLink
+            href="https://www.who.int/tdr/publications/year/2014/Guidance_framework_mosquitoes.pdf"
+            text="WHO, 2014"
+          />
+          ). The costs of detecting these endpoints are often bound to the time
+          it takes to detect a meaningful difference from base-rates of disease,
+          which is most easily detected in high-transmission settings. If there
+          are very few cases in a release area, then a field trial will take
+          longer to show a detectable decrease in cases over time. This is a key
+          consideration when projecting costs for a <em>Wolbachia</em>, which
+          may be affected by seasonality and year-to-year variations which
+          affect the length of time needed to conduct a strong epidemiologic
+          evaluation of an intervention. Finally, disease monitoring will be
+          highly dependent on the existing local clinical infrastructure that
+          can be accessed for disease detection, which would have important cost
+          implications.
+        </Typography>
       </Box>
     ),
   },
@@ -965,13 +1267,10 @@ export const DATA_SOURCES_CONTENT = [
         We relied on modelled raster data for burden as asymptomatic and
         symptomatic dengue are severely underreported. Symptomatic dengue burden
         was extracted from spatial raster datasets from{' '}
-        <Link
-          target="_blank"
-          rel="noreferrer"
+        <NLink
           href="https://www.nature.com/articles/nature12060"
-        >
-          Bhatt et al. 2013
-        </Link>
+          text="Bhatt et al. 2013"
+        />
         .
       </span>
     ),
@@ -982,12 +1281,9 @@ export const DATA_SOURCES_CONTENT = [
       <span>
         Estimates of DALYs and cases were extracted from{' '}
         <Link
-          target="_blank"
-          rel="noreferrer"
           href="https://www.healthdata.org/gbd/2019"
-        >
-          The Institute for Health Metrics and Evaluation (IHME)
-        </Link>
+          text="The Institute for Health Metrics and Evaluation (IHME)"
+        />
         . Based on the national estimates, we calculated the DALYs per dengue
         case.
       </span>
