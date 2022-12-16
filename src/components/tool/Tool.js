@@ -108,6 +108,9 @@ export default function Tool({
           id={`sec-${sections[0].hash}`}
           ref={sections[0].ref}
         >
+          <Box sx={{ mt: 2, mr: 2, ml: 2 }}>
+            <InfoSection sec={sections[0]} />
+          </Box>{' '}
           <Box display="flex" flex="1 1 auto" overflow="hidden">
             <Box
               flex="1 1 auto"
@@ -128,9 +131,6 @@ export default function Tool({
               />
             </Box>
           </Box>
-          <Box sx={{ mt: 0, mr: 2, ml: 2 }}>
-            <InfoSection sec={sections[0]} />
-          </Box>{' '}
           <Box sx={{ mr: 2, ml: 2 }}>
             <h2 id={`sec-${sections[1].hash}`} ref={sections[1].ref}>
               {sections[1].title}
