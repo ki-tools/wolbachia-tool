@@ -737,7 +737,7 @@ export const DATA_SOURCES_CONTENT = [
         >
           Brady et al. 2020
         </Link>
-        ) have reported costs per km² within these program phases.}
+        ) have reported costs per km² within these program phases.
       </span>
     ),
     extraText: (
