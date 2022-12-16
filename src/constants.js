@@ -213,7 +213,7 @@ export const TOOLTIPS = {
       <em>Wolbachia</em> mosquitoes or eggs. This input reflects that many{' '}
       {'km\u00b2'}, even with high population density, may have areas (e.g.,
       parks, green space) where there are limited people, indicating that
-      Wolbachia-containing mosquitoes/eggs would not be released there.
+      <em>Wolbachia</em>-containing mosquitoes/eggs would not be released there.
     </span>
   ),
   COSTS:
@@ -543,74 +543,62 @@ VARS.forEach((d) => {
 
 export const TOOLSECTEXT = {
   MAP: (
-    <Box>
-      To determine whether you should or should not implement <em>Wolbachia</em>{' '}
-      in your country or target geography and where you should target{' '}
-      <em>Wolbachia</em>
-      implementation efforts, we would recommend reviewing the following map of
-      key indicators. Detailed data is included in the tables below. However,
-      this map serves as a visualization to understand the geographic
-      distribution of the target areas, population, and dengue burden, which
-      provides a useful overview.
-      <Box>
-        Indicators included in the map are baseline data (e.g., the dengue
-        burden in the country and selected geographies), the implementation
-        outcomes (e.g., cost per person, cost per case averted); the dengue
-        reduction benefits (e.g., cases averted), and additional benefits (i.e.,
-        direct and indirect costs averted). You can use the dropdown menu to
-        select a specific indicator to appear on the map. We recommend zooming
-        in using the + and - button in the left upper corner or by
-        double-clicking on the desired zoom point. When you hover over selected
-        geographies, the indicator values will appear.
-      </Box>
-    </Box>
+    <span>
+      Please use the map to visualize key indicators to determine the impact and
+      cost of implementing <em>Wolbachia</em> in your country.
+    </span>
   ),
   BURDEN: (
     <span>
-      To determine whether you should or should not implement <em>Wolbachia</em>{' '}
-      in your country or target geography, we would recommend reviewing the
-      dengue burden overall and in each geography. In the following table, we
-      present data for each second Global Administrative Unit Layer (GAUL)
-      within the selected country. Data includes the total area (km\u00b2), the
-      target area (km² ), the total population, the target population, the mean
+      Please use the following table to review estimates of the dengue burden.
+      The following table presents data for each second administrative unit
+      within the selected country. Data includes the total area (km²), the
+      target area (km²), the total population, the target population, the mean
       dengue incidence, dengue cases, dengue DALYs, and the number of cases
       which are treated in a hospital inpatient setting, treated an
       outpatient/ambulatory setting, and not treated in medical settings. The
       table can be sorted by each of the presented indicators. Specific
-      observations can be found by using the search bar.
+      observations can be located using the search bar. All data can be exported
+      as a CSV.
     </span>
   ),
   IMPLEMENTATION: (
     <span>
-      To understand where to implement <em>Wolbachia</em> given your set inputs,
-      we present a summary of the area (km\u00b2) covered by <em>Wolbachia</em>{' '}
-      (i.e., the target area based on population density multiplied by the
-      intervention coverage), the population covered by the intervention (i.e.,
-      the population in the target area multiplied by the intervention
-      coverage), the total cost of the <em>Wolbachia</em> intervention in each
-      second administrative unit, and the cost per person covered. The table can
-      be sorted by each of the presented indicators. Specific observations can
-      be found by using the search bar.
+      Please use the following table to understand where you may want to
+      implement <em>Wolbachia</em> given your targeting approach and input
+      parameters. This table presents a summary of the area (km²) covered by
+      <em>Wolbachia</em> (i.e., the target area based on population density
+      multiplied by the intervention coverage), the population covered by the
+      intervention (i.e., the population in the target area multiplied by the
+      intervention coverage), the total cost of the <em>Wolbachia</em>{' '}
+      intervention in each second administrative unit, and the cost per person
+      covered. The table can be sorted by each of the presented indicators.
+      Specific observations can be located using the search bar. All data can be
+      exported as a CSV.
     </span>
   ),
   REDUCTION: (
     <span>
-      'To understand the impact of <em>Wolbachia</em> in terms of the number of
-      dengue cases which could be averted, we present the number of cases,
-      DALYs, hospitalized cases, ambulatory cases, and not-medically treated
-      cases averted within each geography. The table can be sorted by each of
-      the presented indicators. Specific observations can be found by using the
-      search bar.
+      Please use the following table to understand the impact of{' '}
+      <em>Wolbachia</em> in terms of reduced disease burden. This table presents
+      the number of cases, DALYs, hospitalized cases, ambulatory cases, and
+      not-medically treated cases averted within each geography. The table can
+      be sorted by each of the presented indicators. Specific observations can
+      be located using the search bar. All data can be exported as a CSV.
     </span>
   ),
   ADDBENEFITS: (
     <span>
-      To understand the impact of <em>Wolbachia</em> in terms of the number of
-      dengue cases which could be averted, we present the number of cases,
-      DALYs, hospitalized cases, ambulatory cases, and not-medically treated
-      cases averted within each geography. The table can be sorted by each of
-      the presented indicators. Specific observations can be found by using the
-      search bar.
+      Please use the following table to understand the impact of{' '}
+      <em>Wolbachia</em> in terms of health system and economic costs averted.
+      This table presents the direct (i.e., medical) costs of averting each type
+      of dengue case (i.e., treated in a hospital; treated in an outpatient
+      setting; treated in a non-medical setting), and the indirect (i.e., lost
+      wages) associated with averting each type of dengue case (i.e., treated in
+      a hospital; treated in an outpatient setting; treated in a non-medical
+      setting). The total health system (all direct costs) and economic (all
+      indirect costs) are presented. Specific observations can be located using
+      the search bar. All data can be exported as a CSV.
     </span>
   ),
 };
@@ -738,10 +726,10 @@ export const DATA_SOURCES_CONTENT = [
     ),
     text: (
       <span>
-        Costs have been generalized to common program phases which include
-        planning, preparation, production, distribution, release, and
-        monitoring, and common activities within those phases. Prior
-        cost-effectiveness analyses (
+        of area covered by the program. Costs have been generalized to common
+        program phases which include planning, preparation, production,
+        distribution, release, and monitoring, and common activities within
+        those phases. Prior cost-effectiveness analyses (
         <Link
           target="_blank"
           rel="noreferrer"
@@ -749,7 +737,7 @@ export const DATA_SOURCES_CONTENT = [
         >
           Brady et al. 2020
         </Link>
-        {') have reported costs per km\u00b2 within these phases.'}
+        ) have reported costs per km² within these program phases.}
       </span>
     ),
     extraText: (
@@ -809,8 +797,8 @@ export const DATA_SOURCES_CONTENT = [
     text: (
       <span>
         We relied on modelled raster data for burden as asymptomatic and
-        symptomatic dengue and malaria are severely underreported. Symptomatic
-        dengue burden was extracted from spatial raster datasets provided by{' '}
+        symptomatic dengue are severely underreported. Symptomatic dengue burden
+        was extracted from spatial raster datasets from{' '}
         <Link
           target="_blank"
           rel="noreferrer"
@@ -875,8 +863,8 @@ export const DATA_SOURCES_CONTENT = [
     text: (
       <span>
         The default value for effectiveness was extracted from a recent study in
-        Yogyakarta demonstrating that Wolbachia led to a 77% (95% Confidence
-        Interval: 65-85%) reduction in dengue incidence (
+        Yogyakarta demonstrating that <em>Wolbachia</em> led to a 77% (95%
+        Confidence Interval: 65-85%) reduction in dengue incidence (
         <Link
           target="_blank"
           rel="noreferrer"
@@ -937,7 +925,15 @@ export const DATA_SOURCES_CONTENT = [
         to inform Target Product Profiles and Preferred Product Characteristics:
         the example of <em>Wolbachia</em> replacement. Manuscript in
         preparation). Details regarding the methodology for selecting those
-        areas are described in the manuscript above.
+        areas are described in the manuscript above and in this{' '}
+        <Link
+          target="_blank"
+          rel="noreferrer"
+          href="https://cdn.who.int/media/docs/default-source/ntds/vector-ecology-mangement/context-background-materials-tpp-wolbachia-infected-aedes-aegypti.pdf?sfvrsn=6760a656_3"
+        >
+          WHO report (2022)
+        </Link>
+        .
       </span>
     ),
   },
@@ -1085,6 +1081,16 @@ export const CALCS = [
             <UserInput>cost of monitoring</UserInput>) <Times /> (
             <PreDef>target area</PreDef>
             <Times /> <UserInput>coverage</UserInput>)
+            <br />
+            <em>
+              For 5, 10,and 20 year estimates, costs are discounted by 3% each
+              year.
+            </em>
+            <br />
+            <em>
+              For 5, 10, and 20 year estimates, we assume 100% of the costs for
+              years 1-3, and then 1% of total costs for year 4 and beyond.
+            </em>
           </>
         ),
       },
@@ -1107,6 +1113,16 @@ export const CALCS = [
             <UserInput>monitoring in the field</UserInput>) <Times /> (
             <PreDef>target area</PreDef>
             <Times /> <UserInput>coverage</UserInput>)
+            <br />
+            <em>
+              For 5, 10,and 20 year estimates, costs are discounted by 3% each
+              year.
+            </em>
+            <br />
+            <em>
+              For 5, 10, and 20 year estimates, we assume 100% of the costs for
+              years 1-3, and then 1% of total costs for year 4 and beyond.
+            </em>
           </>
         ),
       },
@@ -1125,6 +1141,16 @@ export const CALCS = [
           <>
             <UserInput>cost of phase</UserInput> <Times />{' '}
             <Calc>area covered by intervention</Calc>
+            <br />
+            <em>
+              For 5, 10,and 20 year estimates, costs are discounted by 3% each
+              year.
+            </em>
+            <br />
+            <em>
+              For 5, 10, and 20 year estimates, we assume 100% of the costs for
+              years 1-3, and then 1% of total costs for year 4 and beyond.
+            </em>
           </>
         ),
       },
@@ -1134,6 +1160,16 @@ export const CALCS = [
           <>
             <UserInput>total cost of each activity within the phase</UserInput>{' '}
             <Times /> <Calc>area covered by intervention</Calc>
+            <br />
+            <em>
+              For 5, 10,and 20 year estimates, costs are discounted by 3% each
+              year.
+            </em>
+            <br />
+            <em>
+              For 5, 10, and 20 year estimates, we assume 100% of the costs for
+              years 1-3, and then 1% of total costs for year 4 and beyond.
+            </em>
           </>
         ),
       },

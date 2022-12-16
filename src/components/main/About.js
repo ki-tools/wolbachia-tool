@@ -49,8 +49,8 @@ const PromoNumbers = () => {
             >
               <Box paddingBottom={2}>
                 The goal of this tool is to provide data to support decisions
-                related to the implementation and scale-up of Wolbachia for
-                dengue control globally. This tool is flexible, allowing the
+                related to the implementation and scale-up of <em>Wolbachia</em>{' '}
+                for dengue control globally. This tool is flexible, allowing the
                 user to input estimated costs, effectiveness, coverage, disease
                 reduction targets, and constraints to estimate the impact and
                 costs for their context.{' '}
@@ -58,9 +58,9 @@ const PromoNumbers = () => {
 
               <Box paddingBottom={2}>
                 Efforts were made to ensure that this tool can be used by
-                various decision-makers considering Wolbachia implementation.
-                Intended users include in-country policy makers, dengue program
-                managers, funders, and implementers.{' '}
+                various decision-makers considering <em>Wolbachia</em>{' '}
+                implementation. Intended users include in-country policy makers,
+                dengue program managers, funders, and implementers.{' '}
               </Box>
 
               <Box>
@@ -97,13 +97,15 @@ const PromoNumbers = () => {
                   approaches for adjusting costs or modelling dengue incidence
                   spatially, we opted to use estimates from the original data
                   sources. On long-term assumptions, we assume for benefits to
-                  begin six months after programs begin. In reality, there might
-                  be a slight longer lag to impact given the preparation
-                  required before Wolbachia-containing mosquitoes and eggs are
-                  released. Relatedly, we had to make some assumptions about the
-                  costs over time. These were based on academic literature and
-                  from meetings with implementers and represent the best
-                  estimates to date.
+                  begin immediately after programs are initiated. In reality,
+                  there might be a slight longer lag to impact given the
+                  preparation required before <em>Wolbachia</em>-containing
+                  mosquitoes and eggs are released. Relatedly, we had to make
+                  some assumptions about the costs over time. We assumed that
+                  the program would require high resources for the first three
+                  years of implementation and then be sustained at a low cost
+                  for the following years. These were based on meetings with
+                  implementers and represent the best estimates to date.
                 </Typography>
               </Box>
             </CardContent>
@@ -135,6 +137,73 @@ const PromoNumbers = () => {
                   Mesic (amesic@uw.edu). Questions regarding the code and
                   deployment can be directed to Ryan Hafen
                   (rhafen@prevagroup.com)
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </Box>
+        <Box>
+          <Card elevation={0}>
+            <CardContent sx={{ padding: 4 }}>
+              <Box>
+                <Typography
+                  variant={'h5'}
+                  sx={{ fontWeight: 700, pb: 1 }}
+                  align={'center'}
+                  gutterBottom
+                >
+                  Acknowledgements
+                </Typography>
+                <Typography
+                  variant="h6"
+                  align={'left'}
+                  color={'text.secondary'}
+                  data-aos={'fade-up'}
+                >
+                  We would like to acknowledge the many organizations and
+                  individuals who made this tool and prior iterations of the
+                  tool possible:
+                  <ul>
+                    <li>
+                      START Center team members (Aldina Mesic, William Sheahan,
+                      Jairam Lingappa, Andrew Secor, Mohamed Albirair, and Paul
+                      Drain).
+                    </li>
+                    <li>
+                      START Center Operations and Leadership (Lauren Adjumani,
+                      Noel Daniel, Stephen Hawes).{' '}
+                    </li>
+                    <li>
+                      The Bill and Melinda Gates Foundation (Steve Kern, Christy
+                      Hanson, Kayla Laserson, and Harmony Chartier).{' '}
+                    </li>
+                    <li>The Preva Group (Ryan Hafen)</li>
+                    <li>The Arcady Group (Bruce Thomas)</li>
+                    <li>
+                      The London School of Hygiene and Tropical Medicine (Oliver
+                      Brady)
+                    </li>
+                    <li>
+                      Linksbridge SPC (Mike Osberg, Dena Seabrook, Sheldon
+                      Halsted, Mira Sytsma)
+                    </li>
+                    <li>
+                      World Mosquito Program (Katie Anders, Bryan Callahan,
+                      Reynold Dias)
+                    </li>
+                    <li>World Health Organization (Raman Velayudhan)</li>
+                    <li>
+                      Foundation of the National Institutes of Health (Michael
+                      Santos, Susan Wiener)
+                    </li>
+                    <li>Brandeis University (Donald Shepard)</li>
+                    <li>Management Sciences for Health (Damian Walker)</li>
+                    <li>
+                      Imperial College London (Hugo Turner, John Mumford, Megan
+                      Quinlan, Adrian Leach, Austin Burt)
+                    </li>
+                    <li>Keele University (Frederic Tripet)</li>
+                  </ul>
                 </Typography>
               </Box>
             </CardContent>

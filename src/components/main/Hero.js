@@ -38,8 +38,15 @@ const Hero = () => {
       </Box>
       <Box marginBottom={3}>
         <Typography variant="h6" component="p" color="text.secondary">
-          A tool designed to support decisions related to <em>Wolbachia</em>{' '}
-          implementation and scale-up for global dengue control.
+          <em>Aedes aegypti</em> mosquitoes infected with naturally occurring{' '}
+          <em>Wolbachia</em> bacteria have a reduced ability to transmit dengue
+          virus. What it is not known is how to implement and scale up this
+          technology to substantially reduce the burden of dengue.
+        </Typography>
+        <Typography pt={2} variant="h6" component="p" color="text.secondary">
+          This tool is designed to support decisions related to{' '}
+          <em>Wolbachia</em> implementation and scale-up for global dengue
+          control.
         </Typography>
       </Box>
       <Box>
@@ -93,9 +100,9 @@ const Hero = () => {
           </Box>
           <Box
             sx={{
-              flex: { xs: '0 0 100%', md: '0 0 60%' },
+              flex: { xs: '0 0 100%', md: '0 0 40%' },
               position: 'relative',
-              maxWidth: { xs: '100%', md: '60%' },
+              maxWidth: { xs: '100%', md: '40%' },
               order: { xs: 1, md: 2 },
             }}
           >

@@ -42,7 +42,7 @@ export default function App() {
       {
         name: 'Map',
         hash: 'map',
-        infoTitle: 'Data Visualization',
+        infoTitle: 'Key Indicators Map',
         text: TOOLSECTEXT.MAP,
         ref: useRef(null),
       },
