@@ -20,8 +20,8 @@ export const INPUTS = {
     helpText: undefined,
   },
   POPDEN: {
-    default: 1000,
-    values: [1500, 1000, 500, 250],
+    default: '1000',
+    values: ['1500', '1000', '500', '250'],
     valueLabels: [
       '\u2265 1,500 people per km\u00b2',
       '\u2265 1,000 people per km\u00b2',

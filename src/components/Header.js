@@ -20,7 +20,7 @@ function Header({
   activeToolSection,
   meta,
   countryCode,
-  setCountryCode,
+  handleCountryChange,
   onSidebarOpen,
 }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -214,7 +214,7 @@ function Header({
           meta={meta}
           sections={sections}
           countryCode={countryCode}
-          setCountryCode={setCountryCode}
+          handleCountryChange={handleCountryChange}
           onSidebarOpen={onSidebarOpen}
           activeToolSection={activeToolSection}
           pathname={pathname}

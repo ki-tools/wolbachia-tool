@@ -4,7 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import Drawer from '@mui/material/Drawer';
 import SidebarControls from './SidebarControls';
 
-const Sidebar = ({ open, variant, onClose, inputs, setInputs }) => {
+const Sidebar = ({ meta, open, variant, onClose, inputs, setInputs }) => {
   const theme = useTheme();
   return (
     <Drawer
@@ -22,7 +22,7 @@ const Sidebar = ({ open, variant, onClose, inputs, setInputs }) => {
         },
       }}
     >
-      <SidebarControls inputs={inputs} setInputs={setInputs} />
+      <SidebarControls meta={meta} inputs={inputs} setInputs={setInputs} />
     </Drawer>
   );
 };

@@ -92,6 +92,7 @@ export default function Tool({
   return (
     <Box>
       <Sidebar
+        meta={meta[countryCode]}
         onClose={handleSidebarClose}
         open={open}
         variant={isMd ? 'permanent' : 'temporary'}

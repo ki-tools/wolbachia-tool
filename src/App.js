@@ -30,6 +30,24 @@ export default function App() {
     setOpenSidebar(false);
   };
 
+  const handleCountryChange = (event) => {
+    const newCode = event.target.value;
+    // if the country doesn't have the target plan option, need to change it
+    const tarPln = inputs.TARPLN;
+    if (!meta?.[newCode]?.data?.[tarPln].includes(inputs[tarPln])) {
+      const newInputs = { ...inputs };
+      if (meta?.[newCode]?.data?.POPDEN?.length > 0) {
+        newInputs.TARPLN = 'POPDEN';
+        newInputs.POPDEN = meta?.[newCode]?.data?.POPDEN[0];
+      } else {
+        newInputs.TARPLN = 'DISRED';
+        newInputs.DISRED = meta?.[newCode]?.data?.DISRED[0];
+      }
+      setInputs(newInputs);
+    }
+    setCountryCode(newCode);
+  };
+
   const sections = {
     main: [
       { name: 'Home', hash: 'home', ref: useRef(null) },
@@ -120,7 +138,7 @@ export default function App() {
         activeMainSection={activeMainSection}
         activeToolSection={activeToolSection}
         countryCode={countryCode}
-        setCountryCode={setCountryCode}
+        handleCountryChange={handleCountryChange}
         meta={meta}
         onSidebarOpen={handleSidebarOpen}
       />

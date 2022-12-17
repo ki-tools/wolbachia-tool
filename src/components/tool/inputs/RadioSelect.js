@@ -6,7 +6,12 @@ import { styled } from '@mui/material/styles';
 import SectionHeader from './SectionHeader';
 import { INPUTS } from '../../../constants';
 
-export default function RadioSel({ inputs, nm, handleChange, tooltip }) {
+export default function RadioSel({ meta, inputs, nm, handleChange, tooltip }) {
+  let disabled = INPUTS[nm].values.map(() => false);
+  if (['POPDEN', 'DISRED'].includes(nm)) {
+    disabled = INPUTS[nm].values.map((val) => !meta.data?.[nm].includes(val));
+  }
+
   return (
     <Box paddingBottom={1}>
       <SectionHeader
@@ -23,7 +28,7 @@ export default function RadioSel({ inputs, nm, handleChange, tooltip }) {
           <StyledFormControlLabel
             key={item}
             value={item}
-            control={<Radio size="small" />}
+            control={<Radio size="small" disabled={disabled[ii]} />}
             label={INPUTS[nm].valueLabels[ii]}
           />
         ))}

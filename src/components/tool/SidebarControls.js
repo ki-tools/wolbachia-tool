@@ -19,9 +19,12 @@ import { TOOLTIPS } from '../../constants';
 // TOOLTIPS.BUDGET
 // TOOLTIPS.TIME
 
-const SidebarControls = ({ inputs, setInputs }) => {
+const SidebarControls = ({ meta, inputs, setInputs }) => {
   const handleChng = (val, nm) => {
     const newInputs = { ...inputs };
+    if (nm === 'TARPLN') {
+      newInputs[val] = meta.data[val][0];
+    }
     newInputs[nm] = val;
     setInputs(newInputs);
   };
@@ -36,6 +39,7 @@ const SidebarControls = ({ inputs, setInputs }) => {
   return (
     <Box padding={2}>
       <ButtonSelect
+        meta={meta}
         inputs={inputs}
         nm="TARPLN"
         handleChange={handleChng}
@@ -44,12 +48,22 @@ const SidebarControls = ({ inputs, setInputs }) => {
       />
       {inputs.TARPLN === 'POPDEN' && (
         <>
-          <RadioSel inputs={inputs} nm="POPDEN" handleChange={handleChng} />
+          <RadioSel
+            meta={meta}
+            inputs={inputs}
+            nm="POPDEN"
+            handleChange={handleChng}
+          />
         </>
       )}
       {inputs.TARPLN === 'DISRED' && (
         <>
-          <RadioSel inputs={inputs} nm="DISRED" handleChange={handleChng} />
+          <RadioSel
+            meta={meta}
+            inputs={inputs}
+            nm="DISRED"
+            handleChange={handleChng}
+          />
         </>
       )}
       <Divider sx={{ marginLeft: -2, marginRight: -2, marginBottom: 1 }} />

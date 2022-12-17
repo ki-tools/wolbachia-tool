@@ -33,7 +33,8 @@ process <- function(dir, subdir) {
   message(subdir)
   if (!dir.exists(file.path("public/data", dir, subdir))) {
     dir.create(file.path("public/data", dir, subdir),
-      recursive = TRUE)
+      recursive = TRUE
+    )
   }
 
   shp_path <- file.path("_preprocessing/data", dir, subdir)
@@ -86,9 +87,34 @@ meta <- read_xlsx("_preprocessing/country_meta.xlsx") %>%
 
 filter(meta, country == "Indonesia") # IDN
 
+# add in info about what countries have what data
+ff <- list.files("public/data/POPDEN", full.names = TRUE)
+pd <- lapply(ff, function(f) {
+  tibble(
+    par = basename(f),
+    code = tools::file_path_sans_ext(list.files(f))
+  )
+}) %>% bind_rows()
+ff <- list.files("public/data/DISRED", full.names = TRUE)
+dr <- lapply(ff, function(f) {
+  tibble(
+    par = basename(f),
+    code = tools::file_path_sans_ext(list.files(f))
+  )
+}) %>% bind_rows()
+
+meta <- filter(meta, iso_3 %in% unique(c(pd$code, dr$code)))
+
 country_meta <- meta %>%
   split(meta$iso_3) %>%
   lapply(as.list)
+
+for (ctry in names(country_meta)) {
+  country_meta[[ctry]]$data <- list(
+    POPDEN = filter(pd, code == ctry) %>% pull(par) %>% I(),
+    DISRED = filter(dr, code == ctry) %>% pull(par) %>% I()
+  )
+}
 
 jsonlite::write_json(country_meta, "public/data/countryMeta.json",
   auto_unbox = TRUE

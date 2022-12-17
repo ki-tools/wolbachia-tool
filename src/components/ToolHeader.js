@@ -11,16 +11,12 @@ export default function ToolHeader({
   meta,
   onSidebarOpen,
   countryCode,
-  setCountryCode,
+  handleCountryChange,
   sections,
   activeToolSection,
   pathname,
   handleNavMenuSelect,
 }) {
-  const handleCountryChange = (event) => {
-    setCountryCode(event.target.value);
-  };
-
   const metaArray = useMemo(
     () =>
       Object.values(meta)
