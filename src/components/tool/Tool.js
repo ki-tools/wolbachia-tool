@@ -142,6 +142,7 @@ export default function Tool({
               which="BURDEN"
               sec={sections[1]}
               footerText={footerText}
+              inputs={inputs}
             />
           </Box>
           <Box sx={{ mr: 2, ml: 2 }}>
@@ -156,6 +157,7 @@ export default function Tool({
               which="IMPLEMENTATION"
               sec={sections[2]}
               footerText={footerText}
+              inputs={inputs}
             />
           </Box>
           <Box sx={{ mr: 2, ml: 2 }}>
@@ -168,6 +170,7 @@ export default function Tool({
               which="REDUCTION"
               sec={sections[3]}
               footerText={footerText}
+              inputs={inputs}
             />
           </Box>
           <Box sx={{ mr: 2, ml: 2 }}>
@@ -180,6 +183,7 @@ export default function Tool({
               which="ADDBENEFITS"
               sec={sections[4]}
               footerText={footerText}
+              inputs={inputs}
             />
           </Box>
         </Box>
@@ -410,7 +414,10 @@ function calculateData(topo, cmeta, inputs) {
     tots.toteconomic += row.economiccosts;
   });
 
-  const data = newTopo.objects.foo.geometries.map((d) => d.properties);
+  const data = newTopo.objects.foo.geometries.map((d) => ({
+    ...d.properties,
+    ...inputs,
+  }));
 
   return { data, calcTopo: newTopo, tots, ranges };
 }
