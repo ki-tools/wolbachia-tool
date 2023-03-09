@@ -18,6 +18,7 @@ export default function Map({
   countryCode,
   colorVar,
   colorScale,
+  mapScrollZoom,
 }) {
   const geojson = useMemo(
     () => !isLoading && feature(topo, topo.objects.foo),
@@ -66,7 +67,7 @@ export default function Map({
   return (
     <div style={{ height: 500, width: '100%' }}>
       <MapContainer
-        key={countryCode}
+        key={`${countryCode}_${mapScrollZoom}`}
         bounds={[
           [bb[1], bb[0]],
           [bb[3], bb[2]],
@@ -75,7 +76,7 @@ export default function Map({
         //   [bb[1], bb[0]],
         //   [bb[3], bb[2]],
         // ]}
-        scrollWheelZoom={false}
+        scrollWheelZoom={mapScrollZoom}
         maxBoundsViscosity={1}
         // doubleClickZoom={true}
         attributionControl={false}

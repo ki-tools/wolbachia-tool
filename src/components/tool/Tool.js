@@ -1,7 +1,10 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
+import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Map from './map/Map';
 import MapControls from './map/MapControls';
@@ -27,7 +30,10 @@ export default function Tool({
   setColorVar,
 }) {
   const theme = useTheme();
-
+  const [mapScrollZoom, setMapScrollZoom] = useState(false);
+  const handleCheck = (event) => {
+    setMapScrollZoom(event.target.checked);
+  };
   const location = useLocation();
   const hash = location.hash;
 
@@ -122,6 +128,28 @@ export default function Tool({
             >
               <MapControls colorVar={colorVar} setColorVar={setColorVar} />
               <MapLegend colorVar={colorVar} bins={bins} qCols={qCols} />
+              <Box
+                sx={{
+                  position: 'absolute',
+                  bottom: 15,
+                  backgroundColor: 'rgba(255, 255, 255, 0.6)',
+                  left: 16,
+                  paddingLeft: '10px',
+                  zIndex: 1000,
+                }}
+              >
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={mapScrollZoom}
+                        onChange={handleCheck}
+                      />
+                    }
+                    label="Scroll to zoom"
+                  />
+                </FormGroup>
+              </Box>
               <Map
                 isLoading={isLoading}
                 topo={calcTopo}
@@ -129,6 +157,7 @@ export default function Tool({
                 countryCode={countryCode}
                 colorVar={colorVar}
                 colorScale={colorScale}
+                mapScrollZoom={mapScrollZoom}
               />
             </Box>
           </Box>
@@ -282,7 +311,7 @@ function calculateData(topo, cmeta, inputs) {
     const indirectambucosts = ambuaverted * cmeta.indirect_ambu;
     const indirectnonmedicalcosts =
       nonmedicalaverted * cmeta.indirect_non_medical;
-
+    debugger;
     const curRow = {
       name: props.name,
       gaul_code: props.gaul_code,
