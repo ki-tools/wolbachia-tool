@@ -180,11 +180,7 @@ export const INPUTS = {
   },
   WOLMON: {
     default: 1500,
-    label: (
-      <span>
-        Monitoring <em>Wolbachia</em> frequency in the field
-      </span>
-    ),
+    label: 'Monitoring 𝘞𝘰𝘭𝘣𝘢𝘤𝘩𝘪𝘢 freq in the field',
     range: [0, 3000],
     helpText: undefined,
   },
@@ -423,7 +419,7 @@ export const VARS = [
     name: 'totalcost',
     label: 'Total cost of intervention',
     type: 'currency',
-    digits: 2,
+    digits: 0,
     // see below for calculation
   },
   {
@@ -491,56 +487,56 @@ export const VARS = [
     name: 'directhospcosts',
     label: 'Direct hospitalized costs averted',
     type: 'currency',
-    digits: 2,
+    digits: 0,
     // hospaverted * direct_hosp (country dataset)
   },
   {
     name: 'directambucosts',
     label: 'Direct ambulatory costs averted',
     type: 'currency',
-    digits: 2,
+    digits: 0,
     // ambuaverted * direct_ambu (country dataset)
   },
   {
     name: 'directnonmedicalcosts',
     label: 'Direct non-medical costs averted',
     type: 'currency',
-    digits: 2,
+    digits: 0,
     // ambuaverted * direct_non_medical (country dataset)
   },
   {
     name: 'indirecthospcosts',
     label: 'Indirect hospitalized costs averted',
     type: 'currency',
-    digits: 2,
+    digits: 0,
     // hospaverted * indirect_hosp (country dataset)
   },
   {
     name: 'indirectambucosts',
     label: 'Indirect ambulatory costs averted',
     type: 'currency',
-    digits: 2,
+    digits: 0,
     // ambuaverted * indirect_ambu (country dataset)
   },
   {
     name: 'indirectnonmedicalcosts',
     label: 'Indirect non-medical costs averted',
     type: 'currency',
-    digits: 2,
+    digits: 0,
     // ambuaverted * indirect_non_medical (country dataset)
   },
   {
     name: 'healthsystemcosts',
     label: 'Total health system costs',
     type: 'currency',
-    digits: 2,
+    digits: 0,
     // directhospcosts + directambucosts + directnonmedicalcosts
   },
   {
     name: 'economiccosts',
     label: 'Total economic costs',
     type: 'currency',
-    digits: 2,
+    digits: 0,
     // indirecthospcosts + indirectambucosts + indirectnonmedicalcosts
   },
 ];
@@ -1459,8 +1455,6 @@ export const CALCS = [
           <>
             <PreDef>Total population in the administrative 2 area</PreDef>
             <Times />
-            <UserInput>coverage</UserInput>
-            <Times />
             <PreDef>Total dengue incidence in the administrative 2 area</PreDef>
             <br />
             <em>
@@ -1648,8 +1642,7 @@ export const CALCS = [
         title: 'Cost per case averted',
         description: (
           <>
-            <Calc>total cost</Calc> / (<Calc>cases averted</Calc> <Times />{' '}
-            <UserInput>effectiveness</UserInput>)
+            <Calc>total cost</Calc> / <Calc>cases averted</Calc>
           </>
         ),
       },
@@ -1688,8 +1681,7 @@ export const CALCS = [
           <>
             (<UserInput>coverage</UserInput> <Times />{' '}
             <PreDef>dengue incidence</PreDef>) <Times />{' '}
-            <PreDef>DALY_per_case</PreDef> *{' '}
-            <UserInput>effectiveness</UserInput>
+            <PreDef>DALY_per_case</PreDef>
             <br />
             <em>
               For 5, 10, and 20 year estimates, cases averted are discounted by

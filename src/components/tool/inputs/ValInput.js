@@ -17,7 +17,7 @@ export default function ValInput({ inputs, nm, handleChange }) {
 
   const materialUiTextFieldProps = {
     required: true,
-    label,
+    label: <span>{label}</span>,
     variant: 'standard',
     size: 'small',
     fullWidth: true,
