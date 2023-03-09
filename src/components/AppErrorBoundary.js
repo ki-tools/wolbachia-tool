@@ -20,6 +20,7 @@ export default function AppErrorBoundary({ inputs, children }) {
 // FallbackComponent
 
 function ErrorFallback({ error, inputs }) {
+  console.log(error);
   return (
     <Container>
       <Box pt={10}>

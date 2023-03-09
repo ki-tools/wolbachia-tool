@@ -311,7 +311,11 @@ function calculateData(topo, cmeta, inputs) {
     const indirectambucosts = ambuaverted * cmeta.indirect_ambu;
     const indirectnonmedicalcosts =
       nonmedicalaverted * cmeta.indirect_non_medical;
-    debugger;
+
+    const denom1 = popcovered * props.totdenm * inputs.EFF;
+    const denom2 =
+      popcovered * props.totdenm * cmeta.daly_per_case * inputs.EFF;
+
     const curRow = {
       name: props.name,
       gaul_code: props.gaul_code,
@@ -334,11 +338,9 @@ function calculateData(topo, cmeta, inputs) {
       totdist: totdist,
       totrel: totrel,
       totmonit: totmonit,
-      costperperson: totalcost / popcovered,
-      costperavertedcase: totalcost / (popcovered * props.totdenm * inputs.EFF),
-      costperaverteddaly:
-        totalcost /
-        (popcovered * props.totdenm * cmeta.daly_per_case * inputs.EFF),
+      costperperson: popcovered === 0 ? 0 : totalcost / popcovered,
+      costperavertedcase: denom1 === 0 ? 0 : totalcost / denom1,
+      costperaverteddaly: denom2 === 0 ? 0 : totalcost / denom2,
       // reduction
       avertedcases: avertedcases,
       averteddalys: averteddalys,
