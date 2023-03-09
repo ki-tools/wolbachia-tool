@@ -20,3 +20,7 @@ code {
 .leaflet-attribution-flag {
   display: none !important;
 }
+
+.highlighted-column {
+  background: #dedede99;
+}

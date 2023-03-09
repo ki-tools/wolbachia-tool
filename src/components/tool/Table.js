@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import Box from '@mui/material/Box';
 import {
   DataGrid,
@@ -52,15 +52,22 @@ export function formatNumber(value, obj) {
 }
 
 export default function Table({ data, which, sec, footerText, inputs }) {
+  const [sortModel, setSortModel] = useState(TABLESORT[which]);
   const columns = useMemo(() => {
     const main = VARS.map((curVar) => {
       const type = curVar.type === 'currency' ? 'number' : curVar.type;
+
+      const typeClass = type === 'number' ? 'rightHeader' : '';
+      const highlight = sortModel.map((d) => d.field).includes(curVar.name)
+        ? 'highlighted-column'
+        : '';
+
       const res = {
         type: type,
         field: curVar.name,
         width: curVar.width || 170,
         headerName: curVar.label,
-        headerClassName: type === 'number' ? 'rightHeader' : '',
+        headerClassName: `${typeClass} ${highlight}`,
       };
       if (type === 'number') {
         res.valueFormatter = ({ value }) => formatNumber(value, curVar);
@@ -72,7 +79,7 @@ export default function Table({ data, which, sec, footerText, inputs }) {
       field: d,
     }));
     return [...main, ...extra];
-  }, [which]);
+  }, [which, sortModel]);
 
   const allFields = columns.map((d) => d.field);
   const visibility = {};
@@ -97,6 +104,14 @@ export default function Table({ data, which, sec, footerText, inputs }) {
         autoHeight
         density="compact"
         components={{ Toolbar: CustomToolbar, Footer: CustomFooter }}
+        sortModel={sortModel}
+        onSortModelChange={(newSortModel) => setSortModel(newSortModel)}
+        getCellClassName={(params) => {
+          if (sortModel.map((d) => d.field).includes(params.field)) {
+            return 'highlighted-column';
+          }
+          return '';
+        }}
         componentsProps={{
           toolbar: {
             showQuickFilter: true,
@@ -109,9 +124,9 @@ export default function Table({ data, which, sec, footerText, inputs }) {
           },
         }}
         initialState={{
-          sorting: {
-            sortModel: TABLESORT[which],
-          },
+          // sorting: {
+          //   sortModel: TABLESORT[which],
+          // },
           columns: {
             columnVisibilityModel: visibility,
           },
