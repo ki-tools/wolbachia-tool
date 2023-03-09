@@ -85,7 +85,9 @@ meta <- read_xlsx("_preprocessing/country_meta.xlsx") %>%
   select(all_of(keep)) %>%
   arrange(country)
 
-filter(meta, country == "Indonesia") # IDN
+# countries where everything is missing:
+idx <- which(apply(meta, 1, function(x) length(which(is.na(x)))) > 0) # >= 9
+meta <- meta[-idx, ]
 
 # add in info about what countries have what data
 ff <- list.files("public/data/POPDEN", full.names = TRUE)
