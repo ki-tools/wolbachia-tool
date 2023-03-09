@@ -63,8 +63,9 @@ export default function Tool({
     }, 0);
   }, [hash]); // do this on route change
 
-  const { data, calcTopo, tots, ranges } = useMemo(() =>
-    calculateData(topo, meta[countryCode], inputs)
+  const { data, calcTopo, tots, ranges } = useMemo(
+    () => calculateData(topo, meta[countryCode], inputs),
+    [topo, meta, countryCode, inputs]
   );
 
   if (!meta || !data || !ranges) {
