@@ -234,9 +234,12 @@ function calculateData(topo, cmeta, inputs) {
 
   topo.objects.foo.geometries.forEach((d, ii) => {
     const props = d.properties;
+    const timeframe = parseInt(inputs.TIMFRM);
 
     const totalcases =
-      props.totdenm * props.targetpop * INPUTS.TIMFRM.multiplier[inputs.TIMFRM];
+      props.totdenm *
+      props.targetpop *
+      INPUTS.TIMFRM.benefitsDiscounted[timeframe];
     const areacovered = props.targetarea * inputs.COV;
 
     let totalcost;
@@ -250,7 +253,7 @@ function calculateData(topo, cmeta, inputs) {
           inputs.REL +
           inputs.MONIT) *
         areacovered *
-        INPUTS.TIMFRM.costs[inputs.TIMFRM];
+        INPUTS.TIMFRM.costs[timeframe];
     } else {
       // activity-based
       totalcost =
@@ -268,7 +271,7 @@ function calculateData(topo, cmeta, inputs) {
           inputs.WOLMON +
           inputs.DETREL) *
         areacovered *
-        INPUTS.TIMFRM.costs[inputs.TIMFRM];
+        INPUTS.TIMFRM.costs[timeframe];
     }
 
     let totplan, totprep, totprod, totdist, totrel, totmonit;
@@ -293,17 +296,17 @@ function calculateData(topo, cmeta, inputs) {
     const popcovered =
       props.targetpop *
       inputs.COV *
-      INPUTS.TIMFRM.benefitsDiscounted[inputs.TIMFRM];
+      INPUTS.TIMFRM.benefitsDiscounted[timeframe];
     const totaldalys = totalcases * cmeta.daly_per_case;
 
     const avertedcases = popcovered * props.totdenm * inputs.EFF;
-    // * INPUTS.TIMFRM.benefitsDiscounted[inputs.TIMFRM];
+    // * INPUTS.TIMFRM.benefitsDiscounted[timeframe];
     const hospaverted = avertedcases * cmeta.percent_hosp;
     const ambuaverted = avertedcases * cmeta.percent_ambu;
     const nonmedicalaverted = avertedcases * cmeta.percent_non_medical;
     const averteddalys =
       popcovered * props.totdenm * cmeta.daly_per_case * inputs.EFF;
-    // * INPUTS.TIMFRM.benefitsDiscounted[inputs.TIMFRM];
+    // * INPUTS.TIMFRM.benefitsDiscounted[timeframe];
 
     const directhospcosts = hospaverted * cmeta.direct_hosp;
     const directambucosts = ambuaverted * cmeta.direct_ambu;
