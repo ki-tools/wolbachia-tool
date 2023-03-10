@@ -1459,7 +1459,7 @@ export const CALCS = [
             <PreDef>Total dengue incidence in the administrative 2 area</PreDef>
             <br />
             <em>
-              For 5, 10,and 20 year estimates, the cases are multiplied by 5,
+              For 5, 10, and 20 year estimates, the cases are multiplied by 5,
               10, and 20 respectively.
             </em>
           </>
@@ -1540,7 +1540,7 @@ export const CALCS = [
             <Times /> <UserInput>coverage</UserInput>)
             <br />
             <em>
-              For 5, 10,and 20 year estimates, costs are discounted by 3% each
+              For 5, 10, and 20 year estimates, costs are discounted by 3% each
               year.
             </em>
             <br />
@@ -1572,7 +1572,7 @@ export const CALCS = [
             <Times /> <UserInput>coverage</UserInput>)
             <br />
             <em>
-              For 5, 10,and 20 year estimates, costs are discounted by 3% each
+              For 5, 10, and 20 year estimates, costs are discounted by 3% each
               year.
             </em>
             <br />
@@ -1600,7 +1600,7 @@ export const CALCS = [
             <Calc>area covered by intervention</Calc>
             <br />
             <em>
-              For 5, 10,and 20 year estimates, costs are discounted by 3% each
+              For 5, 10, and 20 year estimates, costs are discounted by 3% each
               year.
             </em>
             <br />
@@ -1619,7 +1619,7 @@ export const CALCS = [
             <Times /> <Calc>area covered by intervention</Calc>
             <br />
             <em>
-              For 5, 10,and 20 year estimates, costs are discounted by 3% each
+              For 5, 10, and 20 year estimates, costs are discounted by 3% each
               year.
             </em>
             <br />
