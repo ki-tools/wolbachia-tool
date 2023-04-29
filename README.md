@@ -15,15 +15,15 @@ Data is pulled from many sources. You can read [here](https://wolbachia-tool.net
 - Country metadata
 - Geographic shapefiles that include sub-national metadata
 
-Code and data files that are used to transform these sources into an app-compatible format can be found [here](tree/main/_preprocessing).
+Code and data files that are used to transform these sources into an app-compatible format can be found [here](../../tree/main/_preprocessing).
 
 ### Country Metadata
 
-Country metadata is gathered from many sources and ultimately ends up in an Excel file located [here TODO](). An R script, located [here](blob/main/_preprocessing/preprocess.R) is used to read this Excel file and transform it into a JSON file for the app to use. (TODO: should we have a schema for this file?)
+Country metadata is gathered from many sources and ultimately ends up in an Excel file located [here TODO](). An R script, located [here](../../blob/main/_preprocessing/preprocess.R) is used to read this Excel file and transform it into a JSON file for the app to use. (TODO: should we have a schema for this file?)
 
 ### Geographic Shapefiles
 
-Shapefiles are prepared in ArcGIS. Preparing this data is a complex and tedious process and will be documented separately. Given a set of shapefiles for each scenario in the app (different population densities or disease reduction criteria), the [same R script](blob/main/_preprocessing/preprocess.R) referenced previously is used to transform these files into topojson files that can be used by the app.
+Shapefiles are prepared in ArcGIS. Preparing this data is a complex and tedious process and will be documented separately. Given a set of shapefiles for each scenario in the app (different population densities or disease reduction criteria), the [same R script](../../blob/main/_preprocessing/preprocess.R) referenced previously is used to transform these files into topojson files that can be used by the app.
 
 ## Development Notes
 
@@ -60,9 +60,9 @@ Since the app is not very complex, nearly all of the state logic for the app is 
 
 The source code for the "Tool" part of the app is found in `src/components/tool`. The main file here is `Tool.js` which specifies all of the user inputs, provides the logic that calculates results based on the inputs, and specifies the output content through the use of other components found in this directory.
 
-When the app first loads, all of the country metadata is loaded using `useCountryMeta()` in `src/App.js`. You can see this file [here](blob/main/public/data/countryMeta.json) to get a feel for its contents. It contains the data from "country_meta.xlsx" described earlier in the preprocessing section.
+When the app first loads, all of the country metadata is loaded using `useCountryMeta()` in `src/App.js`. You can see this file [here](../../blob/main/public/data/countryMeta.json) to get a feel for its contents. It contains the data from "country_meta.xlsx" described earlier in the preprocessing section.
 
-When the Tool component is rendered, it pulls the appropriate topojson data for the selected country, targeting criteria ("DISRED" for disease reduction or "POPDEN" for population density) and then the associated disease reduction target in the case of DISRED ("12_5" for 12.5% and "15" for 15%) or population density in the case of POPDEN (250, 500, 1000, or 1500). These files are located in the associated subdirectories [here](tree/main/public/data). Any given topojson file contains the geometry of the subregions of the country to draw on the map along with metadata for each of those regions.
+When the Tool component is rendered, it pulls the appropriate topojson data for the selected country, targeting criteria ("DISRED" for disease reduction or "POPDEN" for population density) and then the associated disease reduction target in the case of DISRED ("12_5" for 12.5% and "15" for 15%) or population density in the case of POPDEN (250, 500, 1000, or 1500). These files are located in the associated subdirectories [here](../../tree/main/public/data). Any given topojson file contains the geometry of the subregions of the country to draw on the map along with metadata for each of those regions.
 
 The combination of the country metadata, the metadata foundin the topojson files, and the user inputs is used to calculate the outputs. The logic for these calculations is found in the `calculateData()` function in `Tool.js`. The logic in the function follows the information provided in the "Calculations" section of the main page of the app.
 
