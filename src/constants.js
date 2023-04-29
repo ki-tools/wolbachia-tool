@@ -11,7 +11,6 @@ function NLink({ href, text }) {
 }
 
 export const INPUTS = {
-  // misc
   TARPLN: {
     default: 'POPDEN',
     valueLabels: ['Population density threshold', 'Disease reduction target'],
