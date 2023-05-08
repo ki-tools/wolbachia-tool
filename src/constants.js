@@ -41,7 +41,8 @@ export const INPUTS = {
     default: 1,
     values: [0, 1, 2, 3],
     multiplier: [1, 5, 10, 20],
-    benefitsDiscounted: [1, 4.70886581, 8.75252910350239, 15.2068552357751],
+    // benefitsDiscounted: [1, 4.70886581, 8.75252910350239, 15.2068552357751],
+    benefitsDiscounted: [1, 5, 10, 20],
     // costs: [1, 3.000798291, 3.167078222, 3.238879794],
     costs: [1, 3.02, 3.07, 3.11],
     valueLabels: ['1 year', '5 years', '10 years', '20 years'],
@@ -1438,8 +1439,6 @@ export const CALCS = [
             <PreDef>
               Total population in the 'target' of the administrative 2 area
             </PreDef>
-            <Times />
-            <UserInput>coverage</UserInput>
           </>
         ),
       },
@@ -1650,8 +1649,7 @@ export const CALCS = [
         title: 'Cost per DALY averted',
         description: (
           <>
-            <Calc>total cost</Calc> / (<Calc>dalys averted</Calc> <Times />{' '}
-            <UserInput>effectiveness</UserInput>)
+            <Calc>total cost</Calc> / <Calc>DALYs averted</Calc>
           </>
         ),
       },
@@ -1679,9 +1677,7 @@ export const CALCS = [
         title: 'Total DALYs averted',
         description: (
           <>
-            (<UserInput>coverage</UserInput> <Times />{' '}
-            <PreDef>dengue incidence</PreDef>) <Times />{' '}
-            <PreDef>DALY_per_case</PreDef>
+            <Calc>cases averted</Calc> <Times /> <PreDef>DALY_per_case</PreDef>
             <br />
             <em>
               For 5, 10, and 20 year estimates, cases averted are discounted by

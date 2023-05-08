@@ -63,10 +63,9 @@ export default function Tool({
     }, 0);
   }, [hash]); // do this on route change
 
-  const { data, calcTopo, tots, ranges } = useMemo(
-    () => calculateData(topo, meta[countryCode], inputs),
-    [topo, meta, countryCode, inputs]
-  );
+  const { data, calcTopo, tots, ranges } = useMemo(() => {
+    return calculateData(topo, meta[countryCode], inputs);
+  }, [topo, meta, countryCode, inputs]);
 
   if (!meta || !data || !ranges) {
     return null;
@@ -276,21 +275,31 @@ function calculateData(topo, cmeta, inputs) {
 
     let totplan, totprep, totprod, totdist, totrel, totmonit;
     if (inputs.PHSACT === 'PHASE') {
-      totplan = inputs.PLAN * areacovered;
-      totprep = inputs.PREP * areacovered;
-      totprod = inputs.PROD * areacovered;
-      totdist = inputs.DIST * areacovered;
-      totrel = inputs.REL * areacovered;
-      totmonit = inputs.MONIT * areacovered;
+      totplan = inputs.PLAN * areacovered * INPUTS.TIMFRM.costs[timeframe];
+      totprep = inputs.PREP * areacovered * INPUTS.TIMFRM.costs[timeframe];
+      totprod = inputs.PROD * areacovered * INPUTS.TIMFRM.costs[timeframe];
+      totdist = inputs.DIST * areacovered * INPUTS.TIMFRM.costs[timeframe];
+      totrel = inputs.REL * areacovered * INPUTS.TIMFRM.costs[timeframe];
+      totmonit = inputs.MONIT * areacovered * INPUTS.TIMFRM.costs[timeframe];
     } else {
-      totplan = (inputs.WRKPLN + inputs.DETREL) * areacovered;
-      totprep = inputs.COMMUN * areacovered;
+      totplan =
+        (inputs.WRKPLN + inputs.DETREL) *
+        areacovered *
+        INPUTS.TIMFRM.costs[timeframe];
+      totprep = inputs.COMMUN * areacovered * INPUTS.TIMFRM.costs[timeframe];
       totprod =
         (inputs.FACSET + inputs.LINCRE + inputs.MOSPRD + inputs.QM) *
-        areacovered;
-      totdist = inputs.DELEGG * areacovered;
-      totrel = (inputs.EGGDEP + inputs.QA) * areacovered;
-      totmonit += (inputs.ADMAN + inputs.COMSEN + inputs.WOLMON) * areacovered;
+        areacovered *
+        INPUTS.TIMFRM.costs[timeframe];
+      totdist = inputs.DELEGG * areacovered * INPUTS.TIMFRM.costs[timeframe];
+      totrel =
+        (inputs.EGGDEP + inputs.QA) *
+        areacovered *
+        INPUTS.TIMFRM.costs[timeframe];
+      totmonit =
+        (inputs.ADMAN + inputs.COMSEN + inputs.WOLMON) *
+        areacovered *
+        INPUTS.TIMFRM.costs[timeframe];
     }
 
     const popcovered =
@@ -304,8 +313,7 @@ function calculateData(topo, cmeta, inputs) {
     const hospaverted = avertedcases * cmeta.percent_hosp;
     const ambuaverted = avertedcases * cmeta.percent_ambu;
     const nonmedicalaverted = avertedcases * cmeta.percent_non_medical;
-    const averteddalys =
-      popcovered * props.totdenm * cmeta.daly_per_case * inputs.EFF;
+    const averteddalys = avertedcases * cmeta.daly_per_case;
     // * INPUTS.TIMFRM.benefitsDiscounted[timeframe];
 
     const directhospcosts = hospaverted * cmeta.direct_hosp;
@@ -317,8 +325,7 @@ function calculateData(topo, cmeta, inputs) {
       nonmedicalaverted * cmeta.indirect_non_medical;
 
     const denom1 = popcovered * props.totdenm * inputs.EFF;
-    const denom2 =
-      popcovered * props.totdenm * cmeta.daly_per_case * inputs.EFF;
+    const denom2 = denom1 * cmeta.daly_per_case;
 
     const curRow = {
       name: props.name,
@@ -452,6 +459,16 @@ function calculateData(topo, cmeta, inputs) {
   const data = newTopo.objects.foo.geometries.map((d) => ({
     ...d.properties,
     ...inputs,
+    daly_per_case: cmeta.daly_per_case,
+    direct_ambu: cmeta.direct_ambu,
+    direct_hosp: cmeta.direct_hosp,
+    direct_non_medical: cmeta.direct_non_medical,
+    indirect_ambu: cmeta.indirect_ambu,
+    indirect_hosp: cmeta.indirect_hosp,
+    indirect_non_medical: cmeta.indirect_non_medical,
+    percent_ambu: cmeta.percent_ambu,
+    percent_hosp: cmeta.percent_hosp,
+    percent_non_medical: cmeta.percent_non_medical,
   }));
 
   return { data, calcTopo: newTopo, tots, ranges };

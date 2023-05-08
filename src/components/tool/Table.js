@@ -78,7 +78,22 @@ export default function Table({ data, which, sec, footerText, inputs }) {
       type: 'string',
       field: d,
     }));
-    return [...main, ...extra];
+    const extra2 = [
+      'daly_per_case',
+      'direct_ambu',
+      'direct_hosp',
+      'direct_non_medical',
+      'indirect_ambu',
+      'indirect_hosp',
+      'indirect_non_medical',
+      'percent_ambu',
+      'percent_hosp',
+      'percent_non_medical',
+    ].map((d) => ({
+      type: 'number',
+      field: d,
+    }));
+    return [...main, ...extra, ...extra2];
   }, [which, sortModel]);
 
   const allFields = columns.map((d) => d.field);
