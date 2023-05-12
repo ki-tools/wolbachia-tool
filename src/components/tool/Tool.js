@@ -72,9 +72,12 @@ export default function Tool({
   }
   // ;
   if (error) return 'An error has occurred: ' + error.message;
-
+  const curRange =
+    isNaN(ranges[colorVar].min) || isNaN(ranges[colorVar].max)
+      ? { min: 0, max: 0 }
+      : ranges[colorVar];
   const bins = scaleLinear()
-    .domain([ranges[colorVar].min, ranges[colorVar].max])
+    .domain([curRange.min, curRange.max])
     .nice()
     .ticks(8);
 
