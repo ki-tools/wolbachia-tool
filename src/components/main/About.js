@@ -50,21 +50,25 @@ const PromoNumbers = () => {
               <Box paddingBottom={2}>
                 The goal of this tool is to provide data to support decisions
                 related to the implementation and scale-up of <em>Wolbachia</em>{' '}
-                for dengue control globally. This tool is flexible, allowing the
-                user to input estimated costs, effectiveness, coverage, disease
-                reduction targets, and constraints to estimate the impact and
-                costs for their context.{' '}
+                Replacement Technology for dengue control globally. This tool is
+                flexible, allowing the user to input estimated costs,
+                effectiveness, coverage, disease reduction targets, and
+                constraints to estimate the impact and costs for their context.{' '}
               </Box>
 
               <Box paddingBottom={2}>
                 Efforts were made to ensure that this tool can be used by
                 various decision-makers considering <em>Wolbachia</em>{' '}
-                implementation. Intended users include in-country policy makers,
-                dengue program managers, funders, and implementers.{' '}
+                Replacement Technology implementation. Intended users include
+                in-country policy makers, dengue program managers, funders, and
+                implementers.{' '}
               </Box>
 
               <Box>
-                This tool generates data to support decisions globally. Without
+                This tool generates data to support decisions globally. The tool
+                is not intended to provide exact figures but can support
+                decision making by providing plausible values that the user can
+                interpret and estimate by adjusting to local contexts. Without
                 data on the estimated impacts and costs, there is a risk that
                 mosquito release programs will not be implemented in areas where
                 there is the greatest need and payoff for investments.{' '}

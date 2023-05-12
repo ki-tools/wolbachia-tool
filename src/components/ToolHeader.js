@@ -6,6 +6,11 @@ import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import { useSearchParams } from 'react-router-dom';
+import Share from './tool/Share';
 
 export default function ToolHeader({
   meta,
@@ -17,6 +22,8 @@ export default function ToolHeader({
   pathname,
   handleNavMenuSelect,
 }) {
+  const [searchParams, setSearchParams] = useSearchParams(); // eslint-disable-line
+
   const metaArray = useMemo(
     () =>
       Object.values(meta)
@@ -112,7 +119,7 @@ export default function ToolHeader({
                   ? 'contained'
                   : 'text'
               }
-              onClick={() => handleNavMenuSelect(`/tool#${section.hash}`)}
+              onClick={() => handleNavMenuSelect('/tool', section.hash)}
               sx={{
                 my: 1,
                 mx: 0.5,
@@ -124,6 +131,19 @@ export default function ToolHeader({
               {section.name}
             </Button>
           ))}
+          <Tooltip title="Reset">
+            <IconButton
+              aria-label="reset"
+              size="small"
+              color="inherit"
+              onClick={() => {
+                setSearchParams({});
+              }}
+            >
+              <RestartAltIcon fontSize="inherit" />
+            </IconButton>
+          </Tooltip>
+          <Share />
         </Box>
       </Box>
     </Box>

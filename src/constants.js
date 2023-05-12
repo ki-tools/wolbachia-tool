@@ -31,8 +31,8 @@ export const INPUTS = {
     helpText: undefined,
   },
   DISRED: {
-    default: '12_5',
-    values: ['12_5', '25'], //, 50, 100],
+    default: '125',
+    values: ['125', '250'], //, 50, 100],
     valueLabels: ['12.5%', '25%'], //, '50%', '100%'],
     label: 'Disease reduction target',
     helpText: undefined,
@@ -827,9 +827,9 @@ export const USER_GUIDE_CONTENT = [
     ),
     description: (
       <span>
-        This video tutorial describes how the tool can be used to scale up
+        This video tutorial describes how the tool can be used to scale up{' '}
         <em>Wolbachia</em> in high priority areas. We describe how areas are
-        prioritized based on cost-effectiveness (measured by cost per person
+        prioritized based on impact and cost (measured by cost per person
         covered by the intervention).
       </span>
     ),
@@ -1276,13 +1276,17 @@ export const DATA_SOURCES_CONTENT = [
     title: 'Dengue disability',
     text: (
       <span>
-        Estimates of DALYs and cases were extracted from{' '}
+        Estimates of DALYs and cases were extracted from a{' '}
         <Link
-          href="https://www.healthdata.org/gbd/2019"
-          text="The Institute for Health Metrics and Evaluation (IHME)"
-        />
-        . Based on the national estimates, we calculated the DALYs per dengue
-        case.
+          target="_blank"
+          rel="noreferrer"
+          href="https://ghdx.healthdata.org/record/ihme-data/gbd-2019-disability-weights"
+        >
+          Global Burden of Disease Study
+        </Link>{' '}
+        (2019). Based on the national estimates, we calculated the DALYs per
+        dengue case. A range of severities with disability weights is not
+        accounted for.
       </span>
     ),
   },
@@ -1295,7 +1299,7 @@ export const DATA_SOURCES_CONTENT = [
         <Link
           target="_blank"
           rel="noreferrer"
-          href="https://data.review.fao.org/map/catalog/srv/api/records/7e6357e6-0893-4b61-a26d-eb09a04eed72"
+          href="https://data.apps.fao.org/map/catalog/static/search?keyword=HiH_boundaries"
         >
           GAUL within the Food and Agriculture organization of the UN
         </Link>
@@ -1352,28 +1356,29 @@ export const DATA_SOURCES_CONTENT = [
         . The study provides estimates for the percentage of people with dengue
         that receive care in a hospital setting, ambulatory/outpatient setting,
         and non-medical setting. It also estimates direct, medical costs and
-        indirect (lost wages) associated with each type of case in each country.
+        indirect (lost wages) associated with each type of case in each country.{' '}
+        Costs were adjusted to inflation from 2013 to 2020.
       </span>
     ),
   },
-  {
-    title: 'Discounting rates',
-    text: (
-      <span>
-        A discount rate of 3% was applied to the costs and benefits for the 5-,
-        10-, and 20-year estimates. This discounting rate is recommended by the
-        World Health Organization (
-        <Link
-          target="_blank"
-          rel="noreferrer"
-          href="https://apps.who.int/iris/bitstream/handle/10665/42699/9241546018.pdf?sequence=1"
-        >
-          Baltussen, 2003
-        </Link>
-        ).
-      </span>
-    ),
-  },
+  // {
+  //   title: 'Discounting rates',
+  //   text: (
+  //     <span>
+  //       A discount rate of 3% was applied to the costs and benefits for the 5-,
+  //       10-, and 20-year estimates. This discounting rate is recommended by the
+  //       World Health Organization (
+  //       <Link
+  //         target="_blank"
+  //         rel="noreferrer"
+  //         href="https://apps.who.int/iris/bitstream/handle/10665/42699/9241546018.pdf?sequence=1"
+  //       >
+  //         Baltussen, 2003
+  //       </Link>
+  //       ).
+  //     </span>
+  //   ),
+  // },
   {
     title: 'Disease reduction targets',
     text: (
@@ -1582,15 +1587,6 @@ export const CALCS = [
         ),
       },
       {
-        title: 'Mean cost per person',
-        description: (
-          <>
-            <Calc>total cost</Calc> /{' '}
-            <Calc>population covered by intervention</Calc>
-          </>
-        ),
-      },
-      {
         title: 'Total cost of intervention (phase-based)',
         description: (
           <>
@@ -1628,6 +1624,15 @@ export const CALCS = [
           </>
         ),
       },
+      // {
+      //   title: 'Mean cost per person',
+      //   description: (
+      //     <>
+      //       <Calc>total cost</Calc> /{' '}
+      //       <Calc>population covered by intervention</Calc>
+      //     </>
+      //   ),
+      // },
       {
         title: 'Cost per person',
         description: (

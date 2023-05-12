@@ -24,7 +24,7 @@ function Header({
   onSidebarOpen,
 }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const { pathname } = useLocation();
+  const { pathname, hash, search } = useLocation();
   const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
@@ -35,9 +35,12 @@ function Header({
     setAnchorElNav(null);
   };
 
-  const handleNavMenuSelect = (val) => {
+  const handleNavMenuSelect = (path, hash) => {
     setAnchorElNav(null);
-    navigate(val, { state: { prevPath: pathname } });
+    navigate(
+      { pathname: path, hash, search },
+      { state: { prevPath: pathname } }
+    );
   };
 
   const title = (
@@ -141,14 +144,14 @@ function Header({
               {sections.main.map((section, ii) => (
                 <MenuItem
                   key={section.name}
-                  onClick={() => handleNavMenuSelect(`/#${section.hash}`)}
+                  onClick={() => handleNavMenuSelect('/', section.hash)}
                   selected={pathname === '/' && activeMainSection === ii}
                 >
                   <Typography textAlign="center">{section.name}</Typography>
                 </MenuItem>
               ))}
               <MenuItem
-                onClick={() => handleNavMenuSelect('/tool')}
+                onClick={() => handleNavMenuSelect('/tool', '')}
                 selected={pathname === '/tool'}
               >
                 <Typography textAlign="center">Tool</Typography>
@@ -158,7 +161,7 @@ function Header({
                 sections.tool.map((section, ii) => (
                   <MenuItem
                     key={section.name}
-                    onClick={() => handleNavMenuSelect(`/tool#${section.hash}`)}
+                    onClick={() => handleNavMenuSelect('/tool', section.hash)}
                     selected={activeToolSection === ii}
                   >
                     <Typography textAlign="center">{section.name}</Typography>
@@ -183,7 +186,7 @@ function Header({
                     ? 'contained'
                     : 'text'
                 }
-                onClick={() => handleNavMenuSelect(`/#${section.hash}`)}
+                onClick={() => handleNavMenuSelect('/', section.hash)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {section.name}
@@ -194,7 +197,7 @@ function Header({
               disableFocusRipple
               variant={pathname === '/tool' ? 'contained' : 'outlined'}
               onClick={() =>
-                handleNavMenuSelect(`/tool#${sections.tool[0].hash}`)
+                handleNavMenuSelect('/tool', sections.tool[0].hash)
               }
               sx={{
                 ml: 1,

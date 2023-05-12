@@ -111,11 +111,8 @@ export default function Table({ data, which, sec, footerText, inputs }) {
         getRowId={(row) => row.gaul_code}
         rows={data}
         columns={columns}
-        pageSize={10}
-        // rowsPerPageOptions={[10, 25, 50]}
-        rowsPerPageOptions={[10]}
-        disableSelectionOnClick
-        headerHeight={90}
+        disableRowSelectionOnClick
+        columnHeaderHeight={90}
         autoHeight
         density="compact"
         components={{ Toolbar: CustomToolbar, Footer: CustomFooter }}
@@ -142,6 +139,7 @@ export default function Table({ data, which, sec, footerText, inputs }) {
           // sorting: {
           //   sortModel: TABLESORT[which],
           // },
+          pagination: { paginationModel: { page: 0, pageSize: 10 } },
           columns: {
             columnVisibilityModel: visibility,
           },

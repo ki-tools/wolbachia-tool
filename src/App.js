@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import useScrollSpy from 'react-use-scrollspy';
 import Header from './components/Header';
@@ -8,6 +8,11 @@ import Tool from './components/tool/Tool';
 import useCountryMeta from './services/useCountryMeta';
 import AppErrorBoundary from './components/AppErrorBoundary';
 import { INPUTS, TOOLSECTEXT } from './constants';
+import {
+  useSearchParamsState,
+  serializeInputs,
+  parseInputs,
+} from './services/useSearchParamsState';
 
 const initialState = {};
 Object.entries(INPUTS).forEach(([key, val]) => {
@@ -16,11 +21,21 @@ Object.entries(INPUTS).forEach(([key, val]) => {
 
 export default function App() {
   const { data: meta } = useCountryMeta();
-  const [countryCode, setCountryCode] = useState('IDN');
-  const [inputs, setInputs] = useState(initialState);
-  const [colorVar, setColorVar] = useState('costperperson');
-
+  const [countryCode, setCountryCode] = useSearchParamsState('cc', 'IDN');
+  const [sinputs, setSInputs] = useSearchParamsState(
+    'inputs',
+    serializeInputs(initialState)
+  );
+  const [colorVar, setColorVar] = useSearchParamsState('cv', 'costperperson');
   const [openSidebar, setOpenSidebar] = useState(false);
+
+  const inputs = useMemo(() => parseInputs(sinputs), [sinputs]);
+  function setInputs(x) {
+    console.log('a', serializeInputs(x));
+    setSInputs(serializeInputs(x));
+  }
+  // console.log(inputs);
+  // console.log(sinputs);
 
   const handleSidebarOpen = () => {
     setOpenSidebar(true);
@@ -35,7 +50,8 @@ export default function App() {
     // if the country doesn't have the target plan option, need to change it
     const tarPln = inputs.TARPLN;
     if (!meta?.[newCode]?.data?.[tarPln].includes(inputs[tarPln])) {
-      const newInputs = { ...inputs };
+      // const newInputs = { ...inputs };
+      const newInputs = JSON.parse(JSON.stringify(inputs));
       if (meta?.[newCode]?.data?.POPDEN?.length > 0) {
         newInputs.TARPLN = 'POPDEN';
         newInputs.POPDEN = meta?.[newCode]?.data?.POPDEN[0];
