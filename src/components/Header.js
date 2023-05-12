@@ -24,7 +24,7 @@ function Header({
   onSidebarOpen,
 }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const { pathname, hash, search } = useLocation();
+  const { pathname, search } = useLocation();
   const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
