@@ -63,6 +63,7 @@ const SidebarControls = ({ meta, inputs, setInputs }) => {
             inputs={inputs}
             nm="DISRED"
             handleChange={handleChng}
+            tooltip={TOOLTIPS.DISRED}
           />
         </>
       )}

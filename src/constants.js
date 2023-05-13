@@ -2,9 +2,9 @@ import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-function NLink({ href, text }) {
+function NLink({ href, text, sx = {} }) {
   return (
-    <Link target="_blank" rel="noreferrer" href={href}>
+    <Link target="_blank" rel="noreferrer" href={href} sx={sx}>
       {text}
     </Link>
   );
@@ -205,6 +205,18 @@ export const TOOLTIPS = {
       based on a population density cutoff (number of people per {'km\u00b2'})
       or by selecting a disease reduction target (12.5% or 25%). Details on both
       methods are included in the 'Data Sources' section.
+    </span>
+  ),
+  DISRED: (
+    <span>
+      12.5% and 25% national reduction targets based on the work of Tiley, K. et
+      al. and this{' '}
+      <NLink
+        href="https://cdn.who.int/media/docs/default-source/ntds/vector-ecology-mangement/context-background-materials-tpp-wolbachia-infected-aedes-aegypti.pdf?sfvrsn=6760a656_3"
+        text="WHO report"
+        sx={{ color: 'white', textDecoration: 'underline' }}
+      />{' '}
+      (2022)
     </span>
   ),
   EFF: (
@@ -1280,7 +1292,7 @@ export const DATA_SOURCES_CONTENT = [
         <Link
           target="_blank"
           rel="noreferrer"
-          href="https://ghdx.healthdata.org/record/ihme-data/gbd-2019-disability-weights"
+          href="https://vizhub.healthdata.org/gbd-results/"
         >
           Global Burden of Disease Study
         </Link>{' '}
