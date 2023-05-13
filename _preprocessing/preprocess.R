@@ -66,8 +66,8 @@ process("POPDEN", "500")
 process("POPDEN", "1000")
 process("POPDEN", "1500")
 
-process("DISRED", "12_5")
-process("DISRED", "25")
+process("DISRED", "125")
+process("DISRED", "250")
 
 # ------------------- country metadata ------------------- #
 
