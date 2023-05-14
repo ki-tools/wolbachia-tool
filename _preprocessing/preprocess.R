@@ -37,7 +37,7 @@ process <- function(dir, subdir) {
     )
   }
 
-  shp_path <- file.path("_preprocessing/data", dir, subdir)
+  shp_path <- file.path("_preprocessing/shapefiles", dir, subdir)
   shp <- sf::read_sf(shp_path) %>%
     rename_all(tolower)
 
