@@ -23,7 +23,7 @@ Country metadata is gathered from many sources and ultimately ends up in an Exce
 
 ### Geographic Shapefiles
 
-Shapefiles are prepared in ArcGIS. Preparing this data is a complex and tedious process and will be documented separately. Given a set of shapefiles for each scenario in the app (different population densities or disease reduction criteria), the [same R script](../../blob/main/_preprocessing/preprocess.R) referenced previously is used to transform these files into topojson files that can be used by the app.
+Shapefiles are prepared in ArcGIS. Preparing this data is a complex and tedious process. You can read more about this in the [README found in the \_preprocessing/arcGIS_model_data directory](../../tree/main/_preprocessing/arcGIS_model_data#readme). Given a set of shapefiles for each scenario in the app (different population densities or disease reduction criteria), the [same R script](../../blob/main/_preprocessing/preprocess.R) referenced previously is used to transform these files into topojson files that can be used by the app.
 
 ## Development Notes
 
