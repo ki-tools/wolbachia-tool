@@ -747,21 +747,10 @@ export const USER_GUIDE_CONTENT = [
         (GAUL) (e.g., districts) within the country.
       </span>
     ),
-    illustration: 'images/video_placeholder.png',
+    embedId: 'vSh-B2nLwJM',
   },
   {
-    title: 'How should I estimate cost inputs?',
-    description: (
-      <span>
-        This video tutorial shows resources within and beyond the tool which may
-        assist a user in deriving their own cost estimates for{' '}
-        <em>Wolbachia</em> programs.
-      </span>
-    ),
-    illustration: 'images/video_placeholder.png',
-  },
-  {
-    title: 'What is the dengue burden in my country?',
+    title: 'How to calculate dengue burden and reduction estimates?',
     description: (
       <span>
         This video tutorial presents how to use the tool to view the estimated
@@ -773,51 +762,29 @@ export const USER_GUIDE_CONTENT = [
         implementation.
       </span>
     ),
-    illustration: 'images/video_placeholder.png',
+    embedId: 'QGoTrcwiLLI',
   },
   {
-    title: (
-      <span>
-        Where should I target <em>Wolbachia</em> efforts in my country?
-      </span>
-    ),
+    title: 'How to estimate cost?',
     description: (
       <span>
-        This video tutorial provides insight on how to use the tool to select
-        areas for <em>Wolbachia</em> implementation. We demonstrate how areas
-        can be selected using population density thresholds or by disease
-        reduction targets. For the population density thresholds, the target
-        areas are any areas with population density above or equal to, 250
-        people per km², 500 people per km², 1,000 people per km², or 1,500 per
-        km². For disease reduction targets, the user can select to reduce 12.5%
-        or 25% of the total dengue burden. Estimates on the costs, impact, and
-        benefits are provided for the selected target areas.
+        This video tutorial shows resources within and beyond the tool which may
+        assist a user in deriving their own cost estimates for{' '}
+        <em>Wolbachia</em>
+        programs. It also describes how the tool can be used to understand the
+        total costs of <em>Wolbachia</em> programs with differing target
+        approaches and input parameter assumptions such as cost, coverage, and
+        effectiveness. We describe how costs can be refined for different cost
+        scenarios and what the impact might be on the overall costs.
       </span>
     ),
-    illustration: 'images/video_placeholder.png',
+    embedId: 'wmbE1XJFBPQ',
   },
   {
     title: (
       <span>
-        Where should I scale up <em>Wolbachia</em> to achieve dengue reduction
-        targets (i.e., 25% reduction in cases of dengue) in my country?
-      </span>
-    ),
-    description: (
-      <span>
-        This video tutorial describes the disease reduction targeting approach.
-        We demonstrate how a user can select two different disease reduction
-        targets (12.5% or 25%) and what the associated costs, impact, and
-        benefits are for those selected areas in each country.{' '}
-      </span>
-    ),
-    illustration: 'images/video_placeholder.png',
-  },
-  {
-    title: (
-      <span>
-        What will the impacts, in terms of disease reduction, be to scale up{' '}
-        <em>Wolbachia</em> nationally?
+        How to calculate benefits from a National <em>Wolbachia</em> scale
+        program?
       </span>
     ),
     description: (
@@ -825,75 +792,25 @@ export const USER_GUIDE_CONTENT = [
         This video tutorial describes how the tool can be used to determine the
         impact of <em>Wolbachia</em> in terms of dengue cases averted and
         Disability-Adjusted Life Years (DALYs) averted. We describe how types of
-        cases averted (i.e., cases requiring hospitalization) are estimated.
+        cases averted (i.e., cases requiring hospitalization) are estimated. And
+        also, describes how the tool can be used to scale up <em>Wolbachia</em>{' '}
+        in high priority areas. We describe how areas are prioritized based on
+        impact and cost (measured by cost per person covered by the
+        intervention).
       </span>
     ),
-    illustration: 'images/video_placeholder.png',
+    embedId: '1YmsE9PUvqA',
   },
   {
-    title: (
-      <span>
-        What will the impacts, in terms of disease reduction, be to scale up{' '}
-        <em>Wolbachia</em> nationally with a budget constraint?
-      </span>
-    ),
+    title: <span>Let's do a practice scenario!</span>,
     description: (
       <span>
-        This video tutorial describes how the tool can be used to scale up{' '}
-        <em>Wolbachia</em> in high priority areas. We describe how areas are
-        prioritized based on impact and cost (measured by cost per person
-        covered by the intervention).
+        Finally! Let's use Indonesia as a practice scenario as we use all the
+        features of the tool to support decision making of <em>Wolbachia</em>{' '}
+        Replacement Technology.
       </span>
     ),
-    illustration: 'images/video_placeholder.png',
-  },
-  {
-    title: (
-      <span>
-        What is the estimated total cost to implement <em>Wolbachia</em>?
-      </span>
-    ),
-    description: (
-      <span>
-        This video tutorial describes how the tool can be used to understand the
-        total costs of <em>Wolbachia</em> programs with differing target
-        approaches and input parameter assumptions such as cost, coverage, and
-        effectiveness. We describe how costs can be refined for different cost
-        scenarios and what the impact might be on the overall costs.
-      </span>
-    ),
-    illustration: 'images/video_placeholder.png',
-  },
-  {
-    title:
-      'What is the estimated cost for each phase (i.e., planning, preparation, production, distribution, release, monitoring)?',
-    description: (
-      <span>
-        This video tutorial describes how the tool can be used to understand the
-        phase-specific costs of <em>Wolbachia</em> programs with differing
-        target approaches and input parameter assumptions. We describe how costs
-        can be refined for different cost scenarios and what the impact might be
-        on the overall phase-specific costs.
-      </span>
-    ),
-    illustration: 'images/video_placeholder.png',
-  },
-  {
-    title: (
-      <span>
-        What will the other benefits, including reductions in (DALYs) and
-        economic losses be due to <em>Wolbachia</em> implementation?
-      </span>
-    ),
-    description: (
-      <span>
-        This video tutorial describes how the tool estimates additional benefits
-        of <em>Wolbachia</em> program implementation. We describe how estimates
-        such as DALYs, averted health system costs, and averted economic costs
-        are developed.
-      </span>
-    ),
-    illustration: 'images/video_placeholder.png',
+    embedId: '3rZp7oLjT-g',
   },
 ];
 

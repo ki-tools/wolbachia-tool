@@ -181,7 +181,7 @@ const PromoNumbers = () => {
                       The Bill and Melinda Gates Foundation (Steve Kern, Christy
                       Hanson, Kayla Laserson, and Harmony Chartier).{' '}
                     </li>
-                    <li>The Preva Group (Ryan Hafen)</li>
+                    <li>Preva Group (Ryan Hafen)</li>
                     <li>The Arcady Group (Bruce Thomas)</li>
                     <li>
                       The London School of Hygiene and Tropical Medicine (Oliver

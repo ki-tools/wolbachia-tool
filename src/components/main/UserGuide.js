@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import LaunchApp from './LaunchApp';
 import { USER_GUIDE_CONTENT } from '../../constants';
+import YoutubeEmbed from './YoutubeEmbed';
 
 const UserGuide = () => {
   return (
@@ -47,7 +48,7 @@ const UserGuide = () => {
             spacing={4}
             direction={i % 2 === 1 ? 'row-reverse' : 'row'}
           >
-            <Grid item container alignItems={'center'} xs={12} sm={6}>
+            <Grid item container alignItems={'top'} xs={12} sm={6}>
               <Box>
                 {/* {item.icon} */}
                 <Typography
@@ -71,42 +72,14 @@ const UserGuide = () => {
               sm={6}
             >
               <Box
-                maxWidth={'80%'}
                 sx={{
+                  height: '350px',
                   position: 'relative',
-                  margin: 1,
-                  borderRadius: 2,
+                  width: '100%',
+                  maxWidth: '600px',
                 }}
               >
-                <Box
-                  component={'img'}
-                  src={item.illustration}
-                  alt={item.title}
-                  width={1}
-                  sx={{
-                    borderRadius: 2,
-                    boxShadow:
-                      'rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px',
-                  }}
-                />
-                <Box
-                  width={1}
-                  sx={{
-                    pl: 2,
-                    pr: 2,
-                    boxSizing: 'border-box',
-                    position: 'absolute',
-                    top: '15%',
-                    background: 'rgba(255, 255, 255, 0.4)',
-                    color: '#777',
-                    left: 0,
-                    textAlign: 'center',
-                    fontSize: { xs: 25, sm: 20, lg: 30 },
-                    fontWeight: 800,
-                  }}
-                >
-                  Video tutorial coming soon
-                </Box>
+                <YoutubeEmbed embedId={item.embedId} />
               </Box>
             </Grid>
           </Grid>
