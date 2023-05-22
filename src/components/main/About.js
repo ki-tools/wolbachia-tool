@@ -170,8 +170,8 @@ const PromoNumbers = () => {
                   <ul>
                     <li>
                       START Center team members (Aldina Mesic, William Sheahan,
-                      Jairam Lingappa, Andrew Secor, Mohamed Albirair, and Paul
-                      Drain).
+                      Erin Ingle, Ana Pereda, Brandon Guthrie, Jairam Lingappa,
+                      Andrew Secor, Mohamed Albirair, and Paul Drain).
                     </li>
                     <li>
                       START Center Operations and Leadership (Lauren Adjumani,

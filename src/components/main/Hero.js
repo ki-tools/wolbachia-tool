@@ -41,8 +41,8 @@ const Hero = () => {
           <em>Aedes aegypti</em> mosquitoes infected with naturally occurring{' '}
           <em>Wolbachia</em> bacteria have a reduced ability to transmit dengue
           virus. What is not known is how to implement and scale up{' '}
-          <em>Wolbachia</em>
-          Replacement Technology to substantially reduce the burden of dengue.
+          <em>Wolbachia</em> Replacement Technology to substantially reduce the
+          burden of dengue.
         </Typography>
         <Typography pt={2} variant="h6" component="p" color="text.secondary">
           This tool is designed to support decisions related to{' '}

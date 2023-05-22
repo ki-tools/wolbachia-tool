@@ -770,12 +770,12 @@ export const USER_GUIDE_CONTENT = [
       <span>
         This video tutorial shows resources within and beyond the tool which may
         assist a user in deriving their own cost estimates for{' '}
-        <em>Wolbachia</em>
-        programs. It also describes how the tool can be used to understand the
-        total costs of <em>Wolbachia</em> programs with differing target
-        approaches and input parameter assumptions such as cost, coverage, and
-        effectiveness. We describe how costs can be refined for different cost
-        scenarios and what the impact might be on the overall costs.
+        <em>Wolbachia</em> programs. It also describes how the tool can be used
+        to understand the total costs of <em>Wolbachia</em> programs with
+        differing target approaches and input parameter assumptions such as
+        cost, coverage, and effectiveness. We describe how costs can be refined
+        for different cost scenarios and what the impact might be on the overall
+        costs.
       </span>
     ),
     embedId: 'wmbE1XJFBPQ',
