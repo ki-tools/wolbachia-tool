@@ -621,7 +621,8 @@ export const TOOLSECTEXT = {
   ),
 };
 
-const cols = ['#76B7B2', '#E15759', '#F28E2B', '#59A14F', '#B07AA1', '#4E79A7'];
+const cols = ['#5B2C86', '#A6228C', '#F28E2B', '#59A14F', '#B07AA1', '#4E79A7'];
+// const cols = ['#76B7B2', '#E15759', '#F28E2B', '#59A14F', '#B07AA1', '#4E79A7'];
 const gr = '#666666';
 
 export const SUMMS = {

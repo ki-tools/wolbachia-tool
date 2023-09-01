@@ -1,7 +1,8 @@
 import * as ReactDOMServer from 'react-dom/server';
 import React, { useMemo } from 'react';
 import Skeleton from '@mui/material/Skeleton';
-import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
+import { MapContainer, GeoJSON } from 'react-leaflet';
+import { TiledMapLayer } from 'react-esri-leaflet';
 // import * as L from 'leaflet';
 import { feature } from 'topojson-client';
 import { bbox } from 'topojson-client';
@@ -63,7 +64,6 @@ export default function Map({
   if (isLoading) {
     return <Skeleton variant="rectangular" width="100%" height={500} />;
   }
-
   return (
     <div style={{ height: 500, width: '100%' }}>
       <MapContainer
@@ -81,15 +81,19 @@ export default function Map({
         // doubleClickZoom={true}
         attributionControl={false}
       >
-        <TileLayer
-          url={`https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}${
-            isRetinaDisplay() ? '@2x.png' : '.png'
-          }`}
+        <TiledMapLayer
+          url="https://tiles.arcgis.com/tiles/5T5nSi527N4F7luB/arcgis/rest/services/WHO_Polygon_Raster_Basemap_with_labels/MapServer"
+          // detectRetina={isRetinaDisplay()}
+          maxZoom={20}
+          minZoom={4}
+        />
+        {/* <TileLayer
+          url={`https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}${isRetinaDisplay() ? '@2x.png' : '.png'}/{z}/{y}/{x}.pbf`}
           attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions">CARTO</a>'
           subdomains="abcd"
           maxZoom={20}
           minZoom={4}
-        />
+        /> */}
         <GeoJSON
           key={`${countryCode}-${inputs.POPDEN}-${geojson.features.length}`}
           data={geojson}

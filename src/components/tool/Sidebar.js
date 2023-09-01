@@ -16,8 +16,8 @@ const Sidebar = ({ meta, open, variant, onClose, inputs, setInputs }) => {
         '& .MuiPaper-root': {
           width: '100%',
           maxWidth: 300,
-          top: { xs: 0, md: 126 },
-          height: { xs: '100%', md: 'calc(100% - 126px)' },
+          top: { xs: 0, md: 130 },
+          height: { xs: '100%', md: 'calc(100% - 130px)' },
           background: theme.palette.alternate.main,
         },
       }}

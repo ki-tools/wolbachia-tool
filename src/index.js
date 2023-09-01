@@ -11,7 +11,8 @@ const queryClient = new QueryClient();
 
 const theme = createTheme({
   typography: {
-    fontFamily: `"Nunito Sans", "Helvetica", "Arial", sans-serif`,
+    fontFamily: `"Source Sans 3", "Helvetica", "Arial", sans-serif`,
+    fontSize: 16,
   },
   palette: {
     action: {
@@ -25,14 +26,14 @@ const theme = createTheme({
     cardShadow: 'rgba(23, 70, 161, .11)',
     mode: 'light',
     primary: {
-      main: '#377dff',
-      light: '#467de3',
+      main: '#009ADE',
+      light: 'rgb(121,181,227)',
       dark: '#2f6ad9',
       contrastText: '#fff',
     },
     secondary: {
-      light: '#ffb74d',
-      main: '#f9b934',
+      light: '#F4A81D',
+      main: 'rgb(248,195,112)',
       dark: '#FF9800',
       contrastText: 'rgba(0, 0, 0, 0.87)',
     },

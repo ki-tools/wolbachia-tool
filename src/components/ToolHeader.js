@@ -33,7 +33,7 @@ export default function ToolHeader({
   );
 
   return (
-    <Box sx={{ width: '100%', background: '#444444', height: '46px' }}>
+    <Box sx={{ width: '100%', background: '#444444', height: '50px' }}>
       <Box
         // maxWidth="xl"
         sx={{ background: '#444444', display: 'flex' }}
@@ -79,7 +79,7 @@ export default function ToolHeader({
               inputProps={{ 'aria-label': 'Without label' }}
               sx={{
                 color: '#ffffff',
-                fontWeight: 600,
+                fontWeight: 500,
                 '& .MuiSvgIcon-root': {
                   color: 'white',
                 },
@@ -125,7 +125,7 @@ export default function ToolHeader({
                 mx: 0.5,
                 color: 'white',
                 display: 'block',
-                fontWeight: 700,
+                fontWeight: 500,
               }}
             >
               {section.name}

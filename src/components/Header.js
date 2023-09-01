@@ -45,41 +45,13 @@ function Header({
 
   const title = (
     <>
-      <Box style={{ marginLeft: -12, marginRight: 10 }}>
-        <Link
-          target="_blank"
-          rel="noreferrer"
-          href="http://uwstartcenter.org/"
-          sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}
-        >
+      <Box style={{ marginLeft: -12, marginRight: 20 }}>
+        <Link target="_blank" rel="noreferrer" href="https://www.who.int">
           <img
             height="45"
-            src="images/start_header_black.png"
+            src="images/whologo.svg"
             alt="START logo"
-          />
-        </Link>
-        <Link
-          target="_blank"
-          rel="noreferrer"
-          href="http://uwstartcenter.org/"
-          sx={{ display: { xs: 'none', sm: 'block', md: 'none' } }}
-        >
-          <img
-            height="45"
-            src="images/start_header_black_logo_text.png"
-            alt="START logo"
-          />
-        </Link>
-        <Link
-          target="_blank"
-          rel="noreferrer"
-          href="http://uwstartcenter.org/"
-          sx={{ display: { xs: 'block', sm: 'none' } }}
-        >
-          <img
-            height="45"
-            src="images/start_header_black_logo_only.png"
-            alt="START logo"
+            style={{ display: 'none' }}
           />
         </Link>
       </Box>
@@ -96,7 +68,11 @@ function Header({
           flexGrow: 1,
         }}
       >
-        <em>Wolbachia</em> Decision-Support Tool
+        <em>Wolbachia </em>
+        <Box sx={{ display: { xs: 'none', sm: 'inline-block' } }}>
+          Decision-Support&nbsp;
+        </Box>
+        Tool
       </Typography>
     </>
   );
