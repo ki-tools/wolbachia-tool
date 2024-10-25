@@ -748,7 +748,7 @@ export const USER_GUIDE_CONTENT = [
         (GAUL) (e.g., districts) within the country.
       </span>
     ),
-    embedId: 'vSh-B2nLwJM',
+    embedId: 'CSLY_T-WBP0',
   },
   {
     title: 'How to calculate dengue burden and reduction estimates?',
@@ -763,7 +763,7 @@ export const USER_GUIDE_CONTENT = [
         implementation.
       </span>
     ),
-    embedId: 'QGoTrcwiLLI',
+    embedId: 'WPV50toZ6kk',
   },
   {
     title: 'How to estimate cost?',
@@ -779,7 +779,7 @@ export const USER_GUIDE_CONTENT = [
         costs.
       </span>
     ),
-    embedId: 'wmbE1XJFBPQ',
+    embedId: 'vcqISA-g-yU',
   },
   {
     title: (
@@ -800,7 +800,7 @@ export const USER_GUIDE_CONTENT = [
         intervention).
       </span>
     ),
-    embedId: '1YmsE9PUvqA',
+    embedId: 'hCv9HEizHoI',
   },
   {
     title: <span>Let's do a practice scenario!</span>,
@@ -811,7 +811,7 @@ export const USER_GUIDE_CONTENT = [
         Replacement Technology.
       </span>
     ),
-    embedId: '3rZp7oLjT-g',
+    embedId: '-hLLwxj0doc',
   },
 ];
 
