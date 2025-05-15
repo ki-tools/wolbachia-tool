@@ -239,7 +239,7 @@ function calculateData(topo, cmeta, inputs) {
     const timeframe = parseInt(inputs.TIMFRM);
 
     const totalcases =
-      props.totdenm *
+      props.new_mean *
       props.targetpop *
       INPUTS.TIMFRM.benefitsDiscounted[timeframe];
     const areacovered = props.targetarea * inputs.COV;
@@ -310,8 +310,9 @@ function calculateData(topo, cmeta, inputs) {
       inputs.COV *
       INPUTS.TIMFRM.benefitsDiscounted[timeframe];
     const totaldalys = totalcases * cmeta.daly_per_case;
+    // debugger;
 
-    const avertedcases = popcovered * props.totdenm * inputs.EFF;
+    const avertedcases = popcovered * props.new_mean * inputs.EFF;
     // * INPUTS.TIMFRM.benefitsDiscounted[timeframe];
     const hospaverted = avertedcases * cmeta.percent_hosp;
     const ambuaverted = avertedcases * cmeta.percent_ambu;
@@ -327,7 +328,7 @@ function calculateData(topo, cmeta, inputs) {
     const indirectnonmedicalcosts =
       nonmedicalaverted * cmeta.indirect_non_medical;
 
-    const denom1 = popcovered * props.totdenm * inputs.EFF;
+    const denom1 = popcovered * props.new_mean * inputs.EFF;
     const denom2 = denom1 * cmeta.daly_per_case;
 
     const curRow = {
@@ -336,7 +337,7 @@ function calculateData(topo, cmeta, inputs) {
       // burden
       totpop: props.totpop,
       targetpop: props.targetpop,
-      totdenm: props.totdenm,
+      new_mean: props.new_mean,
       totalcases: totalcases,
       totaldalys: totaldalys,
       totalhosp: totalcases * cmeta.percent_hosp,

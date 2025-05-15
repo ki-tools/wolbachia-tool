@@ -253,7 +253,7 @@ export const TABLES = {
     'gaul_code',
     'totpop',
     'targetpop',
-    'totdenm',
+    'new_mean',
     'totalcases',
     'totaldalys',
     'totalhosp',
@@ -294,7 +294,7 @@ export const TABLES = {
 };
 
 export const TABLESORT = {
-  BURDEN: [{ field: 'totdenm', sort: 'desc' }],
+  BURDEN: [{ field: 'new_mean', sort: 'desc' }],
   IMPLEMENTATION: [{ field: 'costperperson', sort: 'asc' }],
   REDUCTION: [{ field: 'avertedcases', sort: 'desc' }],
   ADDBENEFITS: [{ field: 'healthsystemcosts', sort: 'desc' }],
@@ -304,7 +304,7 @@ export const COLORMENU = [
   { title: 'Burden' },
   { option: 'totpop' },
   { option: 'targetpop' },
-  { option: 'totdenm' },
+  { option: 'new_mean' },
   { option: 'totalcases' },
   { option: 'totaldalys' },
   { option: 'totalhosp' },
@@ -364,7 +364,7 @@ export const VARS = [
     // source is geo data
   },
   {
-    name: 'totdenm',
+    name: 'new_mean',
     label: 'Mean dengue incidence',
     type: 'number',
     digits: 4,
@@ -383,7 +383,7 @@ export const VARS = [
     label: 'Total number of cases of dengue (without intervention)',
     type: 'number',
     digits: 0,
-    // totdenm * targetpop
+    // new_mean * targetpop
   },
   {
     name: 'totaldalys',
@@ -448,14 +448,14 @@ export const VARS = [
     label: 'Cost per case averted',
     type: 'currency',
     digits: 2,
-    // totalcost / ((popcovered * totdenm) * EFFECTIVENESS_DEFAULT)
+    // totalcost / ((popcovered * new_mean) * EFFECTIVENESS_DEFAULT)
   },
   {
     name: 'costperaverteddaly',
     label: 'Cost per daly averted',
     type: 'currency',
     digits: 2,
-    // totalcost / (((popcovered *totdenm)* daly_per_case (country dataset)) EFFECTIVENESS_DEFAULT))
+    // totalcost / (((popcovered *new_mean)* daly_per_case (country dataset)) EFFECTIVENESS_DEFAULT))
   },
   {
     name: 'avertedcases',
@@ -463,7 +463,7 @@ export const VARS = [
     type: 'number',
     digits: 0,
     width: 130,
-    // (popcovered *totdenm) * EFFECTIVENESS_DEFAULT
+    // (popcovered *new_mean) * EFFECTIVENESS_DEFAULT
   },
   {
     name: 'averteddalys',
@@ -471,7 +471,7 @@ export const VARS = [
     type: 'number',
     digits: 0,
     width: 130,
-    // ((popcovered * totdenm) * daly_per_case (country dataset)) EFFECTIVENESS_DEFAULT))
+    // ((popcovered * new_mean) * daly_per_case (country dataset)) EFFECTIVENESS_DEFAULT))
   },
   {
     name: 'hospaverted',
