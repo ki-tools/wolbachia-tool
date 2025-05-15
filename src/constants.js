@@ -31,8 +31,8 @@ export const INPUTS = {
     helpText: undefined,
   },
   DISRED: {
-    default: '125',
-    values: ['125', '250'], //, 50, 100],
+    default: '12',
+    values: ['12', '25'], //, 50, 100],
     valueLabels: ['12.5%', '25%'], //, '50%', '100%'],
     label: 'Disease reduction target',
     helpText: undefined,
