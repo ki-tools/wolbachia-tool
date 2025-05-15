@@ -671,7 +671,7 @@ export const SUMMS = {
       color: gr,
     },
     {
-      title: 'Prepration',
+      title: 'Preparation',
       var: 'totprep',
       dollars: true,
       n: 4,
