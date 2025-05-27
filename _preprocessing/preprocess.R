@@ -32,23 +32,31 @@ fix_numeric <- function(x) {
 process <- function(dir, subdir) {
   message(subdir)
   if (!dir.exists(file.path("public/data", dir, subdir))) {
-    dir.create(file.path("public/data", dir, subdir),
+    dir.create(
+      file.path("public/data", dir, subdir),
       recursive = TRUE
     )
   }
 
   shp_path <- file.path("_preprocessing/shapefiles", dir, subdir)
-  shp <- sf::read_sf(shp_path) %>%
+  shp <- sf::read_sf(shp_path) |>
     rename_all(tolower)
 
-  dat <- shp %>%
+  dat <- shp |>
     select(all_of(c(req_vars, "geometry")))
   dat
 
-  dat <- dat %>%
-    mutate(across(c(
-      "totalarea", "targetarea", "totpop", "targetpop", "totdenm"
-    ), fix_numeric))
+  dat <- dat |>
+    mutate(across(
+      c(
+        "totalarea",
+        "targetarea",
+        "totpop",
+        "targetpop",
+        "totdenm"
+      ),
+      fix_numeric
+    ))
 
   ds <- split(dat, dat$country_id)
 
@@ -66,23 +74,32 @@ process("POPDEN", "500")
 process("POPDEN", "1000")
 process("POPDEN", "1500")
 
-process("DISRED", "125")
-process("DISRED", "250")
+process("DISRED", "12")
+process("DISRED", "25")
 
 # ------------------- country metadata ------------------- #
 
 library(readxl)
 
 keep <- c(
-  "iso_3", "country", "daly_per_case", "direct_ambu",
-  "direct_hosp", "direct_non_medical", "indirect_ambu", "indirect_hosp",
-  "indirect_non_medical", "percent_ambu", "percent_hosp",
-  "percent_non_medical"
+  "iso_3",
+  "country",
+  "daly_per_case",
+  "direct_ambu",
+  "direct_hosp",
+  "direct_non_medical",
+  "indirect_ambu",
+  "indirect_hosp",
+  "indirect_non_medical",
+  "percent_ambu",
+  "percent_hosp",
+  "percent_non_medical",
+  "pop_multiplier"
 )
 
-meta <- read_xlsx("_preprocessing/country_meta.xlsx") %>%
-  rename_all(tolower) %>%
-  select(all_of(keep)) %>%
+meta <- read_xlsx("_preprocessing/country_meta.xlsx") |>
+  rename_all(tolower) |>
+  select(all_of(keep)) |>
   arrange(country)
 
 # countries where everything is missing:
@@ -96,28 +113,32 @@ pd <- lapply(ff, function(f) {
     par = basename(f),
     code = tools::file_path_sans_ext(list.files(f))
   )
-}) %>% bind_rows()
+}) |>
+  bind_rows()
 ff <- list.files("public/data/DISRED", full.names = TRUE)
 dr <- lapply(ff, function(f) {
   tibble(
     par = basename(f),
     code = tools::file_path_sans_ext(list.files(f))
   )
-}) %>% bind_rows()
+}) |>
+  bind_rows()
 
 meta <- filter(meta, iso_3 %in% unique(c(pd$code, dr$code)))
 
-country_meta <- meta %>%
-  split(meta$iso_3) %>%
+country_meta <- meta |>
+  split(meta$iso_3) |>
   lapply(as.list)
 
 for (ctry in names(country_meta)) {
   country_meta[[ctry]]$data <- list(
-    POPDEN = filter(pd, code == ctry) %>% pull(par) %>% I(),
-    DISRED = filter(dr, code == ctry) %>% pull(par) %>% I()
+    POPDEN = filter(pd, code == ctry) |> pull(par) |> I(),
+    DISRED = filter(dr, code == ctry) |> pull(par) |> I()
   )
 }
 
-jsonlite::write_json(country_meta, "public/data/countryMeta.json",
+jsonlite::write_json(
+  country_meta,
+  "public/data/countryMeta.json",
   auto_unbox = TRUE
 )

@@ -31,7 +31,7 @@ export default function App() {
 
   const inputs = useMemo(() => parseInputs(sinputs), [sinputs]);
   function setInputs(x) {
-    console.log('a', serializeInputs(x));
+    // console.log('a', serializeInputs(x));
     setSInputs(serializeInputs(x));
   }
   // console.log(inputs);

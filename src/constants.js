@@ -41,6 +41,7 @@ export const INPUTS = {
     default: 1,
     values: [0, 1, 2, 3],
     multiplier: [1, 5, 10, 20],
+    years: [1, 5, 10, 20],
     // benefitsDiscounted: [1, 4.70886581, 8.75252910350239, 15.2068552357751],
     benefitsDiscounted: [1, 5, 10, 20],
     // costs: [1, 3.000798291, 3.167078222, 3.238879794],
