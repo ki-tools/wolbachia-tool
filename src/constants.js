@@ -1192,12 +1192,23 @@ export const DATA_SOURCES_CONTENT = [
     title: 'Dengue burden',
     text: (
       <span>
-        We relied on modelled raster data for burden as asymptomatic and
-        symptomatic dengue are severely underreported. Symptomatic dengue burden
-        was extracted from spatial raster datasets from{' '}
+        Previously, we relied on modelled raster data for burden as asymptomatic
+        and symptomatic dengue are severely underreported. Symptomatic dengue
+        burden was extracted from spatial raster datasets from{' '}
         <NLink
           href="https://www.nature.com/articles/nature12060"
           text="Bhatt et al. 2013"
+        />
+        . In June 2025, we updated the data source of modelled dengue data to{' '}
+        <NLink href="https://arbomap.org/dengue/about" text="DengueMap" />,
+        which estimates the force of infection from surveillance data.
+        Researchers provided estimates for the number of cases and total
+        population in each GAUL 2 administrative unit, which were used to
+        estimate the incidence for each target area/scenario in the tool.
+        Additional details are provided here:{' '}
+        <NLink
+          href="https://pubmed.ncbi.nlm.nih.gov/31996463/"
+          text="Cattarino et al. 2020"
         />
         .
       </span>
@@ -1249,6 +1260,24 @@ export const DATA_SOURCES_CONTENT = [
         {
           'The data used was unconstrained 1 km resolution estimates of population count and population density, adjusted to match UN Population estimates and measured in units of persons per km\u00b2.'
         }
+        To address changes in population, we accessed average annual population
+        growth percentages{' '}
+        <NLink
+          href="https://data.worldbank.org/indicator/sp.pop.grow"
+          text="from the World Bank"
+        />{' '}
+        for each country and used this value to calculate the multi-year
+        scenarios. Additionally, we note that the dengue burden model used a
+        different data source (
+        <NLink
+          href="https://www.ornl.gov/project/landscan"
+          text="LandScan2023"
+        />
+        ), which were used to estimate the number of cases in a given area using
+        the force of infection, and then subsequently, the dengue incidence in
+        the tool. However, we note that estimates are very similar between the
+        two modelled population data sources, so we do not consider this a major
+        limitation.
       </span>
     ),
   },
