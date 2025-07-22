@@ -239,41 +239,43 @@ function calculateData(topo, cmeta, inputs) {
     const timeframe = parseInt(inputs.TIMFRM);
 
     const totalcases =
-      props.totdenm *
-      props.targetpop *
-      INPUTS.TIMFRM.benefitsDiscounted[timeframe];
+      props.new_mean * props.targetpop * INPUTS.TIMFRM.years[timeframe];
     const areacovered = props.targetarea * inputs.COV;
 
-    let totalcost;
+    let tmpcost;
     if (inputs.PHSACT === 'PHASE') {
       // phase-based
-      totalcost =
-        (inputs.PLAN +
-          inputs.PREP +
-          inputs.PROD +
-          inputs.DIST +
-          inputs.REL +
-          inputs.MONIT) *
-        areacovered *
-        INPUTS.TIMFRM.costs[timeframe];
+      tmpcost =
+        inputs.PLAN +
+        inputs.PREP +
+        inputs.PROD +
+        inputs.DIST +
+        inputs.REL +
+        inputs.MONIT;
     } else {
       // activity-based
-      totalcost =
-        (inputs.WRKPLN +
-          inputs.COMMUN +
-          inputs.FACSET +
-          inputs.LINCRE +
-          inputs.MOSPRD +
-          inputs.QM +
-          inputs.QA +
-          inputs.EGGDEP +
-          inputs.DELEGG +
-          inputs.ADMAN +
-          inputs.COMSEN +
-          inputs.WOLMON +
-          inputs.DETREL) *
-        areacovered *
-        INPUTS.TIMFRM.costs[timeframe];
+      tmpcost =
+        inputs.WRKPLN +
+        inputs.COMMUN +
+        inputs.FACSET +
+        inputs.LINCRE +
+        inputs.MOSPRD +
+        inputs.QM +
+        inputs.QA +
+        inputs.EGGDEP +
+        inputs.DELEGG +
+        inputs.ADMAN +
+        inputs.COMSEN +
+        inputs.WOLMON +
+        inputs.DETREL;
+    }
+    let totalcost = 0;
+    for (let ii = 0; ii < INPUTS.TIMFRM.years[timeframe]; ii++) {
+      let newtotalcost = tmpcost * areacovered * 0.97 ** ii;
+      if (ii > 2) {
+        newtotalcost = newtotalcost * 0.01;
+      }
+      totalcost += newtotalcost;
     }
 
     let totplan, totprep, totprod, totdist, totrel, totmonit;
@@ -308,16 +310,25 @@ function calculateData(topo, cmeta, inputs) {
     const popcovered =
       props.targetpop *
       inputs.COV *
-      INPUTS.TIMFRM.benefitsDiscounted[timeframe];
+      cmeta.pop_multiplier ** (INPUTS.TIMFRM.years[timeframe] - 1);
+
     const totaldalys = totalcases * cmeta.daly_per_case;
 
-    const avertedcases = popcovered * props.totdenm * inputs.EFF;
-    // * INPUTS.TIMFRM.benefitsDiscounted[timeframe];
+    let avertedcases = 0;
+    for (let ii = 0; ii < INPUTS.TIMFRM.years[timeframe]; ii++) {
+      const newcasesaverted =
+        props.targetpop *
+        inputs.COV *
+        props.new_mean *
+        inputs.EFF *
+        cmeta.pop_multiplier ** ii *
+        0.97 ** ii;
+      avertedcases += newcasesaverted;
+    }
     const hospaverted = avertedcases * cmeta.percent_hosp;
     const ambuaverted = avertedcases * cmeta.percent_ambu;
     const nonmedicalaverted = avertedcases * cmeta.percent_non_medical;
     const averteddalys = avertedcases * cmeta.daly_per_case;
-    // * INPUTS.TIMFRM.benefitsDiscounted[timeframe];
 
     const directhospcosts = hospaverted * cmeta.direct_hosp;
     const directambucosts = ambuaverted * cmeta.direct_ambu;
@@ -327,7 +338,7 @@ function calculateData(topo, cmeta, inputs) {
     const indirectnonmedicalcosts =
       nonmedicalaverted * cmeta.indirect_non_medical;
 
-    const denom1 = popcovered * props.totdenm * inputs.EFF;
+    const denom1 = popcovered * props.new_mean * inputs.EFF;
     const denom2 = denom1 * cmeta.daly_per_case;
 
     const curRow = {
@@ -336,7 +347,7 @@ function calculateData(topo, cmeta, inputs) {
       // burden
       totpop: props.totpop,
       targetpop: props.targetpop,
-      totdenm: props.totdenm,
+      new_mean: props.new_mean,
       totalcases: totalcases,
       totaldalys: totaldalys,
       totalhosp: totalcases * cmeta.percent_hosp,

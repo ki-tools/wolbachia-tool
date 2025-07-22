@@ -31,8 +31,8 @@ export const INPUTS = {
     helpText: undefined,
   },
   DISRED: {
-    default: '125',
-    values: ['125', '250'], //, 50, 100],
+    default: '12',
+    values: ['12', '25'], //, 50, 100],
     valueLabels: ['12.5%', '25%'], //, '50%', '100%'],
     label: 'Disease reduction target',
     helpText: undefined,
@@ -41,6 +41,7 @@ export const INPUTS = {
     default: 1,
     values: [0, 1, 2, 3],
     multiplier: [1, 5, 10, 20],
+    years: [1, 5, 10, 20],
     // benefitsDiscounted: [1, 4.70886581, 8.75252910350239, 15.2068552357751],
     benefitsDiscounted: [1, 5, 10, 20],
     // costs: [1, 3.000798291, 3.167078222, 3.238879794],
@@ -253,7 +254,7 @@ export const TABLES = {
     'gaul_code',
     'totpop',
     'targetpop',
-    'totdenm',
+    'new_mean',
     'totalcases',
     'totaldalys',
     'totalhosp',
@@ -294,7 +295,7 @@ export const TABLES = {
 };
 
 export const TABLESORT = {
-  BURDEN: [{ field: 'totdenm', sort: 'desc' }],
+  BURDEN: [{ field: 'new_mean', sort: 'desc' }],
   IMPLEMENTATION: [{ field: 'costperperson', sort: 'asc' }],
   REDUCTION: [{ field: 'avertedcases', sort: 'desc' }],
   ADDBENEFITS: [{ field: 'healthsystemcosts', sort: 'desc' }],
@@ -304,7 +305,7 @@ export const COLORMENU = [
   { title: 'Burden' },
   { option: 'totpop' },
   { option: 'targetpop' },
-  { option: 'totdenm' },
+  { option: 'new_mean' },
   { option: 'totalcases' },
   { option: 'totaldalys' },
   { option: 'totalhosp' },
@@ -364,7 +365,7 @@ export const VARS = [
     // source is geo data
   },
   {
-    name: 'totdenm',
+    name: 'new_mean',
     label: 'Mean dengue incidence',
     type: 'number',
     digits: 4,
@@ -383,7 +384,7 @@ export const VARS = [
     label: 'Total number of cases of dengue (without intervention)',
     type: 'number',
     digits: 0,
-    // totdenm * targetpop
+    // new_mean * targetpop
   },
   {
     name: 'totaldalys',
@@ -448,14 +449,14 @@ export const VARS = [
     label: 'Cost per case averted',
     type: 'currency',
     digits: 2,
-    // totalcost / ((popcovered * totdenm) * EFFECTIVENESS_DEFAULT)
+    // totalcost / ((popcovered * new_mean) * EFFECTIVENESS_DEFAULT)
   },
   {
     name: 'costperaverteddaly',
     label: 'Cost per daly averted',
     type: 'currency',
     digits: 2,
-    // totalcost / (((popcovered *totdenm)* daly_per_case (country dataset)) EFFECTIVENESS_DEFAULT))
+    // totalcost / (((popcovered *new_mean)* daly_per_case (country dataset)) EFFECTIVENESS_DEFAULT))
   },
   {
     name: 'avertedcases',
@@ -463,7 +464,7 @@ export const VARS = [
     type: 'number',
     digits: 0,
     width: 130,
-    // (popcovered *totdenm) * EFFECTIVENESS_DEFAULT
+    // (popcovered *new_mean) * EFFECTIVENESS_DEFAULT
   },
   {
     name: 'averteddalys',
@@ -471,7 +472,7 @@ export const VARS = [
     type: 'number',
     digits: 0,
     width: 130,
-    // ((popcovered * totdenm) * daly_per_case (country dataset)) EFFECTIVENESS_DEFAULT))
+    // ((popcovered * new_mean) * daly_per_case (country dataset)) EFFECTIVENESS_DEFAULT))
   },
   {
     name: 'hospaverted',
@@ -671,7 +672,7 @@ export const SUMMS = {
       color: gr,
     },
     {
-      title: 'Prepration',
+      title: 'Preparation',
       var: 'totprep',
       dollars: true,
       n: 4,
@@ -1191,12 +1192,23 @@ export const DATA_SOURCES_CONTENT = [
     title: 'Dengue burden',
     text: (
       <span>
-        We relied on modelled raster data for burden as asymptomatic and
-        symptomatic dengue are severely underreported. Symptomatic dengue burden
-        was extracted from spatial raster datasets from{' '}
+        Previously, we relied on modelled raster data for burden as asymptomatic
+        and symptomatic dengue are severely underreported. Symptomatic dengue
+        burden was extracted from spatial raster datasets from{' '}
         <NLink
           href="https://www.nature.com/articles/nature12060"
           text="Bhatt et al. 2013"
+        />
+        . In June 2025, we updated the data source of modelled dengue data to{' '}
+        <NLink href="https://arbomap.org/dengue/about" text="DengueMap" />,
+        which estimates the force of infection from surveillance data.
+        Researchers provided estimates for the number of cases and total
+        population in each GAUL 2 administrative unit, which were used to
+        estimate the incidence for each target area/scenario in the tool.
+        Additional details are provided here:{' '}
+        <NLink
+          href="https://pubmed.ncbi.nlm.nih.gov/31996463/"
+          text="Cattarino et al. 2020"
         />
         .
       </span>
@@ -1248,6 +1260,24 @@ export const DATA_SOURCES_CONTENT = [
         {
           'The data used was unconstrained 1 km resolution estimates of population count and population density, adjusted to match UN Population estimates and measured in units of persons per km\u00b2.'
         }
+        To address changes in population, we accessed average annual population
+        growth percentages{' '}
+        <NLink
+          href="https://data.worldbank.org/indicator/sp.pop.grow"
+          text="from the World Bank"
+        />{' '}
+        for each country and used this value to calculate the multi-year
+        scenarios. Additionally, we note that the dengue burden model used a
+        different data source (
+        <NLink
+          href="https://www.ornl.gov/project/landscan"
+          text="LandScan2023"
+        />
+        ), which were used to estimate the number of cases in a given area using
+        the force of infection, and then subsequently, the dengue incidence in
+        the tool. However, we note that estimates are very similar between the
+        two modelled population data sources, so we do not consider this a major
+        limitation.
       </span>
     ),
   },
